@@ -1,5 +1,5 @@
 {
-    "name": "PythonTemplate",
+    "name": "AmbientWeather",
     "docs": "https://github.com/simplextech/POLY_AmbientWeather",
     "type": "python3",
     "executable": "POLY_AmbientWeather.py",
