@@ -21,26 +21,26 @@
         <sts>
             <st id="ST" editor="bool" />
             <st id="GV0" editor="tempf" /> <!--Outside Temp -->
-            <st id="GV1" editor="tempinf" /> <!--Inside Temp -->
+            <st id="GV1" editor="tempf" /> <!--Inside Temp -->
             <st id="GV2" editor="humidity" /> <!--Outside Humidity -->
-            <st id="GV3" editor="humidityin" /> <!--Inside Humidity -->
-            <st id="GV4" editor="baromrelin" /> <!--Rel Barometric Pressure -->
-            <st id="GV5" editor="baromabsin" /> <!--Abs Barometric Pressure -->
+            <st id="GV3" editor="humidity" /> <!--Inside Humidity -->
+            <st id="GV4" editor="inhg" /> <!--Rel Barometric Pressure -->
+            <st id="GV5" editor="inhg" /> <!--Abs Barometric Pressure -->
             <!-- <st id="GV6" editor="lux" /> Luminance -->
             <st id="GV7" editor="uv" /> <!--UV -->
             <st id="GV8" editor="solarradiation" /> <!--Solar Radiation -->
-            <st id="GV9" editor="hourlyrainin" /> <!--Hourly Rain Inches -->
-            <st id="GV10" editor="dailyrainin" /> <!--Daily Rain Inches -->
-            <st id="GV11" editor="weeklyrainin" /> <!--Weekly Rain Inches -->
-            <st id="GV12" editor="monthlyrainin" /> <!--Monthly Rain Inches -->
-            <st id="GV13" editor="yearlyrainin" /> <!--Yearly Rain Inches -->
-            <st id="GV14" editor="totalrainin" /> <!--Total Rain Inches -->
+            <st id="GV9" editor="inches" /> <!--Hourly Rain Inches -->
+            <st id="GV10" editor="inches" /> <!--Daily Rain Inches -->
+            <st id="GV11" editor="inches" /> <!--Weekly Rain Inches -->
+            <st id="GV12" editor="inches" /> <!--Monthly Rain Inches -->
+            <st id="GV13" editor="inches" /> <!--Yearly Rain Inches -->
+            <st id="GV14" editor="inches" /> <!--Total Rain Inches -->
             <st id="GV15" editor="winddir" /> <!--Wind Direction -->
-            <st id="GV16" editor="windspeedmph" /> <!--Wind Speed MPH -->
-            <st id="GV17" editor="windgustmph" /> <!--Wind Gust MPH -->
-            <st id="GV18" editor="maxdailygust" /> <!--Wind Max Daily Gust -->
-            <st id="GV19" editor="feelsLike" /> <!--Computed feels like temperture -->
-            <st id="GV20" editor="dewPoint" /> <!--Computed dew point temperture -->
+            <st id="GV16" editor="mph" /> <!--Wind Speed MPH -->
+            <st id="GV17" editor="mph" /> <!--Wind Gust MPH -->
+            <st id="GV18" editor="mph" /> <!--Wind Max Daily Gust -->
+            <st id="GV19" editor="tempf" /> <!--Computed feels like temperture -->
+            <st id="GV20" editor="tempf" /> <!--Computed dew point temperture -->
         </sts>
         <cmds>
             <sends />
@@ -54,22 +54,22 @@
         <editors />
         <sts>
             <st id="ST" editor="bool" />
-            <st id="GV0" editor="temp1f" /> <!--Sensor 1 Temperature -->
-            <st id="GV1" editor="temp2f" /> <!--Sensor 2 Temperature -->
-            <st id="GV2" editor="temp3f" /> <!--Sensor 3 Temperature -->
-            <st id="GV3" editor="temp4f" /> <!--Sensor 4 Temperature -->
-            <st id="GV4" editor="temp5f" /> <!--Sensor 5 Temperature -->
-            <st id="GV5" editor="temp6f" /> <!--Sensor 6 Temperature -->
-            <st id="GV6" editor="temp7f" /> <!--Sensor 7 Temperature -->
-            <st id="GV7" editor="temp8f" /> <!--sensor 8 Temperature -->
-            <st id="GV8" editor="humidity1" /> <!--Sensor 1 Humidity -->
-            <st id="GV9" editor="humidity2" /> <!--Sensor 2 Humidity -->
-            <st id="GV10" editor="humidity3" /> <!--Sensor 3 Humidity -->
-            <st id="GV11" editor="humidity4" /> <!--Sensor 4 Humidity -->
-            <st id="GV12" editor="humidity5" /> <!--Sensor 5 Humidity -->
-            <st id="GV13" editor="humidity6" /> <!--Sensor 6 Humidity -->
-            <st id="GV14" editor="humidity7" /> <!--Sensor 7 Humidity -->
-            <st id="GV15" editor="humidity8" /> <!--Sensor 8 Humidity -->
+            <st id="GV0" editor="tempf" /> <!--Sensor 1 Temperature -->
+            <st id="GV1" editor="tempf" /> <!--Sensor 2 Temperature -->
+            <st id="GV2" editor="tempf" /> <!--Sensor 3 Temperature -->
+            <st id="GV3" editor="tempf" /> <!--Sensor 4 Temperature -->
+            <st id="GV4" editor="tempf" /> <!--Sensor 5 Temperature -->
+            <st id="GV5" editor="tempf" /> <!--Sensor 6 Temperature -->
+            <st id="GV6" editor="tempf" /> <!--Sensor 7 Temperature -->
+            <st id="GV7" editor="tempf" /> <!--sensor 8 Temperature -->
+            <st id="GV8" editor="humidity" /> <!--Sensor 1 Humidity -->
+            <st id="GV9" editor="humidity" /> <!--Sensor 2 Humidity -->
+            <st id="GV10" editor="humidity" /> <!--Sensor 3 Humidity -->
+            <st id="GV11" editor="humidity" /> <!--Sensor 4 Humidity -->
+            <st id="GV12" editor="humidity" /> <!--Sensor 5 Humidity -->
+            <st id="GV13" editor="humidity" /> <!--Sensor 6 Humidity -->
+            <st id="GV14" editor="humidity" /> <!--Sensor 7 Humidity -->
+            <st id="GV15" editor="humidity" /> <!--Sensor 8 Humidity -->
         </sts>
         <cmds>
             <sends />

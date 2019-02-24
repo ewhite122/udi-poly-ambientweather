@@ -1,49 +1,49 @@
 <editors>
-    <!-- Boolean -->
-    <editor id="bool">
-        <range uom="2" subset="0,1" />
-    </editor>
-    <editor id="tempf">
+<!-- Boolean -->
+	<editor id="bool">
+		<range uom="2" subset="0,1" />
+	</editor>
+
+	<editor id="tempf">
 		<range uom="17" min="-40" max="149" step="1" prec="1" />
 	</editor>
-    <editor id="tempinf">
-		<range uom="17" min="14" max="140" step="1" prec="1" />
-	</editor>
-    <editor id="humidity">
+	
+	<editor id="humidity">
 		<range uom="22" min="10" max="100" prec="0" />
 	</editor>
-    <editor id="humidityin">
-		<range uom="22" min="10" max="100" prec="0" />
-	</editor>
-    <editor id="feelsLike">
-		<range uom="17" min="-50" max="150" step="1" prec="1" />
-	</editor>
-    <editor id="dewPoint">
-		<range uom="17" min="-50" max="150" step="1" prec="1" />
-	</editor>
-    <editor id="inhg">
+	
+	<editor id="inhg">
 		<range uom="23" min="8.25" max="32.50" prec="2" />
 	</editor>
-    <editor id="lux">
+	
+	<!-- <editor id="lux">
 		<range uom="36" min="0" max="200000" prec="0" />
 	</editor>
-    <editor id="uv">
+	-->
+
+	<editor id="uv">
 		<range uom="71" min="0" max="20" prec="1" />
 	</editor>
-	<editor id="radiation">
+	
+	<editor id="solarradiation">
 		<range uom="74" min="0" max="200000" prec="1" />
 	</editor>
-    <editor id="mph">
+	
+	<editor id="mph">
 		<range uom="48" min="0" max="100" prec="1" />
 	</editor>
-	<editor id="kph">
+	
+	<!--<editor id="kph">
 		<range uom="32" min="0" max="500" prec="1" />
 	</editor>
-    <editor id="inches">
+	-->
+	
+	<editor id="inches">
 		<range uom="105" min="0" max="288" prec="3" />
 	</editor>
-    <editor id="wind_dir">
+	
+	<editor id="winddir">
 		<range uom="76" min="0" max="360" prec="1" />
 	</editor>
-</editors>
 
+</editors>
