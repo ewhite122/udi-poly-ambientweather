@@ -54,7 +54,7 @@
         <editors />
         <sts>
             <st id="ST" editor="bool" />
-            <st id="CLITEMP" editor="CLITEMP" /> <!--Sensor 1 Temperature -->
+            <st id="GV0" editor="CLITEMP" /> <!--Sensor 1 Temperature -->
             <st id="GV1" editor="CLITEMP" /> <!--Sensor 2 Temperature -->
             <st id="GV2" editor="CLITEMP" /> <!--Sensor 3 Temperature -->
             <st id="GV3" editor="CLITEMP" /> <!--Sensor 4 Temperature -->
