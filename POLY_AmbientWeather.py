@@ -107,15 +107,25 @@ class Controller(polyinterface.Controller):
         #pass
         self.ambientPoll()
 
+    def awConnect(self):
+        try:
+            ApiUrl = 'https://api.ambientweather.net/v1/devices?applicationKey=' + self.APP_Key + '&apiKey=' + self.API_Key
+            r = requests.get(ApiUrl)
+            Data = r.json()
+            return Data
+        except Exception as ex:
+            LOGGER.error('Ambient Weather Connection Error' + ' ' + str(ex))
+
     def luxConv(self, wm2):
         lux = round(wm2 / 0.0079, 2)
         return lux
 
     def ambientPoll(self):
         try:
-            ApiUrl = 'https://api.ambientweather.net/v1/devices?applicationKey=' + self.APP_Key + '&apiKey=' + self.API_Key
-            r = requests.get(ApiUrl)
-            Data = r.json()
+            # ApiUrl = 'https://api.ambientweather.net/v1/devices?applicationKey=' + self.APP_Key + '&apiKey=' + self.API_Key
+            # r = requests.get(ApiUrl)
+            # Data = r.json()
+            Data = self.awConnect()
 
             for node in self.nodes:
                 for pws in Data:
@@ -189,7 +199,6 @@ class Controller(polyinterface.Controller):
         except Exception as ex:
             LOGGER.error('Exception occured: ' + str(ex))
 
-
     def query(self):
         """
         Optional.
@@ -206,12 +215,13 @@ class Controller(polyinterface.Controller):
         Do discovery here. Does not have to be called discovery. Called from example
         controller start method and from DISCOVER command recieved from ISY as an exmaple.
         """
-        #self.addNode(MyNode(self, self.address, 'myaddress', 'My Node Name'))
 
         try:
-            ApiUrl = 'https://api.ambientweather.net/v1/devices?applicationKey=' + self.APP_Key + '&apiKey=' + self.API_Key
-            r = requests.get(ApiUrl)
-            Data = r.json()
+            # ApiUrl = 'https://api.ambientweather.net/v1/devices?applicationKey=' + self.APP_Key + '&apiKey=' + self.API_Key
+            # r = requests.get(ApiUrl)
+            # Data = r.json()
+
+            Data = self.awConnect()
             for pws in Data:
                 #LOGGER.info(pws['macAddress'])
                 #LOGGER.info(pws['info']['name'])
@@ -230,7 +240,7 @@ class Controller(polyinterface.Controller):
                 else: #All other Ambient systems
                     self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
         except Exception as ex:
-            LOGGER.error('Exception occured: ' + str(ex))
+            LOGGER.error('Exception occured: ' + ' ' + str(ex))
 
     def delete(self):
         """
@@ -293,7 +303,6 @@ class Controller(polyinterface.Controller):
         'REMOVE_NOTICES_ALL': remove_notices_all
     }
     drivers = [{'driver': 'ST', 'value': 1, 'uom': 2}]
-
 
 
 class pwsnode(polyinterface.Node):
