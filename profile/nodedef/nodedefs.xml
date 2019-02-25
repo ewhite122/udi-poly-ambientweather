@@ -19,7 +19,7 @@
     <nodeDef id="pwsnodetype" nls="pwsnode">
         <editors />
         <sts>
-            <st id="ST" editor="bool" />
+            <st id="ST" editor="bool" hide=True />
             <st id="CLITEMP" editor="CLITEMP" /> <!--Outside Temp -->
             <st id="GV1" editor="CLITEMP" /> <!--Inside Temp -->
             <st id="CLIHUM" editor="CLIHUM" /> <!--Outside Humidity -->
@@ -53,7 +53,7 @@
     <nodeDef id="addontype" nls="addonnode">
         <editors />
         <sts>
-            <st id="ST" editor="bool" />
+            <st id="ST" editor="bool" hide=True />
             <st id="GV0" editor="CLITEMP" /> <!--Sensor 1 Temperature -->
             <st id="GV1" editor="CLITEMP" /> <!--Sensor 2 Temperature -->
             <st id="GV2" editor="CLITEMP" /> <!--Sensor 3 Temperature -->
