@@ -26,7 +26,7 @@
             <st id="GV3" editor="humidity" /> <!--Inside Humidity -->
             <st id="GV4" editor="inhg" /> <!--Rel Barometric Pressure -->
             <st id="GV5" editor="inhg" /> <!--Abs Barometric Pressure -->
-            <!-- <st id="GV6" editor="lux" /> Luminance -->
+            <st id="GV15" editor="lux" /> <!--Luminance -->
             <st id="GV7" editor="uv" /> <!--UV -->
             <st id="GV8" editor="solarradiation" /> <!--Solar Radiation -->
             <st id="GV9" editor="inches" /> <!--Hourly Rain Inches -->
@@ -35,7 +35,7 @@
             <st id="GV12" editor="inches" /> <!--Monthly Rain Inches -->
             <st id="GV13" editor="inches" /> <!--Yearly Rain Inches -->
             <st id="GV14" editor="inches" /> <!--Total Rain Inches -->
-            <st id="GV15" editor="winddir" /> <!--Wind Direction -->
+            <st id="WINDDIR" editor="WINDDIR" /> <!--Wind Direction -->
             <st id="GV16" editor="mph" /> <!--Wind Speed MPH -->
             <st id="GV17" editor="mph" /> <!--Wind Gust MPH -->
             <st id="GV18" editor="mph" /> <!--Wind Max Daily Gust -->

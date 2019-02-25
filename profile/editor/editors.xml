@@ -42,7 +42,7 @@
 		<range uom="105" min="0" max="288" prec="3" />
 	</editor>
 	
-	<editor id="winddir">
+	<editor id="WINDDIR">
 		<range uom="76" min="0" max="360" prec="1" />
 	</editor>
 

@@ -122,11 +122,7 @@ class Controller(polyinterface.Controller):
 
     def ambientPoll(self):
         try:
-            # ApiUrl = 'https://api.ambientweather.net/v1/devices?applicationKey=' + self.APP_Key + '&apiKey=' + self.API_Key
-            # r = requests.get(ApiUrl)
-            # Data = r.json()
             Data = self.awConnect()
-
             for node in self.nodes:
                 for pws in Data:
                     rawMAC = pws['macAddress'].split(':')
@@ -136,7 +132,7 @@ class Controller(polyinterface.Controller):
 
                     if pwsAddress == self.nodes[node].address:
                         # Convert solarradiation into lux
-                        #lux = self.luxConv(pws['lastData']['solarradiation'])
+                        lux = self.luxConv(pws['lastData']['solarradiation'])
                         
                         self.nodes[node].setDriver('GV0', pws['lastData']['tempf'])
                         self.nodes[node].setDriver('GV1', pws['lastData']['tempinf'])
@@ -144,7 +140,7 @@ class Controller(polyinterface.Controller):
                         self.nodes[node].setDriver('GV3', pws['lastData']['humidityin'])
                         self.nodes[node].setDriver('GV4', pws['lastData']['baromrelin'])
                         self.nodes[node].setDriver('GV5', pws['lastData']['baromabsin'])
-                        #self.nodes[node].setDriver('GV6', lux) # Use mw/2 converted data for lux
+                        self.nodes[node].setDriver('GV15', lux) # Use mw/2 converted data for lux
                         self.nodes[node].setDriver('GV7', pws['lastData']['uv'])
                         self.nodes[node].setDriver('GV8', pws['lastData']['solarradiation'])
                         self.nodes[node].setDriver('GV9', pws['lastData']['hourlyrainin']) 
@@ -217,10 +213,6 @@ class Controller(polyinterface.Controller):
         """
 
         try:
-            # ApiUrl = 'https://api.ambientweather.net/v1/devices?applicationKey=' + self.APP_Key + '&apiKey=' + self.API_Key
-            # r = requests.get(ApiUrl)
-            # Data = r.json()
-
             Data = self.awConnect()
             for pws in Data:
                 #LOGGER.info(pws['macAddress'])
@@ -378,7 +370,7 @@ class pwsnode(polyinterface.Node):
         {'driver': 'GV3', 'value': 0, 'uom': 22}, # Inside Humidity
         {'driver': 'GV4', 'value': 0, 'uom': 23}, # Rel Pressure
         {'driver': 'GV5', 'value': 0, 'uom': 23}, # Abs Pressure
-        #{'driver': 'GV6', 'value': 0, 'uom': 36}, # Lux
+        {'driver': 'GV15', 'value': 0, 'uom': 36}, # Lux
         {'driver': 'GV7', 'value': 0, 'uom': 71}, # UV
         {'driver': 'GV8', 'value': 0, 'uom': 74}, # Solar Radiation
         {'driver': 'GV9', 'value': 0, 'uom': 105}, # Hourly Rain
