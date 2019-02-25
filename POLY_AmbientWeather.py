@@ -127,14 +127,13 @@ class Controller(polyinterface.Controller):
                     if pwsAddress == self.nodes[node].address:
                         # Convert solarradiation into lux
                         #lux = self.luxConv(pws['lastData']['solarradiation'])
-
-                        self.nodes[node].setDriver('GV0', pws['lastData']['tempf'])
+                        
                         self.nodes[node].setDriver('GV0', pws['lastData']['tempf'])
                         self.nodes[node].setDriver('GV1', pws['lastData']['tempinf'])
                         self.nodes[node].setDriver('GV2', pws['lastData']['humidity'])
                         self.nodes[node].setDriver('GV3', pws['lastData']['humidityin'])
                         self.nodes[node].setDriver('GV4', pws['lastData']['baromrelin'])
-                        self.nodes[node].setDriver('GV5', pws['lastData']['baromabsin'])                        
+                        self.nodes[node].setDriver('GV5', pws['lastData']['baromabsin'])
                         #self.nodes[node].setDriver('GV6', lux) # Use mw/2 converted data for lux
                         self.nodes[node].setDriver('GV7', pws['lastData']['uv'])
                         self.nodes[node].setDriver('GV8', pws['lastData']['solarradiation'])
