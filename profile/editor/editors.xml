@@ -16,10 +16,9 @@
 		<range uom="23" min="8.25" max="32.50" prec="2" />
 	</editor>
 	
-	<!-- <editor id="lux">
+	<editor id="lux">
 		<range uom="36" min="0" max="200000" prec="0" />
-	</editor>
-	-->
+	</editor>	
 
 	<editor id="uv">
 		<range uom="71" min="0" max="20" prec="1" />
