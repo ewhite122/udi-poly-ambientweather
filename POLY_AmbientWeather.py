@@ -152,7 +152,7 @@ class Controller(polyinterface.Controller):
                             self.nodes[node].setDriver('GV13', pws['lastData']['yearlyrainin'])
 
                         self.nodes[node].setDriver('GV14', pws['lastData']['totalrainin'])
-                        self.nodes[node].setDriver('GV15', pws['lastData']['winddir'])
+                        self.nodes[node].setDriver('WINDDIR', pws['lastData']['winddir'])
                         self.nodes[node].setDriver('GV16', pws['lastData']['windspeedmph'])
                         self.nodes[node].setDriver('GV17', pws['lastData']['windgustmph'])
                         self.nodes[node].setDriver('GV18', pws['lastData']['maxdailygust'])
@@ -379,7 +379,7 @@ class pwsnode(polyinterface.Node):
         {'driver': 'GV12', 'value': 0, 'uom': 105}, # Monthly Rain
         {'driver': 'GV13', 'value': 0, 'uom': 105}, # Yearly Rain
         {'driver': 'GV14', 'value': 0, 'uom': 105}, # Total Rain
-        {'driver': 'GV15', 'value': 0, 'uom': 76}, # Wind Direction
+        {'driver': 'WINDDIR', 'value': 0, 'uom': 76}, # Wind Direction
         {'driver': 'GV16', 'value': 0, 'uom': 48}, # Wind Speed
         {'driver': 'GV17', 'value': 0, 'uom': 48}, # Wind Gust
         {'driver': 'GV18', 'value': 0, 'uom': 48}, # Max Wind Gust Daily
