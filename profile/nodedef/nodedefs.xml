@@ -20,15 +20,15 @@
         <editors />
         <sts>
             <st id="ST" editor="bool" />
-            <st id="GV0" editor="tempf" /> <!--Outside Temp -->
-            <st id="GV1" editor="tempf" /> <!--Inside Temp -->
-            <st id="GV2" editor="humidity" /> <!--Outside Humidity -->
-            <st id="GV3" editor="humidity" /> <!--Inside Humidity -->
-            <st id="GV4" editor="inhg" /> <!--Rel Barometric Pressure -->
-            <st id="GV5" editor="inhg" /> <!--Abs Barometric Pressure -->
-            <st id="GV15" editor="lux" /> <!--Luminance -->
-            <st id="GV7" editor="uv" /> <!--UV -->
-            <st id="GV8" editor="solarradiation" /> <!--Solar Radiation -->
+            <st id="CLITEMP" editor="CLITEMP" /> <!--Outside Temp -->
+            <st id="GV1" editor="CLITEMP" /> <!--Inside Temp -->
+            <st id="CLIHUM" editor="CLIHUM" /> <!--Outside Humidity -->
+            <st id="GV3" editor="CLIHUM" /> <!--Inside Humidity -->
+            <st id="BARPRES" editor="inhg" /> <!--Rel Barometric Pressure -->
+            <st id="ATMPRES" editor="inhg" /> <!--Abs Barometric Pressure -->
+            <st id="LUMIN" editor="LUMIN" /> <!--Luminance -->
+            <st id="UV" editor="UV" /> <!--UV -->
+            <st id="SOLRAD" editor="SOLRAD" /> <!--Solar Radiation -->
             <st id="GV9" editor="inches" /> <!--Hourly Rain Inches -->
             <st id="GV10" editor="inches" /> <!--Daily Rain Inches -->
             <st id="GV11" editor="inches" /> <!--Weekly Rain Inches -->
@@ -36,11 +36,11 @@
             <st id="GV13" editor="inches" /> <!--Yearly Rain Inches -->
             <st id="GV14" editor="inches" /> <!--Total Rain Inches -->
             <st id="WINDDIR" editor="WINDDIR" /> <!--Wind Direction -->
-            <st id="GV16" editor="mph" /> <!--Wind Speed MPH -->
+            <st id="SPEED" editor="mph" /> <!--Wind Speed MPH -->
             <st id="GV17" editor="mph" /> <!--Wind Gust MPH -->
             <st id="GV18" editor="mph" /> <!--Wind Max Daily Gust -->
-            <st id="GV19" editor="tempf" /> <!--Computed feels like temperture -->
-            <st id="GV20" editor="tempf" /> <!--Computed dew point temperture -->
+            <st id="GV19" editor="CLITEMP" /> <!--Computed feels like temperture -->
+            <st id="GV20" editor="CLITEMP" /> <!--Computed dew point temperture -->
         </sts>
         <cmds>
             <sends />
@@ -54,22 +54,22 @@
         <editors />
         <sts>
             <st id="ST" editor="bool" />
-            <st id="GV0" editor="tempf" /> <!--Sensor 1 Temperature -->
-            <st id="GV1" editor="tempf" /> <!--Sensor 2 Temperature -->
-            <st id="GV2" editor="tempf" /> <!--Sensor 3 Temperature -->
-            <st id="GV3" editor="tempf" /> <!--Sensor 4 Temperature -->
-            <st id="GV4" editor="tempf" /> <!--Sensor 5 Temperature -->
-            <st id="GV5" editor="tempf" /> <!--Sensor 6 Temperature -->
-            <st id="GV6" editor="tempf" /> <!--Sensor 7 Temperature -->
-            <st id="GV7" editor="tempf" /> <!--sensor 8 Temperature -->
-            <st id="GV8" editor="humidity" /> <!--Sensor 1 Humidity -->
-            <st id="GV9" editor="humidity" /> <!--Sensor 2 Humidity -->
-            <st id="GV10" editor="humidity" /> <!--Sensor 3 Humidity -->
-            <st id="GV11" editor="humidity" /> <!--Sensor 4 Humidity -->
-            <st id="GV12" editor="humidity" /> <!--Sensor 5 Humidity -->
-            <st id="GV13" editor="humidity" /> <!--Sensor 6 Humidity -->
-            <st id="GV14" editor="humidity" /> <!--Sensor 7 Humidity -->
-            <st id="GV15" editor="humidity" /> <!--Sensor 8 Humidity -->
+            <st id="CLITEMP" editor="CLITEMP" /> <!--Sensor 1 Temperature -->
+            <st id="GV1" editor="CLITEMP" /> <!--Sensor 2 Temperature -->
+            <st id="GV2" editor="CLITEMP" /> <!--Sensor 3 Temperature -->
+            <st id="GV3" editor="CLITEMP" /> <!--Sensor 4 Temperature -->
+            <st id="GV4" editor="CLITEMP" /> <!--Sensor 5 Temperature -->
+            <st id="GV5" editor="CLITEMP" /> <!--Sensor 6 Temperature -->
+            <st id="GV6" editor="CLITEMP" /> <!--Sensor 7 Temperature -->
+            <st id="GV7" editor="CLITEMP" /> <!--sensor 8 Temperature -->
+            <st id="GV8" editor="CLIHUM" /> <!--Sensor 1 Humidity -->
+            <st id="GV9" editor="CLIHUM" /> <!--Sensor 2 Humidity -->
+            <st id="GV10" editor="CLIHUM" /> <!--Sensor 3 Humidity -->
+            <st id="GV11" editor="CLIHUM" /> <!--Sensor 4 Humidity -->
+            <st id="GV12" editor="CLIHUM" /> <!--Sensor 5 Humidity -->
+            <st id="GV13" editor="CLIHUM" /> <!--Sensor 6 Humidity -->
+            <st id="GV14" editor="CLIHUM" /> <!--Sensor 7 Humidity -->
+            <st id="GV15" editor="CLIHUM" /> <!--Sensor 8 Humidity -->
         </sts>
         <cmds>
             <sends />

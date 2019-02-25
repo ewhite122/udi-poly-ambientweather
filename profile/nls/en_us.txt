@@ -8,25 +8,25 @@ ST-ctl-ST-NAME = NodeServer Online
 
 # pwsnodetype
 ND-pwsnodetype-NAME = Personal Weather Station
-ND-pwsnodetype-ICON = GenericCtl
+ND-pwsnodetype-ICON = Weather
 ST-pwsnode-ST-NAME = Online
-ST-pwsnode-GV0-NAME = Temperature (outside)
+ST-pwsnode-CLITEMP-NAME = Temperature (outside)
 ST-pwsnode-GV1-NAME = Temperature (inside)
-ST-pwsnode-GV2-NAME = Humidity (outside)
+ST-pwsnode-CLIHUM-NAME = Humidity (outside)
 ST-pwsnode-GV3-NAME = Humidity (inside)
-ST-pwsnode-GV4-NAME = Rel Barometric Pressure (inside)
-ST-pwsnode-GV5-NAME = Abs Barometric Pressure (inside)
-ST-pwsnode-GV6-NAME = Luminance
-ST-pwsnode-GV7-NAME = UV
-ST-pwsnode-GV8-NAME = Solar Radiation
+ST-pwsnode-BARPRES-NAME = Rel Barometric Pressure (inside)
+ST-pwsnode-ATMPRES-NAME = Abs Barometric Pressure (inside)
+ST-pwsnode-LUMIN-NAME = Luminance
+ST-pwsnode-UV-NAME = UV
+ST-pwsnode-SOLRAD-NAME = Solar Radiation
 ST-pwsnode-GV9-NAME = Hourly Rain
 ST-pwsnode-GV10-NAME = Daily Rain
 ST-pwsnode-GV11-NAME = Weekly Rain
 ST-pwsnode-GV12-NAME = Monthly Rain
 ST-pwsnode-GV13-NAME = Yearly Rain
 ST-pwsnode-GV14-NAME = Total Rain
-ST-pwsnode-GV15-NAME = Wind Direction
-ST-pwsnode-GV16-NAME = Wind Speed
+ST-pwsnode-WINDDIR-NAME = Wind Direction
+ST-pwsnode-SPEED-NAME = Wind Speed
 ST-pwsnode-GV17-NAME = Wind Gust
 ST-pwsnode-GV18-NAME = Wind Max Daily Gust
 ST-pwsnode-GV19-NAME = Feels Like Temperature
@@ -34,7 +34,7 @@ ST-pwsnode-GV20-NAME = Dew Point Temperature
 
 # addonnode
 ND-addontype-NAME = Addon Sensors
-ND-addontype-ICON = GenericCtl
+ND-addontype-ICON = Weather
 ST-addonnode-ST-NAME = Online
 ST-addonnode-GV0-NAME = Sensor 1 Temperature
 ST-addonnode-GV1-NAME = Sensor 2 Temperature

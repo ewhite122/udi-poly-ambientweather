@@ -134,15 +134,15 @@ class Controller(polyinterface.Controller):
                         # Convert solarradiation into lux
                         lux = self.luxConv(pws['lastData']['solarradiation'])
                         
-                        self.nodes[node].setDriver('GV0', pws['lastData']['tempf'])
+                        self.nodes[node].setDriver('CLITEMP', pws['lastData']['tempf'])
                         self.nodes[node].setDriver('GV1', pws['lastData']['tempinf'])
-                        self.nodes[node].setDriver('GV2', pws['lastData']['humidity'])
+                        self.nodes[node].setDriver('CLIHUM', pws['lastData']['humidity'])
                         self.nodes[node].setDriver('GV3', pws['lastData']['humidityin'])
-                        self.nodes[node].setDriver('GV4', pws['lastData']['baromrelin'])
-                        self.nodes[node].setDriver('GV5', pws['lastData']['baromabsin'])
-                        self.nodes[node].setDriver('GV15', lux) # Use mw/2 converted data for lux
-                        self.nodes[node].setDriver('GV7', pws['lastData']['uv'])
-                        self.nodes[node].setDriver('GV8', pws['lastData']['solarradiation'])
+                        self.nodes[node].setDriver('BARPRES', pws['lastData']['baromrelin'])
+                        self.nodes[node].setDriver('ATMPRES', pws['lastData']['baromabsin'])
+                        self.nodes[node].setDriver('LUMIN', lux) # Use mw/2 converted data for lux
+                        self.nodes[node].setDriver('UV', pws['lastData']['uv'])
+                        self.nodes[node].setDriver('SOLRAD', pws['lastData']['solarradiation'])
                         self.nodes[node].setDriver('GV9', pws['lastData']['hourlyrainin']) 
                         self.nodes[node].setDriver('GV10', pws['lastData']['dailyrainin'])
                         self.nodes[node].setDriver('GV11', pws['lastData']['weeklyrainin'])
@@ -153,7 +153,7 @@ class Controller(polyinterface.Controller):
 
                         self.nodes[node].setDriver('GV14', pws['lastData']['totalrainin'])
                         self.nodes[node].setDriver('WINDDIR', pws['lastData']['winddir'])
-                        self.nodes[node].setDriver('GV16', pws['lastData']['windspeedmph'])
+                        self.nodes[node].setDriver('SPEED', pws['lastData']['windspeedmph'])
                         self.nodes[node].setDriver('GV17', pws['lastData']['windgustmph'])
                         self.nodes[node].setDriver('GV18', pws['lastData']['maxdailygust'])
                         self.nodes[node].setDriver('GV19', pws['lastData']['feelsLike'])
@@ -364,15 +364,15 @@ class pwsnode(polyinterface.Node):
 
     drivers = [
         {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'GV0', 'value': 0, 'uom': 17}, # Outside Temperature F
+        {'driver': 'CLITEMP', 'value': 0, 'uom': 17}, # Outside Temperature F
         {'driver': 'GV1', 'value': 0, 'uom': 17}, # Inside Temperature F
-        {'driver': 'GV2', 'value': 0, 'uom': 22}, # Outside Humidity
+        {'driver': 'CLIHUM', 'value': 0, 'uom': 22}, # Outside Humidity
         {'driver': 'GV3', 'value': 0, 'uom': 22}, # Inside Humidity
-        {'driver': 'GV4', 'value': 0, 'uom': 23}, # Rel Pressure
-        {'driver': 'GV5', 'value': 0, 'uom': 23}, # Abs Pressure
-        {'driver': 'GV15', 'value': 0, 'uom': 36}, # Lux
-        {'driver': 'GV7', 'value': 0, 'uom': 71}, # UV
-        {'driver': 'GV8', 'value': 0, 'uom': 74}, # Solar Radiation
+        {'driver': 'BARPRES', 'value': 0, 'uom': 23}, # Rel Pressure
+        {'driver': 'ATMPRES', 'value': 0, 'uom': 23}, # Abs Pressure
+        {'driver': 'LUMIN', 'value': 0, 'uom': 36}, # Lux
+        {'driver': 'UV', 'value': 0, 'uom': 71}, # UV
+        {'driver': 'SOLRAD', 'value': 0, 'uom': 74}, # Solar Radiation
         {'driver': 'GV9', 'value': 0, 'uom': 105}, # Hourly Rain
         {'driver': 'GV10', 'value': 0, 'uom': 105}, # Daily Rain
         {'driver': 'GV11', 'value': 0, 'uom': 105}, # Weekly Rain
@@ -380,7 +380,7 @@ class pwsnode(polyinterface.Node):
         {'driver': 'GV13', 'value': 0, 'uom': 105}, # Yearly Rain
         {'driver': 'GV14', 'value': 0, 'uom': 105}, # Total Rain
         {'driver': 'WINDDIR', 'value': 0, 'uom': 76}, # Wind Direction
-        {'driver': 'GV16', 'value': 0, 'uom': 48}, # Wind Speed
+        {'driver': 'SPEED', 'value': 0, 'uom': 48}, # Wind Speed
         {'driver': 'GV17', 'value': 0, 'uom': 48}, # Wind Gust
         {'driver': 'GV18', 'value': 0, 'uom': 48}, # Max Wind Gust Daily
         {'driver': 'GV19', 'value': 0, 'uom': 17}, # Feels Like Temperature
@@ -422,7 +422,6 @@ class addonnode(polyinterface.Node):
 
     def query(self):
         self.reportDrivers()
-
 
     drivers = [
         {'driver': 'ST', 'value': 0, 'uom': 2},
