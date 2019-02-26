@@ -36,7 +36,7 @@
             <st id="GV13" editor="inches" /> <!--Yearly Rain Inches -->
             <st id="GV14" editor="inches" /> <!--Total Rain Inches -->
             <st id="WINDDIR" editor="WINDDIR" /> <!--Wind Direction -->
-            <st id="GV16" editor="CARDINAL" /> <!--Wind Direction -->
+            <st id="GV16" editor="I_WIND_DIRECTION" /> <!--Wind Direction -->
             <st id="SPEED" editor="mph" /> <!--Wind Speed MPH -->
             <st id="GV17" editor="mph" /> <!--Wind Gust MPH -->
             <st id="GV18" editor="mph" /> <!--Wind Max Daily Gust -->

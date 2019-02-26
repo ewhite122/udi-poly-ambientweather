@@ -45,39 +45,41 @@ class Controller(polyinterface.Controller):
     def cardinalDirection(self, winddir):
         # Returns the Cardinal Direction Name
         if winddir >=0 and winddir <=11.24:
-            return "North"
+            return 1
         elif winddir >=11.25 and winddir <=33.74:
-            return "North-northeast"
+            return 2
         elif winddir >=33.75 and winddir <=56.24:
-            return "Northeast"
+            return 3
         elif winddir >=56.25 and winddir <=78.74:
-            return "East-northeast"
+            return 4
         elif winddir >=78.75 and winddir <=101.24:
-            return "East"
+            return 5
         elif winddir >=101.25 and winddir <=123.74:
-            return "East-southeast"
+            return 6
         elif winddir >=123.75 and winddir <=146.24:
-            return "Southeast"
+            return 7
         elif winddir >=146.25 and winddir <=168.74:
-            return "South-southeast"
+            return 8
         elif winddir >=168.75 and winddir <=191.24:
-            return "South"
+            return 9
         elif winddir >=191.25 and winddir <=213.74:
-            return "South-southwest"
+            return 10
         elif winddir >=213.75 and winddir <=236.24:
-            return "Southwest"
+            return 11
         elif winddir >=236.25 and winddir <=258.74:
-            return "West-southwest"
+            return 12
         elif winddir >=258.75 and winddir <=281.24:
-            return "West"
+            return 13
         elif winddir >=281.25 and winddir <=303.74:
-            return "West-northwest"
+            return 14
         elif winddir >=303.75 and winddir <=326.24:
-            return "Northwest"
+            return 15
         elif winddir >=326.25 and winddir <=348.74:
-            return "North-northwest"
+            return 16
         elif winddir >=348.75 and winddir <=360:
-            return "North"
+            return 1
+        else:
+            return 0
 
     def ambientPoll(self):
         try:
@@ -94,7 +96,7 @@ class Controller(polyinterface.Controller):
                         lux = self.luxConv(pws['lastData']['solarradiation'])
                         
                         # Convert Wind Direction Degrees to cardinal direction
-                        cardinal = cardinalDirection(pws['lastData']['winddir'])
+                        cardinal = self.cardinalDirection(pws['lastData']['winddir'])
 
                         self.nodes[node].setDriver('CLITEMP', pws['lastData']['tempf'])
                         self.nodes[node].setDriver('GV1', pws['lastData']['tempinf'])
@@ -258,7 +260,7 @@ class pwsnode(polyinterface.Node):
         {'driver': 'GV13', 'value': 0, 'uom': 105}, # Yearly Rain
         {'driver': 'GV14', 'value': 0, 'uom': 105}, # Total Rain
         {'driver': 'WINDDIR', 'value': 0, 'uom': 76}, # Wind Direction (degree)
-        {'driver': 'GV16', 'value': 0, 'uom': 56}, # Wind Direction (cardinal)
+        {'driver': 'GV16', 'value': 0, 'uom': 25}, # Wind Direction (cardinal)
         {'driver': 'SPEED', 'value': 0, 'uom': 48}, # Wind Speed
         {'driver': 'GV17', 'value': 0, 'uom': 48}, # Wind Gust
         {'driver': 'GV18', 'value': 0, 'uom': 48}, # Max Wind Gust Daily
