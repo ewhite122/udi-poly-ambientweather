@@ -32,11 +32,6 @@
 		<range uom="48" min="0" max="100" prec="1" />
 	</editor>
 	
-	<!--<editor id="kph">
-		<range uom="32" min="0" max="500" prec="1" />
-	</editor>
-	-->
-	
 	<editor id="inches">
 		<range uom="105" min="0" max="288" prec="3" />
 	</editor>
@@ -45,17 +40,8 @@
 		<range uom="76" min="0" max="360" prec="1" />
 	</editor>
 
-	<editor id="NORTH">
-		<range uom="25" subset="348.75-11.25"> nls="AW_N" />
-	</editor>
-
-	<editor id="NORTH_NORTHWEST">
-		<range uom="25" subset="326.25-348.75"> nls="AW_NNW" />
+	<editor id="CARDINAL">
+		<range uom="56" min="0" max="360" prec="0" />
 	</editor>
 
 </editors>
-
-NNW
-
-
-

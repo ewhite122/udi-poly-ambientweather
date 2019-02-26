@@ -41,6 +41,43 @@ class Controller(polyinterface.Controller):
     def luxConv(self, wm2):
         lux = round(wm2 / 0.0079, 0)
         return lux
+    
+    def cardinalDirection(self, winddir):
+        # Returns the Cardinal Direction Name
+        if winddir >=0 and winddir <=11.24:
+            return "North"
+        elif winddir >=11.25 and winddir <=33.74:
+            return "North-northeast"
+        elif winddir >=33.75 and winddir <=56.24:
+            return "Northeast"
+        elif winddir >=56.25 and winddir <=78.74:
+            return "East-northeast"
+        elif winddir >=78.75 and winddir <=101.24:
+            return "East"
+        elif winddir >=101.25 and winddir <=123.74:
+            return "East-southeast"
+        elif winddir >=123.75 and winddir <=146.24:
+            return "Southeast"
+        elif winddir >=146.25 and winddir <=168.74:
+            return "South-southeast"
+        elif winddir >=168.75 and winddir <=191.24:
+            return "South"
+        elif winddir >=191.25 and winddir <=213.74:
+            return "South-southwest"
+        elif winddir >=213.75 and winddir <=236.24:
+            return "Southwest"
+        elif winddir >=236.25 and winddir <=258.74:
+            return "West-southwest"
+        elif winddir >=258.75 and winddir <=281.24:
+            return "West"
+        elif winddir >=281.25 and winddir <=303.74:
+            return "West-northwest"
+        elif winddir >=303.75 and winddir <=326.24:
+            return "Northwest"
+        elif winddir >=326.25 and winddir <=348.74:
+            return "North-northwest"
+        elif winddir >=348.75 and winddir <=360:
+            return "North"
 
     def ambientPoll(self):
         try:
@@ -56,6 +93,9 @@ class Controller(polyinterface.Controller):
                         # Convert solarradiation into lux
                         lux = self.luxConv(pws['lastData']['solarradiation'])
                         
+                        # Convert Wind Direction Degrees to cardinal direction
+                        cardinal = cardinalDirection(pws['lastData']['winddir'])
+
                         self.nodes[node].setDriver('CLITEMP', pws['lastData']['tempf'])
                         self.nodes[node].setDriver('GV1', pws['lastData']['tempinf'])
                         self.nodes[node].setDriver('CLIHUM', pws['lastData']['humidity'])
@@ -75,6 +115,7 @@ class Controller(polyinterface.Controller):
 
                         self.nodes[node].setDriver('GV14', pws['lastData']['totalrainin'])
                         self.nodes[node].setDriver('WINDDIR', pws['lastData']['winddir'])
+                        self.nodes[node].setDriver('GV16', cardinal)
                         self.nodes[node].setDriver('SPEED', pws['lastData']['windspeedmph'])
                         self.nodes[node].setDriver('GV17', pws['lastData']['windgustmph'])
                         self.nodes[node].setDriver('GV18', pws['lastData']['maxdailygust'])
@@ -216,7 +257,8 @@ class pwsnode(polyinterface.Node):
         {'driver': 'GV12', 'value': 0, 'uom': 105}, # Monthly Rain
         {'driver': 'GV13', 'value': 0, 'uom': 105}, # Yearly Rain
         {'driver': 'GV14', 'value': 0, 'uom': 105}, # Total Rain
-        {'driver': 'WINDDIR', 'value': 0, 'uom': 76}, # Wind Direction
+        {'driver': 'WINDDIR', 'value': 0, 'uom': 76}, # Wind Direction (degree)
+        {'driver': 'GV16', 'value': 0, 'uom': 56}, # Wind Direction (cardinal)
         {'driver': 'SPEED', 'value': 0, 'uom': 48}, # Wind Speed
         {'driver': 'GV17', 'value': 0, 'uom': 48}, # Wind Gust
         {'driver': 'GV18', 'value': 0, 'uom': 48}, # Max Wind Gust Daily

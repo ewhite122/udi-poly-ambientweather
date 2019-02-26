@@ -25,7 +25,8 @@ ST-pwsnode-GV11-NAME = Weekly Rain
 ST-pwsnode-GV12-NAME = Monthly Rain
 ST-pwsnode-GV13-NAME = Yearly Rain
 ST-pwsnode-GV14-NAME = Total Rain
-ST-pwsnode-WINDDIR-NAME = Wind Direction
+ST-pwsnode-WINDDIR-NAME = Wind Direction (degree)
+ST-pwsnode-GV16-NAME = Wind Direction (cardinal)
 ST-pwsnode-SPEED-NAME = Wind Speed
 ST-pwsnode-GV17-NAME = Wind Gust
 ST-pwsnode-GV18-NAME = Wind Max Daily Gust
@@ -52,7 +53,3 @@ ST-addonnode-GV12-NAME = Sensor 5 Humidity
 ST-addonnode-GV13-NAME = Sensor 6 Humidity
 ST-addonnode-GV14-NAME = Sensor 7 Humidity
 ST-addonnode-GV15-NAME = Sensor 8 Humidity
-
-#Cardinal wind directions
-AW_N = North
-AW_NNW = North-NorthWest
