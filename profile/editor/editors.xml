@@ -40,10 +40,6 @@
 		<range uom="76" min="0" max="360" prec="1" />
 	</editor>
 
-	<!-- <editor id="CARDINAL">
-		<range uom="25" min="0" max="360" prec="2" />
-	</editor> -->
-
 	<editor id="I_WIND_DIRECTION">
 		<range uom="25" subset="0-16" nls="EN_WIND_DIRECTION"/>
 	</editor>
