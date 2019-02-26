@@ -45,4 +45,17 @@
 		<range uom="76" min="0" max="360" prec="1" />
 	</editor>
 
+	<editor id="NORTH">
+		<range uom="25" subset="348.75-11.25"> nls="AW_N" />
+	</editor>
+
+	<editor id="NORTH_NORTHWEST">
+		<range uom="25" subset="326.25-348.75"> nls="AW_NNW" />
+	</editor>
+
 </editors>
+
+NNW
+
+
+

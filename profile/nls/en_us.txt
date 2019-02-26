@@ -52,3 +52,7 @@ ST-addonnode-GV12-NAME = Sensor 5 Humidity
 ST-addonnode-GV13-NAME = Sensor 6 Humidity
 ST-addonnode-GV14-NAME = Sensor 7 Humidity
 ST-addonnode-GV15-NAME = Sensor 8 Humidity
+
+#Cardinal wind directions
+AW_N = North
+AW_NNW = North-NorthWest
