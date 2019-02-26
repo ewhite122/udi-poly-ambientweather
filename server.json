@@ -1,8 +1,8 @@
 {
     "name": "AmbientWeather",
-    "docs": "https://github.com/simplextech/POLY_AmbientWeather",
+    "docs": "https://github.com/simplextech/udi-ambientweather-poly",
     "type": "python3",
-    "executable": "POLY_AmbientWeather.py",
+    "executable": "ambientweather-poly.py",
     "install": "install.sh",
     "install_cloud": "install_cloud.sh",
     "description": "Ambient Weather",
@@ -15,8 +15,8 @@
             "author": "Simplex Technology",
             "version": "0.0.1",
             "date": "February 24, 2019",
-            "source": "https://github.com/simplextech/POLY_AmbientWeather",
-            "license": "https://github.com/simplextech/POLY_AmbientWeather/blob/master/LICENSE"
+            "source": "https://github.com/simplextech/udi-ambientweather-poly",
+            "license": "https://github.com/simplextech/udi-ambientweather-poly/blob/master/LICENSE"
         }
     ]
 }
