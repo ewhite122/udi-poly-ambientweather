@@ -18,7 +18,7 @@ class Controller(polyinterface.Controller):
         self.APP_Key = '072059fe7f804c468689496e8249124f2e5457906cf44938a097bc07ea6efdc5'
 
     def start(self):
-        LOGGER.info('Started MyNodeServer')
+        LOGGER.info('Started AmbientWeather')
         self.removeNoticesAll()
         if self.check_params():
             self.discover()
@@ -316,7 +316,7 @@ class addonnode(polyinterface.Node):
 
 if __name__ == "__main__":
     try:
-        polyglot = polyinterface.Interface('MyNodeServer')
+        polyglot = polyinterface.Interface('AmbientWeather')
         polyglot.start()
         control = Controller(polyglot)
         control.runForever()
