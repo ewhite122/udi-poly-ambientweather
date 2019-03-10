@@ -19,13 +19,13 @@ class Controller(polyinterface.Controller):
     def __init__(self, polyglot):
         super(Controller, self).__init__(polyglot)
         self.name = 'Ambient Weather'
-        self.APP_Key = '072059fe7f804c468689496e8249124f2e5457906cf44938a097bc07ea6efdc5'
+        self.APP_Key = 'b740e1341b4443eca15dccbb612f1d70374902a30a59465787f8c550038efa44'
 
     def start(self):
         LOGGER.info('Started AmbientWeather')
         self.removeNoticesAll()
         if self.check_params():
-            LOGGER.info('Configuration is set')
+            LOGGER.info('API Key is set')
             LOOP = asyncio.new_event_loop()
             LOOP.create_task(self.AmbientWeather(self.APP_Key, self.API_Key))
             LOOP.run_forever()
@@ -184,15 +184,15 @@ class Controller(polyinterface.Controller):
                 pwsName = str(pws['info']['name'])
                 addOnAddress = pwsAddress + '_1'
 
-                if macType == '000EC6': #Observer IP Module used by most Ambient PWS systems
+                if macType == '000EC6':  # Observer IP Module used by most Ambient PWS systems
                     self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
                     self.addNode(addonnode(self, self.address, addOnAddress, pwsName + '-Addon'))
-                elif macType == 'ECFABC': #WS-2902 Display
+                elif macType == 'ECFABC':  # WS-2902 Display
                     self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
-                else: #All other Ambient systems
+                else:  # All other Ambient systems
                     self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
         except Exception as ex:
-            LOGGER.error('Exception occured: ' + ' ' + str(ex))
+            LOGGER.error('Exception occurred: ' + ' ' + str(ex))
 
     def delete(self):
         LOGGER.info('Ambient Weather NodeServer:  Deleted')
@@ -209,7 +209,7 @@ class Controller(polyinterface.Controller):
                 API_Set = False
         else:
             self.API_Key = ""
-            self.addNotice('Please set proper API Key in the configuration page, and restart this nodeserver','mynotice')
+            self.addNotice('Please set proper API Key in the configuration page, and restart this NodeServer')
             LOGGER.error('check_params: Ambient Weather user API key missing.  Using {}'.format(self.API_Key))
             API_Set = False
 
@@ -220,12 +220,12 @@ class Controller(polyinterface.Controller):
         else:
             return False
 
-    def remove_notices_all(self,command):
+    def remove_notices_all(self, command):
         LOGGER.info('remove_notices_all:')
         # Remove all existing notices
         self.removeNoticesAll()
 
-    def update_profile(self,command):
+    def update_profile(self, command):
         LOGGER.info('update_profile:')
         st = self.poly.installprofile()
         return st
@@ -241,7 +241,7 @@ class Controller(polyinterface.Controller):
 
         def subscribed_method(data):
             """Process the data received upon subscribing."""
-            #LOGGER.info('Subscription data received: {0}'.format(data))
+            # LOGGER.info('Subscription data received: {0}'.format(data))
             pwsCount = 0
             for k,v in data.items():
                 if k == 'devices':
@@ -253,20 +253,20 @@ class Controller(polyinterface.Controller):
                         pwsName = str(pws['info']['name'])
                         addOnAddress = pwsAddress + '_1'
 
-                        if macType == '000EC6': #Observer IP Module used by most Ambient PWS systems
+                        if macType == '000EC6':  # Observer IP Module used by most Ambient PWS systems
                             self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
                             self.addNode(addonnode(self, self.address, addOnAddress, pwsName + '-Addon'))
-                        elif macType == 'ECFABC': #WS-2902 Display
+                        elif macType == 'ECFABC':  # WS-2902 Display
                             self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
-                        else: #All other Ambient systems
+                        else:  # All other Ambient systems
                             self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
 
-                        #LOGGER.info(pws['info']['name'] + ' ' + pws['macAddress'])
+                        # LOGGER.info(pws['info']['name'] + ' ' + pws['macAddress'])
             LOGGER.info('PWS Count: ' + str(pwsCount))
 
         def data_method(data):
             """Print the data received."""
-            #print('Data received: {0}'.format(data))
+            # print('Data received: {0}'.format(data))
             for node in self.nodes:
                 rawMAC = data['macAddress'].split(':')
                 macType = rawMAC[0] + rawMAC[1] + rawMAC[2]
@@ -294,7 +294,7 @@ class Controller(polyinterface.Controller):
                     self.nodes[node].setDriver('GV11', data['weeklyrainin'])
                     self.nodes[node].setDriver('GV12', data['monthlyrainin'])
                     
-                    if macType == '000EC6': #Observer IP Module used by most Ambient PWS systems
+                    if macType == '000EC6':  # Observer IP Module used by most Ambient PWS systems
                         self.nodes[node].setDriver('GV13', data['yearlyrainin'])
 
                     self.nodes[node].setDriver('GV14', data['totalrainin'])
@@ -353,7 +353,7 @@ class Controller(polyinterface.Controller):
         await client.websocket.connect()
 
         # At any point, disconnect from the websocket:
-        #await client.websocket.disconnect()
+        # await client.websocket.disconnect()
 
     id = 'controller'
     commands = {
@@ -362,6 +362,7 @@ class Controller(polyinterface.Controller):
         'REMOVE_NOTICES_ALL': remove_notices_all
     }
     drivers = [{'driver': 'ST', 'value': 1, 'uom': 2}]
+
 
 class pwsnode(polyinterface.Node):
     def __init__(self, controller, primary, address, name):
@@ -407,8 +408,9 @@ class pwsnode(polyinterface.Node):
 
     id = 'pwsnodetype'
     commands = {
-                    #'DON': setOn, 'DOF': setOff
+                    # 'DON': setOn, 'DOF': setOff
                 }
+
 
 class addonnode(polyinterface.Node):
     def __init__(self, controller, primary, address, name):
@@ -428,37 +430,35 @@ class addonnode(polyinterface.Node):
 
     drivers = [
         {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'GV0', 'value': 0, 'uom': 17}, # Sensor 1 Temperature
-        {'driver': 'GV1', 'value': 0, 'uom': 17}, # Sensor 2 Temperature
-        {'driver': 'GV2', 'value': 0, 'uom': 17}, # Sensor 3 Temperature
-        {'driver': 'GV3', 'value': 0, 'uom': 17}, # Sensor 4 Temperature
-        {'driver': 'GV4', 'value': 0, 'uom': 17}, # Sensor 5 Temperature
-        {'driver': 'GV5', 'value': 0, 'uom': 17}, # Sensor 6 Temperature
-        {'driver': 'GV6', 'value': 0, 'uom': 17}, # Sensor 7 Temperature
-        {'driver': 'GV7', 'value': 0, 'uom': 17}, # Sensor 8 Temperature
-        {'driver': 'GV8', 'value': 0, 'uom': 22}, # Sensor 1 Humidity
-        {'driver': 'GV9', 'value': 0, 'uom': 22}, # Sensor 2 Humidity
-        {'driver': 'GV10', 'value': 0, 'uom': 22}, # Sensor 3 Humidity
-        {'driver': 'GV11', 'value': 0, 'uom': 22}, # Sensor 4 Humidity
-        {'driver': 'GV12', 'value': 0, 'uom': 22}, # Sensor 5 Humidity
-        {'driver': 'GV13', 'value': 0, 'uom': 22}, # Sensor 6 Humidity
-        {'driver': 'GV14', 'value': 0, 'uom': 22}, # Sensor 7 Humidity
-        {'driver': 'GV15', 'value': 0, 'uom': 22}, # Sensor 8 Humidity
+        {'driver': 'GV0', 'value': 0, 'uom': 17},  # Sensor 1 Temperature
+        {'driver': 'GV1', 'value': 0, 'uom': 17},  # Sensor 2 Temperature
+        {'driver': 'GV2', 'value': 0, 'uom': 17},  # Sensor 3 Temperature
+        {'driver': 'GV3', 'value': 0, 'uom': 17},  # Sensor 4 Temperature
+        {'driver': 'GV4', 'value': 0, 'uom': 17},  # Sensor 5 Temperature
+        {'driver': 'GV5', 'value': 0, 'uom': 17},  # Sensor 6 Temperature
+        {'driver': 'GV6', 'value': 0, 'uom': 17},  # Sensor 7 Temperature
+        {'driver': 'GV7', 'value': 0, 'uom': 17},  # Sensor 8 Temperature
+        {'driver': 'GV8', 'value': 0, 'uom': 22},  # Sensor 1 Humidity
+        {'driver': 'GV9', 'value': 0, 'uom': 22},  # Sensor 2 Humidity
+        {'driver': 'GV10', 'value': 0, 'uom': 22},  # Sensor 3 Humidity
+        {'driver': 'GV11', 'value': 0, 'uom': 22},  # Sensor 4 Humidity
+        {'driver': 'GV12', 'value': 0, 'uom': 22},  # Sensor 5 Humidity
+        {'driver': 'GV13', 'value': 0, 'uom': 22},  # Sensor 6 Humidity
+        {'driver': 'GV14', 'value': 0, 'uom': 22},  # Sensor 7 Humidity
+        {'driver': 'GV15', 'value': 0, 'uom': 22},  # Sensor 8 Humidity
         ]
 
     id = 'addontype'
     commands = {
-                    #'DON': setOn, 'DOF': setOff
+                    # 'DON': setOn, 'DOF': setOff
                 }
+
 
 if __name__ == "__main__":
     try:
         polyglot = polyinterface.Interface('AmbientWeather')
         polyglot.start()
         control = Controller(polyglot)
-        #LOOP = asyncio.get_event_loop()
-        #LOOP.create_task(control.AmbientWeatherWS())
-        #LOOP.run_forever()
         control.runForever()
     except (KeyboardInterrupt, SystemExit):
         polyglot.stop()
