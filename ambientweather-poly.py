@@ -8,8 +8,12 @@ import sys
 import time
 import requests
 import json
+import asyncio
+from aiohttp import ClientSession
+from aioambient import Client
 
 LOGGER = polyinterface.LOGGER
+
 
 class Controller(polyinterface.Controller):
     def __init__(self, polyglot):
@@ -21,13 +25,19 @@ class Controller(polyinterface.Controller):
         LOGGER.info('Started AmbientWeather')
         self.removeNoticesAll()
         if self.check_params():
-            self.discover()
+            LOGGER.info('Configuration is set')
+            LOOP = asyncio.new_event_loop()
+            LOOP.create_task(self.AmbientWeather(self.APP_Key, self.API_Key))
+            LOOP.run_forever()
+        else:
+            LOGGER.info('API Key is not set')
 
     def shortPoll(self):
         pass
 
     def longPoll(self):
-        self.ambientPoll()
+        pass
+        #self.ambientPoll()
 
     def awConnect(self):
         try:
@@ -193,7 +203,10 @@ class Controller(polyinterface.Controller):
     def check_params(self):
         if 'API_Key' in self.polyConfig['customParams']:
             self.API_Key = self.polyConfig['customParams']['API_Key']
-            API_Set = True
+            if self.API_Key is not "":
+                API_Set = True
+            else:
+                API_Set = False
         else:
             self.API_Key = ""
             self.addNotice('Please set proper API Key in the configuration page, and restart this nodeserver','mynotice')
@@ -217,6 +230,131 @@ class Controller(polyinterface.Controller):
         st = self.poly.installprofile()
         return st
 
+    async def AmbientWeather(self, *args, **kwargs):
+        """Create the aiohttp session and run."""
+        async with ClientSession() as websession:
+            client = Client(self.API_Key, self.APP_Key, websession)
+
+        def connect_method():
+            """Print a simple "hello" message."""
+            LOGGER.info('Client has connected to the websocket')
+
+        def subscribed_method(data):
+            """Process the data received upon subscribing."""
+            #LOGGER.info('Subscription data received: {0}'.format(data))
+            pwsCount = 0
+            for k,v in data.items():
+                if k == 'devices':
+                    pwsCount = len(v)
+                    for pws in v:
+                        rawMAC = pws['macAddress'].split(':')
+                        macType = rawMAC[0] + rawMAC[1] + rawMAC[2]
+                        pwsAddress = pws['macAddress'].replace(':','').lower()
+                        pwsName = str(pws['info']['name'])
+                        addOnAddress = pwsAddress + '_1'
+
+                        if macType == '000EC6': #Observer IP Module used by most Ambient PWS systems
+                            self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
+                            self.addNode(addonnode(self, self.address, addOnAddress, pwsName + '-Addon'))
+                        elif macType == 'ECFABC': #WS-2902 Display
+                            self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
+                        else: #All other Ambient systems
+                            self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
+
+                        #LOGGER.info(pws['info']['name'] + ' ' + pws['macAddress'])
+            LOGGER.info('PWS Count: ' + str(pwsCount))
+
+        def data_method(data):
+            """Print the data received."""
+            #print('Data received: {0}'.format(data))
+            for node in self.nodes:
+                rawMAC = data['macAddress'].split(':')
+                macType = rawMAC[0] + rawMAC[1] + rawMAC[2]
+                pwsAddress = data['macAddress'].replace(':','').lower()
+                addOnAddress = pwsAddress + '_1'
+
+                if pwsAddress == self.nodes[node].address:
+                    # Convert solarradiation into lux
+                    lux = self.luxConv(data['solarradiation'])
+                    
+                    # Convert Wind Direction Degrees to cardinal direction
+                    cardinal = self.cardinalDirection(data['winddir'])
+
+                    self.nodes[node].setDriver('CLITEMP', data['tempf'])
+                    self.nodes[node].setDriver('GV1', data['tempinf'])
+                    self.nodes[node].setDriver('CLIHUM', data['humidity'])
+                    self.nodes[node].setDriver('GV3', data['humidityin'])
+                    self.nodes[node].setDriver('BARPRES', data['baromrelin'])
+                    self.nodes[node].setDriver('ATMPRES', data['baromabsin'])
+                    self.nodes[node].setDriver('LUMIN', lux) # Use mw/2 converted data for lux
+                    self.nodes[node].setDriver('UV', data['uv'])
+                    self.nodes[node].setDriver('SOLRAD', data['solarradiation'])
+                    self.nodes[node].setDriver('GV9', data['hourlyrainin']) 
+                    self.nodes[node].setDriver('GV10', data['dailyrainin'])
+                    self.nodes[node].setDriver('GV11', data['weeklyrainin'])
+                    self.nodes[node].setDriver('GV12', data['monthlyrainin'])
+                    
+                    if macType == '000EC6': #Observer IP Module used by most Ambient PWS systems
+                        self.nodes[node].setDriver('GV13', data['yearlyrainin'])
+
+                    self.nodes[node].setDriver('GV14', data['totalrainin'])
+                    self.nodes[node].setDriver('WINDDIR', data['winddir'])
+                    self.nodes[node].setDriver('GV16', cardinal)
+                    self.nodes[node].setDriver('SPEED', data['windspeedmph'])
+                    self.nodes[node].setDriver('GV17', data['windgustmph'])
+                    self.nodes[node].setDriver('GV18', data['maxdailygust'])
+                    self.nodes[node].setDriver('GV19', data['feelsLike'])
+                    self.nodes[node].setDriver('GV20', data['dewPoint'])
+
+                if addOnAddress == self.nodes[node].address:
+                    if 'temp1f' in data:
+                        self.nodes[node].setDriver('GV0', data['temp1f'])
+                    if 'temp2f' in data:
+                        self.nodes[node].setDriver('GV1', data['temp2f'])
+                    if 'temp3f' in data:
+                        self.nodes[node].setDriver('GV2', data['temp3f'])
+                    if 'temp4f' in data:
+                        self.nodes[node].setDriver('GV3', data['temp4f'])
+                    if 'temp5f' in data:
+                        self.nodes[node].setDriver('GV4', data['temp5f'])
+                    if 'temp6f' in data:
+                        self.nodes[node].setDriver('GV5', data['temp6f'])
+                    if 'temp7f' in data:
+                        self.nodes[node].setDriver('GV6', data['temp7f'])
+                    if 'temp8f' in data:
+                        self.nodes[node].setDriver('GV7', data['temp8f'])
+                    if 'humidity1' in data:
+                        self.nodes[node].setDriver('GV8', data['humidity1'])
+                    if 'humidity2' in data:
+                        self.nodes[node].setDriver('GV9', data['humidity2'])
+                    if 'humidity3' in data:
+                        self.nodes[node].setDriver('GV10', data['humidity3'])
+                    if 'humidity4' in data:
+                        self.nodes[node].setDriver('GV11', data['humidity4'])
+                    if 'humidity5' in data:
+                        self.nodes[node].setDriver('GV12', data['humidity5'])
+                    if 'humidity6' in data:
+                        self.nodes[node].setDriver('GV13', data['humidity6'])
+                    if 'humidity7' in data:
+                        self.nodes[node].setDriver('GV14', data['humidity7'])
+                    if 'humidity8' in data:
+                        self.nodes[node].setDriver('GV15', data['humidity8'])
+
+        def disconnect_method(data):
+            """Print a simple "goodbye" message."""
+            LOGGER.info('Client has disconnected from the websocket')
+
+        # Connect to the websocket:
+        client.websocket.on_connect(connect_method)
+        client.websocket.on_subscribed(subscribed_method)
+        client.websocket.on_data(data_method)
+        client.websocket.on_disconnect(disconnect_method)
+
+        await client.websocket.connect()
+
+        # At any point, disconnect from the websocket:
+        #await client.websocket.disconnect()
+
     id = 'controller'
     commands = {
         'DISCOVER': discover,
@@ -224,7 +362,6 @@ class Controller(polyinterface.Controller):
         'REMOVE_NOTICES_ALL': remove_notices_all
     }
     drivers = [{'driver': 'ST', 'value': 1, 'uom': 2}]
-
 
 class pwsnode(polyinterface.Node):
     def __init__(self, controller, primary, address, name):
@@ -319,6 +456,9 @@ if __name__ == "__main__":
         polyglot = polyinterface.Interface('AmbientWeather')
         polyglot.start()
         control = Controller(polyglot)
+        #LOOP = asyncio.get_event_loop()
+        #LOOP.create_task(control.AmbientWeatherWS())
+        #LOOP.run_forever()
         control.runForever()
     except (KeyboardInterrupt, SystemExit):
         polyglot.stop()
