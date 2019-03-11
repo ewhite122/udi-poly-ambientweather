@@ -5,9 +5,6 @@ try:
 except ImportError:
     import pgc_interface as polyinterface
 import sys
-import time
-import requests
-import json
 import asyncio
 from aiohttp import ClientSession
 from aioambient import Client
@@ -19,16 +16,17 @@ class Controller(polyinterface.Controller):
     def __init__(self, polyglot):
         super(Controller, self).__init__(polyglot)
         self.name = 'Ambient Weather'
-        self.APP_Key = 'b740e1341b4443eca15dccbb612f1d70374902a30a59465787f8c550038efa44'
+        self.app_key = 'b740e1341b4443eca15dccbb612f1d70374902a30a59465787f8c550038efa44'
+        self.api_key = ''
 
     def start(self):
         LOGGER.info('Started AmbientWeather')
         self.removeNoticesAll()
         if self.check_params():
             LOGGER.info('API Key is set')
-            LOOP = asyncio.new_event_loop()
-            LOOP.create_task(self.AmbientWeather(self.APP_Key, self.API_Key))
-            LOOP.run_forever()
+            _loop = asyncio.new_event_loop()
+            _loop.create_task(self.AmbientWeather(self.app_key, self.api_key))
+            _loop.run_forever()
         else:
             LOGGER.info('API Key is not set')
 
@@ -37,162 +35,58 @@ class Controller(polyinterface.Controller):
 
     def longPoll(self):
         pass
-        #self.ambientPoll()
 
-    def awConnect(self):
-        try:
-            ApiUrl = 'https://api.ambientweather.net/v1/devices?applicationKey=' + self.APP_Key + '&apiKey=' + self.API_Key
-            r = requests.get(ApiUrl)
-            Data = r.json()
-            return Data
-        except Exception as ex:
-            LOGGER.error('Ambient Weather Connection Error' + ' ' + str(ex))
-
-    def luxConv(self, wm2):
+    @staticmethod
+    def lux_convert(wm2):
         lux = round(wm2 / 0.0079, 0)
         return lux
     
-    def cardinalDirection(self, winddir):
+    @staticmethod
+    def cardinal_direction(winddir):
         # Returns the Cardinal Direction Name
-        if winddir >=0 and winddir <=11.24:
+        if 0 <= winddir <= 11.24:
             return 1
-        elif winddir >=11.25 and winddir <=33.74:
+        elif 11.25 <= winddir <= 33.74:
             return 2
-        elif winddir >=33.75 and winddir <=56.24:
+        elif 33.75 <= winddir <= 56.24:
             return 3
-        elif winddir >=56.25 and winddir <=78.74:
+        elif 56.25 <= winddir <= 78.74:
             return 4
-        elif winddir >=78.75 and winddir <=101.24:
+        elif 78.75 <= winddir <= 101.24:
             return 5
-        elif winddir >=101.25 and winddir <=123.74:
+        elif 101.25 <= winddir <= 123.74:
             return 6
-        elif winddir >=123.75 and winddir <=146.24:
+        elif 123.75 <= winddir <= 146.24:
             return 7
-        elif winddir >=146.25 and winddir <=168.74:
+        elif 146.25 <= winddir <= 168.74:
             return 8
-        elif winddir >=168.75 and winddir <=191.24:
+        elif 168.75 <= winddir <= 191.24:
             return 9
-        elif winddir >=191.25 and winddir <=213.74:
+        elif 191.25 <= winddir <= 213.74:
             return 10
-        elif winddir >=213.75 and winddir <=236.24:
+        elif 213.75 <= winddir <= 236.24:
             return 11
-        elif winddir >=236.25 and winddir <=258.74:
+        elif 236.25 <= winddir <= 258.74:
             return 12
-        elif winddir >=258.75 and winddir <=281.24:
+        elif 258.75 <= winddir <= 281.24:
             return 13
-        elif winddir >=281.25 and winddir <=303.74:
+        elif 281.25 <= winddir <= 303.74:
             return 14
-        elif winddir >=303.75 and winddir <=326.24:
+        elif 303.75 <= winddir <= 326.24:
             return 15
-        elif winddir >=326.25 and winddir <=348.74:
+        elif 326.25 <= winddir <= 348.74:
             return 16
-        elif winddir >=348.75 and winddir <=360:
+        elif 348.75 <= winddir <= 360:
             return 1
         else:
             return 0
-
-    def ambientPoll(self):
-        try:
-            Data = self.awConnect()
-            for node in self.nodes:
-                for pws in Data:
-                    rawMAC = pws['macAddress'].split(':')
-                    macType = rawMAC[0] + rawMAC[1] + rawMAC[2]
-                    pwsAddress = pws['macAddress'].replace(':','').lower()
-                    addOnAddress = pwsAddress + '_1'
-
-                    if pwsAddress == self.nodes[node].address:
-                        # Convert solarradiation into lux
-                        lux = self.luxConv(pws['lastData']['solarradiation'])
-                        
-                        # Convert Wind Direction Degrees to cardinal direction
-                        cardinal = self.cardinalDirection(pws['lastData']['winddir'])
-
-                        self.nodes[node].setDriver('CLITEMP', pws['lastData']['tempf'])
-                        self.nodes[node].setDriver('GV1', pws['lastData']['tempinf'])
-                        self.nodes[node].setDriver('CLIHUM', pws['lastData']['humidity'])
-                        self.nodes[node].setDriver('GV3', pws['lastData']['humidityin'])
-                        self.nodes[node].setDriver('BARPRES', pws['lastData']['baromrelin'])
-                        self.nodes[node].setDriver('ATMPRES', pws['lastData']['baromabsin'])
-                        self.nodes[node].setDriver('LUMIN', lux) # Use mw/2 converted data for lux
-                        self.nodes[node].setDriver('UV', pws['lastData']['uv'])
-                        self.nodes[node].setDriver('SOLRAD', pws['lastData']['solarradiation'])
-                        self.nodes[node].setDriver('GV9', pws['lastData']['hourlyrainin']) 
-                        self.nodes[node].setDriver('GV10', pws['lastData']['dailyrainin'])
-                        self.nodes[node].setDriver('GV11', pws['lastData']['weeklyrainin'])
-                        self.nodes[node].setDriver('GV12', pws['lastData']['monthlyrainin'])
-                        
-                        if macType == '000EC6': #Observer IP Module used by most Ambient PWS systems
-                            self.nodes[node].setDriver('GV13', pws['lastData']['yearlyrainin'])
-
-                        self.nodes[node].setDriver('GV14', pws['lastData']['totalrainin'])
-                        self.nodes[node].setDriver('WINDDIR', pws['lastData']['winddir'])
-                        self.nodes[node].setDriver('GV16', cardinal)
-                        self.nodes[node].setDriver('SPEED', pws['lastData']['windspeedmph'])
-                        self.nodes[node].setDriver('GV17', pws['lastData']['windgustmph'])
-                        self.nodes[node].setDriver('GV18', pws['lastData']['maxdailygust'])
-                        self.nodes[node].setDriver('GV19', pws['lastData']['feelsLike'])
-                        self.nodes[node].setDriver('GV20', pws['lastData']['dewPoint'])
-
-                    if addOnAddress == self.nodes[node].address:
-                        if 'temp1f' in pws['lastData']:
-                            self.nodes[node].setDriver('GV0', pws['lastData']['temp1f'])
-                        if 'temp2f' in pws['lastData']:
-                            self.nodes[node].setDriver('GV1', pws['lastData']['temp2f'])
-                        if 'temp3f' in pws['lastData']:
-                            self.nodes[node].setDriver('GV2', pws['lastData']['temp3f'])
-                        if 'temp4f' in pws['lastData']:
-                            self.nodes[node].setDriver('GV3', pws['lastData']['temp4f'])
-                        if 'temp5f' in pws['lastData']:
-                            self.nodes[node].setDriver('GV4', pws['lastData']['temp5f'])
-                        if 'temp6f' in pws['lastData']:
-                            self.nodes[node].setDriver('GV5', pws['lastData']['temp6f'])
-                        if 'temp7f' in pws['lastData']:
-                            self.nodes[node].setDriver('GV6', pws['lastData']['temp7f'])
-                        if 'temp8f' in pws['lastData']:
-                            self.nodes[node].setDriver('GV7', pws['lastData']['temp8f'])
-                        if 'humidity1' in pws['lastData']:
-                            self.nodes[node].setDriver('GV8', pws['lastData']['humidity1'])
-                        if 'humidity2' in pws['lastData']:
-                            self.nodes[node].setDriver('GV9', pws['lastData']['humidity2'])
-                        if 'humidity3' in pws['lastData']:
-                            self.nodes[node].setDriver('GV10', pws['lastData']['humidity3'])
-                        if 'humidity4' in pws['lastData']:
-                            self.nodes[node].setDriver('GV11', pws['lastData']['humidity4'])
-                        if 'humidity5' in pws['lastData']:
-                            self.nodes[node].setDriver('GV12', pws['lastData']['humidity5'])
-                        if 'humidity6' in pws['lastData']:
-                            self.nodes[node].setDriver('GV13', pws['lastData']['humidity6'])
-                        if 'humidity7' in pws['lastData']:
-                            self.nodes[node].setDriver('GV14', pws['lastData']['humidity7'])
-                        if 'humidity8' in pws['lastData']:
-                            self.nodes[node].setDriver('GV15', pws['lastData']['humidity8'])
-        except Exception as ex:
-            LOGGER.error('Exception occured: ' + str(ex))
 
     def query(self):
         for node in self.nodes:
             self.nodes[node].reportDrivers()
 
     def discover(self, *args, **kwargs):
-        try:
-            Data = self.awConnect()
-            for pws in Data:
-                rawMAC = pws['macAddress'].split(':')
-                macType = rawMAC[0] + rawMAC[1] + rawMAC[2]
-                pwsAddress = pws['macAddress'].replace(':','').lower()
-                pwsName = str(pws['info']['name'])
-                addOnAddress = pwsAddress + '_1'
-
-                if macType == '000EC6':  # Observer IP Module used by most Ambient PWS systems
-                    self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
-                    self.addNode(addonnode(self, self.address, addOnAddress, pwsName + '-Addon'))
-                elif macType == 'ECFABC':  # WS-2902 Display
-                    self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
-                else:  # All other Ambient systems
-                    self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
-        except Exception as ex:
-            LOGGER.error('Exception occurred: ' + ' ' + str(ex))
+        pass
 
     def delete(self):
         LOGGER.info('Ambient Weather NodeServer:  Deleted')
@@ -201,21 +95,21 @@ class Controller(polyinterface.Controller):
         LOGGER.debug('NodeServer stopped.')
 
     def check_params(self):
-        if 'API_Key' in self.polyConfig['customParams']:
-            self.API_Key = self.polyConfig['customParams']['API_Key']
-            if self.API_Key is not "":
-                API_Set = True
+        if 'api_key' in self.polyConfig['customParams']:
+            self.api_key = self.polyConfig['customParams']['api_key']
+            if self.api_key is not '':
+                api_set = True
             else:
-                API_Set = False
+                api_set = False
         else:
-            self.API_Key = ""
+            self.api_key = ''
             self.addNotice('Please set proper API Key in the configuration page, and restart this NodeServer')
-            LOGGER.error('check_params: Ambient Weather user API key missing.  Using {}'.format(self.API_Key))
-            API_Set = False
+            LOGGER.error('check_params: Ambient Weather user API key missing.  Using {}'.format(self.api_key))
+            api_set = False
 
-        self.addCustomParam({'API_Key': self.API_Key})
+        self.addCustomParam({'api_key': self.api_key})
 
-        if API_Set:
+        if api_set:
             return True
         else:
             return False
@@ -233,7 +127,7 @@ class Controller(polyinterface.Controller):
     async def AmbientWeather(self, *args, **kwargs):
         """Create the aiohttp session and run."""
         async with ClientSession() as websession:
-            client = Client(self.API_Key, self.APP_Key, websession)
+            client = Client(self.api_key, self.app_key, websession)
 
         def connect_method():
             """Print a simple "hello" message."""
@@ -242,43 +136,38 @@ class Controller(polyinterface.Controller):
         def subscribed_method(data):
             """Process the data received upon subscribing."""
             # LOGGER.info('Subscription data received: {0}'.format(data))
-            pwsCount = 0
-            for k,v in data.items():
+            for k, v in data.items():
                 if k == 'devices':
-                    pwsCount = len(v)
                     for pws in v:
-                        rawMAC = pws['macAddress'].split(':')
-                        macType = rawMAC[0] + rawMAC[1] + rawMAC[2]
-                        pwsAddress = pws['macAddress'].replace(':','').lower()
-                        pwsName = str(pws['info']['name'])
-                        addOnAddress = pwsAddress + '_1'
+                        raw_mac = pws['macAddress'].split(':')
+                        mac_type = raw_mac[0] + raw_mac[1] + raw_mac[2]
+                        pws_address = pws['macAddress'].replace(':', '').lower()
+                        pws_name = str(pws['info']['name'])
+                        add_on_address = pws_address + '_1'
 
-                        if macType == '000EC6':  # Observer IP Module used by most Ambient PWS systems
-                            self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
-                            self.addNode(addonnode(self, self.address, addOnAddress, pwsName + '-Addon'))
-                        elif macType == 'ECFABC':  # WS-2902 Display
-                            self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
+                        if mac_type == '000EC6':  # Observer IP Module used by most Ambient PWS systems
+                            self.addNode(PwsNode(self, self.address, pws_address, pws_name))
+                            self.addNode(AddonNode(self, self.address, add_on_address, pws_name + '-Addon'))
+                        elif mac_type == 'ECFABC':  # WS-2902 Display
+                            self.addNode(PwsNode(self, self.address, pws_address, pws_name))
                         else:  # All other Ambient systems
-                            self.addNode(pwsnode(self, self.address, pwsAddress, pwsName))
-
-                        # LOGGER.info(pws['info']['name'] + ' ' + pws['macAddress'])
-            LOGGER.info('PWS Count: ' + str(pwsCount))
+                            self.addNode(PwsNode(self, self.address, pws_address, pws_name))
 
         def data_method(data):
             """Print the data received."""
             # print('Data received: {0}'.format(data))
             for node in self.nodes:
-                rawMAC = data['macAddress'].split(':')
-                macType = rawMAC[0] + rawMAC[1] + rawMAC[2]
-                pwsAddress = data['macAddress'].replace(':','').lower()
-                addOnAddress = pwsAddress + '_1'
+                raw_mac = data['macAddress'].split(':')
+                mac_type = raw_mac[0] + raw_mac[1] + raw_mac[2]
+                pws_address = data['macAddress'].replace(':','').lower()
+                add_on_address = pws_address + '_1'
 
-                if pwsAddress == self.nodes[node].address:
+                if pws_address == self.nodes[node].address:
                     # Convert solarradiation into lux
-                    lux = self.luxConv(data['solarradiation'])
+                    lux = self.lux_convert(data['solarradiation'])
                     
                     # Convert Wind Direction Degrees to cardinal direction
-                    cardinal = self.cardinalDirection(data['winddir'])
+                    cardinal = self.cardinal_direction(data['winddir'])
 
                     self.nodes[node].setDriver('CLITEMP', data['tempf'])
                     self.nodes[node].setDriver('GV1', data['tempinf'])
@@ -294,7 +183,7 @@ class Controller(polyinterface.Controller):
                     self.nodes[node].setDriver('GV11', data['weeklyrainin'])
                     self.nodes[node].setDriver('GV12', data['monthlyrainin'])
                     
-                    if macType == '000EC6':  # Observer IP Module used by most Ambient PWS systems
+                    if mac_type == '000EC6':  # Observer IP Module used by most Ambient PWS systems
                         self.nodes[node].setDriver('GV13', data['yearlyrainin'])
 
                     self.nodes[node].setDriver('GV14', data['totalrainin'])
@@ -306,7 +195,7 @@ class Controller(polyinterface.Controller):
                     self.nodes[node].setDriver('GV19', data['feelsLike'])
                     self.nodes[node].setDriver('GV20', data['dewPoint'])
 
-                if addOnAddress == self.nodes[node].address:
+                if add_on_address == self.nodes[node].address:
                     if 'temp1f' in data:
                         self.nodes[node].setDriver('GV0', data['temp1f'])
                     if 'temp2f' in data:
@@ -364,9 +253,9 @@ class Controller(polyinterface.Controller):
     drivers = [{'driver': 'ST', 'value': 1, 'uom': 2}]
 
 
-class pwsnode(polyinterface.Node):
+class PwsNode(polyinterface.Node):
     def __init__(self, controller, primary, address, name):
-        super(pwsnode, self).__init__(controller, primary, address, name)
+        super(PwsNode, self).__init__(controller, primary, address, name)
 
     def start(self):
         self.setDriver('ST', 1)
@@ -382,28 +271,28 @@ class pwsnode(polyinterface.Node):
 
     drivers = [
         {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'CLITEMP', 'value': 0, 'uom': 17}, # Outside Temperature F
-        {'driver': 'GV1', 'value': 0, 'uom': 17}, # Inside Temperature F
-        {'driver': 'CLIHUM', 'value': 0, 'uom': 22}, # Outside Humidity
-        {'driver': 'GV3', 'value': 0, 'uom': 22}, # Inside Humidity
-        {'driver': 'BARPRES', 'value': 0, 'uom': 23}, # Rel Pressure
-        {'driver': 'ATMPRES', 'value': 0, 'uom': 23}, # Abs Pressure
-        {'driver': 'LUMIN', 'value': 0, 'uom': 36}, # Lux
-        {'driver': 'UV', 'value': 0, 'uom': 71}, # UV
-        {'driver': 'SOLRAD', 'value': 0, 'uom': 74}, # Solar Radiation
-        {'driver': 'GV9', 'value': 0, 'uom': 105}, # Hourly Rain
-        {'driver': 'GV10', 'value': 0, 'uom': 105}, # Daily Rain
-        {'driver': 'GV11', 'value': 0, 'uom': 105}, # Weekly Rain
-        {'driver': 'GV12', 'value': 0, 'uom': 105}, # Monthly Rain
-        {'driver': 'GV13', 'value': 0, 'uom': 105}, # Yearly Rain
-        {'driver': 'GV14', 'value': 0, 'uom': 105}, # Total Rain
-        {'driver': 'WINDDIR', 'value': 0, 'uom': 76}, # Wind Direction (degree)
-        {'driver': 'GV16', 'value': 0, 'uom': 25}, # Wind Direction (cardinal)
-        {'driver': 'SPEED', 'value': 0, 'uom': 48}, # Wind Speed
-        {'driver': 'GV17', 'value': 0, 'uom': 48}, # Wind Gust
-        {'driver': 'GV18', 'value': 0, 'uom': 48}, # Max Wind Gust Daily
-        {'driver': 'GV19', 'value': 0, 'uom': 17}, # Feels Like Temperature
-        {'driver': 'GV20', 'value': 0, 'uom': 17}, # Dew Point Temperature
+        {'driver': 'CLITEMP', 'value': 0, 'uom': 17},  # Outside Temperature F
+        {'driver': 'GV1', 'value': 0, 'uom': 17},  # Inside Temperature F
+        {'driver': 'CLIHUM', 'value': 0, 'uom': 22},  # Outside Humidity
+        {'driver': 'GV3', 'value': 0, 'uom': 22},  # Inside Humidity
+        {'driver': 'BARPRES', 'value': 0, 'uom': 23},  # Rel Pressure
+        {'driver': 'ATMPRES', 'value': 0, 'uom': 23},  # Abs Pressure
+        {'driver': 'LUMIN', 'value': 0, 'uom': 36},  # Lux
+        {'driver': 'UV', 'value': 0, 'uom': 71},  # UV
+        {'driver': 'SOLRAD', 'value': 0, 'uom': 74},  # Solar Radiation
+        {'driver': 'GV9', 'value': 0, 'uom': 105},  # Hourly Rain
+        {'driver': 'GV10', 'value': 0, 'uom': 105},  # Daily Rain
+        {'driver': 'GV11', 'value': 0, 'uom': 105},  # Weekly Rain
+        {'driver': 'GV12', 'value': 0, 'uom': 105},  # Monthly Rain
+        {'driver': 'GV13', 'value': 0, 'uom': 105},  # Yearly Rain
+        {'driver': 'GV14', 'value': 0, 'uom': 105},  # Total Rain
+        {'driver': 'WINDDIR', 'value': 0, 'uom': 76},  # Wind Direction (degree)
+        {'driver': 'GV16', 'value': 0, 'uom': 25},  # Wind Direction (cardinal)
+        {'driver': 'SPEED', 'value': 0, 'uom': 48},  # Wind Speed
+        {'driver': 'GV17', 'value': 0, 'uom': 48},  # Wind Gust
+        {'driver': 'GV18', 'value': 0, 'uom': 48},  # Max Wind Gust Daily
+        {'driver': 'GV19', 'value': 0, 'uom': 17},  # Feels Like Temperature
+        {'driver': 'GV20', 'value': 0, 'uom': 17},  # Dew Point Temperature
         ]
 
     id = 'pwsnodetype'
@@ -412,9 +301,9 @@ class pwsnode(polyinterface.Node):
                 }
 
 
-class addonnode(polyinterface.Node):
+class AddonNode(polyinterface.Node):
     def __init__(self, controller, primary, address, name):
-        super(addonnode, self).__init__(controller, primary, address, name)
+        super(AddonNode, self).__init__(controller, primary, address, name)
 
     def start(self):
         self.setDriver('ST', 1)
