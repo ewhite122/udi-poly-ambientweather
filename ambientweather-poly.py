@@ -229,7 +229,7 @@ class Controller(polyinterface.Controller):
                     if 'humidity8' in data:
                         self.nodes[node].setDriver('GV15', data['humidity8'])
 
-        def disconnect_method(data):
+        def disconnect_method():
             """Print a simple "goodbye" message."""
             LOGGER.info('Client has disconnected from the websocket')
 

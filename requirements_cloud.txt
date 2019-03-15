@@ -1,4 +1,2 @@
 pgc_interface
-asyncio
-aiohttp
-aioambient 
+aioambient >=0.1.3
