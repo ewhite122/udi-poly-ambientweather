@@ -185,8 +185,9 @@ class Controller(polyinterface.Controller):
                     
                     if mac_type == '000EC6':  # Observer IP Module used by most Ambient PWS systems
                         self.nodes[node].setDriver('GV13', data['yearlyrainin'])
+                    if mac_type != 'C0210D':  # WS-1002-WIFI does not support totalrainin
+                        self.nodes[node].setDriver('GV14', data['totalrainin'])
 
-                    self.nodes[node].setDriver('GV14', data['totalrainin'])
                     self.nodes[node].setDriver('WINDDIR', data['winddir'])
                     self.nodes[node].setDriver('GV16', cardinal)
                     self.nodes[node].setDriver('SPEED', data['windspeedmph'])
