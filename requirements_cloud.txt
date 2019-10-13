@@ -1,2 +1,3 @@
 pgc_interface
+aiohttp
 aioambient >=0.1.3

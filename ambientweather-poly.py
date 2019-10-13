@@ -24,6 +24,7 @@ class Controller(polyinterface.Controller):
         self.removeNoticesAll()
         if self.check_params():
             LOGGER.info('API Key is set')
+            self.removeNoticesAll()
             _loop = asyncio.new_event_loop()
             _loop.create_task(self.AmbientWeather(self.app_key, self.api_key))
             _loop.run_forever()
@@ -95,24 +96,31 @@ class Controller(polyinterface.Controller):
         LOGGER.debug('NodeServer stopped.')
 
     def check_params(self):
+        default_api_key = 'Your_API_Key'
+
         if 'api_key' in self.polyConfig['customParams']:
-            self.api_key = self.polyConfig['customParams']['api_key']
-            if self.api_key is not '':
-                api_set = True
+            if self.polyConfig['customParams']['api_key'] != default_api_key:
+                self.api_key = self.polyConfig['customParams']['api_key']
+                return True
             else:
-                api_set = False
+                self.addNotice({'myNotice': 'Please set proper API Key in the configuration page, and restart this NodeServer'})
+                return False
+            # if self.api_key is not '':
+            #     api_set = True
+            # else:
+            #     api_set = False
         else:
-            self.api_key = ''
-            self.addNotice('Please set proper API Key in the configuration page, and restart this NodeServer')
+            # self.api_key = ''
+            self.addNotice({'myNotice': 'Please set proper API Key in the configuration page, and restart this NodeServer'})
             LOGGER.error('check_params: Ambient Weather user API key missing.  Using {}'.format(self.api_key))
-            api_set = False
-
-        self.addCustomParam({'api_key': self.api_key})
-
-        if api_set:
-            return True
-        else:
+            # api_set = False
+            self.addCustomParam({'api_key': default_api_key})
             return False
+
+        # if api_set:
+        #     return True
+        # else:
+        #     return False
 
     def remove_notices_all(self, command):
         LOGGER.info('remove_notices_all:')
