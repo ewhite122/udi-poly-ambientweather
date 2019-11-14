@@ -153,7 +153,7 @@ class Controller(polyinterface.Controller):
                         pws_name = str(pws['info']['name'])
                         add_on_address = pws_address + '_1'
 
-                        if mac_type == '000EC6':  # Observer IP Module used by most Ambient PWS systems
+                        if mac_type == '000EC6' or mac_type == '807D3A':  # Observer IP Module used by most Ambient PWS systems
                             self.addNode(PwsNode(self, self.address, pws_address, pws_name))
                             self.addNode(AddonNode(self, self.address, add_on_address, pws_name + '-Addon'))
                         elif mac_type == 'ECFABC':  # WS-2902 Display
