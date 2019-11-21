@@ -232,6 +232,8 @@ class Controller(polyinterface.Controller):
         def disconnect_method():
             """Print a simple "goodbye" message."""
             LOGGER.info('Client has disconnected from the websocket')
+            LOGGER.info('Attempting to reconnect')
+            await client.websocket.connect()
 
         # Connect to the websocket:
         client.websocket.on_connect(connect_method)
