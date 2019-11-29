@@ -17,7 +17,7 @@ class Controller(polyinterface.Controller):
     def __init__(self, polyglot):
         super(Controller, self).__init__(polyglot)
         self.name = 'Ambient Weather'
-        self.app_key = 'b740e1341b4443eca15dccbb612f1d70374902a30a59465787f8c550038efa44'
+        self.app_key = ''
         self.api_key = ''
         self.disco = 0
 
@@ -175,20 +175,45 @@ class Controller(polyinterface.Controller):
         LOGGER.debug('NodeServer stopped.')
 
     def check_params(self):
-        default_api_key = 'Your_API_Key'
+        default_api_key = 'YOUR API KEY'
+        default_app_key = 'YOUR APP KEY'
+        st = False
+        # self.addCustomParam({'api_key': default_api_key})
+        # self.addCustomParam({'app_key': default_app_key})
 
-        if 'api_key' in self.polyConfig['customParams']:
-            if self.polyConfig['customParams']['api_key'] != default_api_key:
-                self.api_key = self.polyConfig['customParams']['api_key']
-                return True
-            else:
-                self.addNotice({'myNotice': 'Please set proper API Key in the configuration page, and restart this NodeServer'})
-                return False
-        else:
-            self.addNotice({'myNotice': 'Please set proper API Key in the configuration page, and restart this NodeServer'})
-            LOGGER.error('check_params: Ambient Weather user API key missing.  Using {}'.format(self.api_key))
+        if 'api_key' not in self.polyConfig['customParams']:
             self.addCustomParam({'api_key': default_api_key})
+
+        if self.polyConfig['customParams']['api_key'] != default_api_key:
+            self.api_key = self.polyConfig['customParams']['api_key']
+            st = True
+        else:
+            self.addNotice(
+                {'api_key': 'Please set proper API Key in the configuration page, and restart this NodeServer'})
+            st = False
+
+        if 'app_key' not in self.polyConfig['customParams']:
+            self.addCustomParam({'app_key': default_app_key})
+
+        if self.polyConfig['customParams']['app_key'] != default_app_key:
+            self.app_key = self.polyConfig['customParams']['app_key']
+            st = True
+        else:
+            self.addNotice(
+                {'app_key': 'Please set proper APP Key in the configuration page, and restart this NodeServer'})
+            st = False
+
+        if st:
+            return True
+        else:
             return False
+
+        # else:
+        #     self.addNotice({'myNotice': 'Please set proper API Key in the configuration page, and restart this NodeServer'})
+        #     LOGGER.error('check_params: Ambient Weather user API key missing.  Using {}'.format(self.api_key))
+
+
+
 
     def remove_notices_all(self, command):
         LOGGER.info('remove_notices_all:')
@@ -1052,6 +1077,7 @@ class WH31Node(polyinterface.Node):
     commands = {
                     # 'DON': setOn, 'DOF': setOff
                 }
+
 
 if __name__ == "__main__":
     try:
