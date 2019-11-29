@@ -177,33 +177,24 @@ class Controller(polyinterface.Controller):
     def check_params(self):
         default_api_key = 'YOUR API KEY'
         default_app_key = 'YOUR APP KEY'
-        st = False
 
         if 'api_key' not in self.polyConfig['customParams']:
             self.addCustomParam({'api_key': default_api_key})
-
-        if self.polyConfig['customParams']['api_key'] != default_api_key:
-            self.api_key = self.polyConfig['customParams']['api_key']
-            st = True
-        else:
-            self.addNotice(
-                {'api_key': 'Please set proper API Key in the configuration page, and restart this NodeServer'})
-            st = False
 
         if 'app_key' not in self.polyConfig['customParams']:
             self.addCustomParam({'app_key': default_app_key})
 
         if self.polyConfig['customParams']['app_key'] != default_app_key:
             self.app_key = self.polyConfig['customParams']['app_key']
-            st = True
+            if self.polyConfig['customParams']['api_key'] != default_api_key:
+                self.api_key = self.polyConfig['customParams']['api_key']
+            else:
+                self.addNotice(
+                    {'api_key': 'Please set proper API Key in the configuration page, and restart this NodeServer'})
+                return False
         else:
             self.addNotice(
-                {'app_key': 'Please set proper APP Key in the configuration page, and restart this NodeServer'})
-            st = False
-
-        if st:
-            return True
-        else:
+                {'app_key': 'Please set proper APP and API Key in the configuration page, and restart this NodeServer'})
             return False
 
     def remove_notices_all(self, command):
