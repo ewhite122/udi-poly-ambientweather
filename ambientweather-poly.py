@@ -570,29 +570,7 @@ class PwsNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        # {'driver': 'CLITEMP', 'value': 0, 'uom': 17},  # Outside Temperature F
-        # {'driver': 'GV1', 'value': 0, 'uom': 17},  # Inside Temperature F
-        # {'driver': 'CLIHUM', 'value': 0, 'uom': 22},  # Outside Humidity
-        # {'driver': 'GV3', 'value': 0, 'uom': 22},  # Inside Humidity
-        # {'driver': 'BARPRES', 'value': 0, 'uom': 23},  # Rel Pressure
-        # {'driver': 'ATMPRES', 'value': 0, 'uom': 23},  # Abs Pressure
-        # {'driver': 'LUMIN', 'value': 0, 'uom': 36},  # Lux
-        # {'driver': 'UV', 'value': 0, 'uom': 71},  # UV
-        # {'driver': 'SOLRAD', 'value': 0, 'uom': 74},  # Solar Radiation
-        # {'driver': 'GV9', 'value': 0, 'uom': 105},  # Hourly Rain
-        # {'driver': 'GV10', 'value': 0, 'uom': 105},  # Daily Rain
-        # {'driver': 'GV11', 'value': 0, 'uom': 105},  # Weekly Rain
-        # {'driver': 'GV12', 'value': 0, 'uom': 105},  # Monthly Rain
-        # {'driver': 'GV13', 'value': 0, 'uom': 105},  # Yearly Rain
-        # {'driver': 'GV14', 'value': 0, 'uom': 105},  # Total Rain
-        # {'driver': 'WINDDIR', 'value': 0, 'uom': 76},  # Wind Direction (degree)
-        # {'driver': 'GV16', 'value': 0, 'uom': 25},  # Wind Direction (cardinal)
-        # {'driver': 'SPEED', 'value': 0, 'uom': 48},  # Wind Speed
-        # {'driver': 'GV17', 'value': 0, 'uom': 48},  # Wind Gust
-        # {'driver': 'GV18', 'value': 0, 'uom': 48},  # Max Wind Gust Daily
-        # {'driver': 'GV19', 'value': 0, 'uom': 17},  # Feels Like Temperature
-        # {'driver': 'GV20', 'value': 0, 'uom': 17},  # Dew Point Temperature
+        {'driver': 'ST', 'value': 0, 'uom': 2}
         ]
 
     id = 'PWS_NODE'
