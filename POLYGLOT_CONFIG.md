@@ -21,4 +21,3 @@ data sensors.
 
 - Luminance / Lux is calculated from the Solar Radation Wm/2 sensor
 
-Here is what is required to run this poly.
