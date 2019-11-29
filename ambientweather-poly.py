@@ -130,7 +130,7 @@ class Controller(polyinterface.Controller):
             if 'humidityin' in pws['lastData']:
                 self.addNode((HumidityInsideNode(self, pws_address, pws_address + "hi", "Humidity - Inside")))
             if 'baromabsin' in pws['lastData'] and 'baromrelin' in pws['lastData']:
-                self.addNode((PressureNode(self, pws_address, pws_address + "inhg", "Barometric Pressure")))
+                self.addNode((PressureNode(self, pws_address, pws_address + "hg", "Barometric Pressure")))
             if 'dailyrainin' in pws['lastData']:
                 self.addNode((RainDayNode(self, pws_address, pws_address + "rd", "Rain - Day")))
             if 'monthlyrainin' in pws['lastData']:
@@ -263,10 +263,10 @@ class Controller(polyinterface.Controller):
                     naddr = pws_address + "hi"
                     self.nodes[naddr].setDriver('CLIHUM', data['humidityin'])
                 if 'baromabsin' in data:
-                    naddr = pws_address + "inhg"
+                    naddr = pws_address + "hg"
                     self.nodes[naddr].setDriver('ATMPRES', data['baromabsin'])
                 if 'baromrelin' in data:
-                    naddr = pws_address + "inhg"
+                    naddr = pws_address + "hg"
                     self.nodes[naddr].setDriver('BARPRES', data['baromrelin'])
                 if 'dailyrainin' in data:
                     naddr = pws_address + "rd"
