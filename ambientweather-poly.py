@@ -210,25 +210,8 @@ class Controller(polyinterface.Controller):
 
         def subscribed_method(data):
             """Process the data received upon subscribing."""
+            LOGGER.info('Subscription data received')
             # LOGGER.info('Subscription data received: {0}'.format(data))
-            # for k, v in data.items():
-            #     if k == 'devices':
-            #         for pws in v:
-            #             raw_mac = pws['macAddress'].split(':')
-            #             mac_type = raw_mac[0] + raw_mac[1] + raw_mac[2]
-            #             pws_address = pws['macAddress'].replace(':', '').lower()
-            #             pws_name = str(pws['info']['name'])
-            #             add_on_address = pws_address + '_1'
-            #
-            #             self.addNode(PwsNode(self, pws_address, pws_address, pws_name))
-
-                        # if mac_type == '000EC6' or mac_type == '807D3A':  # Observer IP Module used by most Ambient PWS systems
-                        #     self.addNode(PwsNode(self, self.address, pws_address, pws_name))
-                        #     self.addNode(AddonNode(self, self.address, add_on_address, pws_name + '-Addon'))
-                        # elif mac_type == 'ECFABC':  # WS-2902 Display
-                        #     self.addNode(PwsNode(self, self.address, pws_address, pws_name))
-                        # else:  # All other Ambient systems
-                        #     self.addNode(PwsNode(self, self.address, pws_address, pws_name))
 
         def data_method(data):
             # print('Data received: {0}'.format(data))
