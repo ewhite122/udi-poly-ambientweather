@@ -168,7 +168,6 @@ class Controller(polyinterface.Controller):
 
         self.disco = 1
 
-
     def delete(self):
         LOGGER.info('Ambient Weather NodeServer:  Deleted')
 
