@@ -26,7 +26,6 @@ class Controller(polyinterface.Controller):
         LOGGER.info('Started AmbientWeather')
         self.removeNoticesAll()
         if self.check_params():
-            LOGGER.info('API Key is set')
             self.removeNoticesAll()
             self.discover()
             if self.disco == 1:
@@ -34,7 +33,7 @@ class Controller(polyinterface.Controller):
                 _loop.create_task(self.AmbientWeather(self.app_key, self.api_key))
                 _loop.run_forever()
         else:
-            LOGGER.info('API Key is not set')
+            LOGGER.info('APP / API Key is not set')
 
     def shortPoll(self):
         pass
@@ -190,6 +189,7 @@ class Controller(polyinterface.Controller):
             self.app_key = self.polyConfig['customParams']['app_key']
             if self.polyConfig['customParams']['api_key'] != default_api_key:
                 self.api_key = self.polyConfig['customParams']['api_key']
+                return True
             else:
                 self.addNotice(
                     {'api_key': 'Please set proper APP and API Key in the configuration page, and restart this NodeServer'})
