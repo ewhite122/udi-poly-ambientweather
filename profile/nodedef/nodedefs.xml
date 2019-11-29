@@ -15,73 +15,6 @@
             </accepts>
         </cmds>
     </nodeDef>
-	<!-- pwsnodetype -->
-    <nodeDef id="pwsnodetype" nls="pwsnode">
-        <editors />
-        <sts>
-            <st id="ST" editor="bool" hide=True />
-            <st id="CLITEMP" editor="CLITEMP" /> <!--Outside Temp -->
-            <st id="GV1" editor="CLITEMP" /> <!--Inside Temp -->
-            <st id="CLIHUM" editor="CLIHUM" /> <!--Outside Humidity -->
-            <st id="GV3" editor="CLIHUM" /> <!--Inside Humidity -->
-            <st id="BARPRES" editor="INHG" /> <!--Rel Barometric Pressure -->
-            <st id="ATMPRES" editor="INHG" /> <!--Abs Barometric Pressure -->
-            <st id="LUMIN" editor="LUMIN" /> <!--Luminance -->
-            <st id="UV" editor="UV" /> <!--UV -->
-            <st id="SOLRAD" editor="SOLRAD" /> <!--Solar Radiation -->
-            <st id="GV9" editor="INCH" /> <!--Hourly Rain Inches -->
-            <st id="GV10" editor="INCH" /> <!--Daily Rain Inches -->
-            <st id="GV11" editor="INCH" /> <!--Weekly Rain Inches -->
-            <st id="GV12" editor="INCH" /> <!--Monthly Rain Inches -->
-            <st id="GV13" editor="INCH" /> <!--Yearly Rain Inches -->
-            <st id="GV14" editor="INCH" /> <!--Total Rain Inches -->
-            <st id="WINDDIR" editor="WINDDIR" /> <!--Wind Direction -->
-            <st id="GV16" editor="I_WIND_DIRECTION" /> <!--Wind Direction -->
-            <st id="SPEED" editor="MPH" /> <!--Wind Speed MPH -->
-            <st id="GV17" editor="MPH" /> <!--Wind Gust MPH -->
-            <st id="GV18" editor="MPH" /> <!--Wind Max Daily Gust -->
-            <st id="GV19" editor="CLITEMP" /> <!--Computed feels like temperture -->
-            <st id="GV20" editor="CLITEMP" /> <!--Computed dew point temperture -->
-        </sts>
-        <cmds>
-            <sends />
-            <accepts>
-                <!--<cmd id="DON" />
-                <cmd id="DOF" /> -->
-            </accepts>
-        </cmds>
-    </nodeDef>
-    <nodeDef id="addontype" nls="addonnode">
-        <editors />
-        <sts>
-            <st id="ST" editor="bool" hide=True />
-            <st id="GV0" editor="CLITEMP" /> <!--Sensor 1 Temperature -->
-            <st id="GV1" editor="CLITEMP" /> <!--Sensor 2 Temperature -->
-            <st id="GV2" editor="CLITEMP" /> <!--Sensor 3 Temperature -->
-            <st id="GV3" editor="CLITEMP" /> <!--Sensor 4 Temperature -->
-            <st id="GV4" editor="CLITEMP" /> <!--Sensor 5 Temperature -->
-            <st id="GV5" editor="CLITEMP" /> <!--Sensor 6 Temperature -->
-            <st id="GV6" editor="CLITEMP" /> <!--Sensor 7 Temperature -->
-            <st id="GV7" editor="CLITEMP" /> <!--sensor 8 Temperature -->
-            <st id="GV8" editor="CLIHUM" /> <!--Sensor 1 Humidity -->
-            <st id="GV9" editor="CLIHUM" /> <!--Sensor 2 Humidity -->
-            <st id="GV10" editor="CLIHUM" /> <!--Sensor 3 Humidity -->
-            <st id="GV11" editor="CLIHUM" /> <!--Sensor 4 Humidity -->
-            <st id="GV12" editor="CLIHUM" /> <!--Sensor 5 Humidity -->
-            <st id="GV13" editor="CLIHUM" /> <!--Sensor 6 Humidity -->
-            <st id="GV14" editor="CLIHUM" /> <!--Sensor 7 Humidity -->
-            <st id="GV15" editor="CLIHUM" /> <!--Sensor 8 Humidity -->
-        </sts>
-        <cmds>
-            <sends />
-            <accepts>
-                <!--<cmd id="DON" />
-                <cmd id="DOF" /> -->
-            </accepts>
-        </cmds>
-    </nodeDef>
-
-
 
     <!-- New Additions / ReOrg -->
     <nodeDef id="PWS_NODE" nls="PWS">
@@ -94,7 +27,6 @@
             <accepts />
         </cmds>
     </nodeDef>
-
 
     <nodeDef id="BATTIN_NODE" nls="BATTIN">
         <editors />

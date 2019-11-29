@@ -6,54 +6,6 @@ CMD-ctl-UPDATE_PROFILE-NAME = Update Profile
 CMD-ctl-REMOVE_NOTICES_ALL-NAME = Remove Notices
 ST-ctl-ST-NAME = NodeServer Online
 
-# pwsnodetype
-ND-pwsnodetype-NAME = Personal Weather Station
-ND-pwsnodetype-ICON = Weather
-ST-pwsnode-ST-NAME = Online
-ST-pwsnode-CLITEMP-NAME = Temperature (outside)
-ST-pwsnode-GV1-NAME = Temperature (inside)
-ST-pwsnode-CLIHUM-NAME = Humidity (outside)
-ST-pwsnode-GV3-NAME = Humidity (inside)
-ST-pwsnode-BARPRES-NAME = Rel Barometric Pressure (inside)
-ST-pwsnode-ATMPRES-NAME = Abs Barometric Pressure (inside)
-ST-pwsnode-LUMIN-NAME = Luminance
-ST-pwsnode-UV-NAME = UV
-ST-pwsnode-SOLRAD-NAME = Solar Radiation
-ST-pwsnode-GV9-NAME = Hourly Rain
-ST-pwsnode-GV10-NAME = Daily Rain
-ST-pwsnode-GV11-NAME = Weekly Rain
-ST-pwsnode-GV12-NAME = Monthly Rain
-ST-pwsnode-GV13-NAME = Yearly Rain
-ST-pwsnode-GV14-NAME = Total Rain
-ST-pwsnode-WINDDIR-NAME = Wind Direction (degree)
-ST-pwsnode-GV16-NAME = Wind Direction (cardinal)
-ST-pwsnode-SPEED-NAME = Wind Speed
-ST-pwsnode-GV17-NAME = Wind Gust
-ST-pwsnode-GV18-NAME = Wind Max Daily Gust
-ST-pwsnode-GV19-NAME = Feels Like Temperature
-ST-pwsnode-GV20-NAME = Dew Point Temperature
-
-# addonnode
-ND-addontype-NAME = Addon Sensors
-ND-addontype-ICON = Weather
-ST-addonnode-ST-NAME = Online
-ST-addonnode-GV0-NAME = Sensor 1 Temperature
-ST-addonnode-GV1-NAME = Sensor 2 Temperature
-ST-addonnode-GV2-NAME = Sensor 3 Temperature
-ST-addonnode-GV3-NAME = Sensor 4 Temperature
-ST-addonnode-GV4-NAME = Sensor 5 Temperature
-ST-addonnode-GV5-NAME = Sensor 6 Temperature
-ST-addonnode-GV6-NAME = Sensor 7 Temperature
-ST-addonnode-GV7-NAME = Sensor 8 Temperature
-ST-addonnode-GV8-NAME = Sensor 1 Humidity
-ST-addonnode-GV9-NAME = Sensor 2 Humidity
-ST-addonnode-GV10-NAME = Sensor 3 Humidity
-ST-addonnode-GV11-NAME = Sensor 4 Humidity
-ST-addonnode-GV12-NAME = Sensor 5 Humidity
-ST-addonnode-GV13-NAME = Sensor 6 Humidity
-ST-addonnode-GV14-NAME = Sensor 7 Humidity
-ST-addonnode-GV15-NAME = Sensor 8 Humidity
-
 # cardinal directions
 EN_WIND_DIRECTION-0 = N/A
 EN_WIND_DIRECTION-1 = North
