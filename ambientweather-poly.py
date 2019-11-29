@@ -178,8 +178,6 @@ class Controller(polyinterface.Controller):
         default_api_key = 'YOUR API KEY'
         default_app_key = 'YOUR APP KEY'
         st = False
-        # self.addCustomParam({'api_key': default_api_key})
-        # self.addCustomParam({'app_key': default_app_key})
 
         if 'api_key' not in self.polyConfig['customParams']:
             self.addCustomParam({'api_key': default_api_key})
