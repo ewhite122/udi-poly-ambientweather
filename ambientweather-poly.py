@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import time
 
 try:
     import polyinterface
@@ -178,11 +179,12 @@ class Controller(polyinterface.Controller):
         default_api_key = 'YOUR API KEY'
         default_app_key = 'YOUR APP KEY'
 
-        if 'api_key' not in self.polyConfig['customParams']:
-            self.addCustomParam({'api_key': default_api_key})
-
         if 'app_key' not in self.polyConfig['customParams']:
             self.addCustomParam({'app_key': default_app_key})
+            time.sleep(3)
+        if 'api_key' not in self.polyConfig['customParams']:
+            self.addCustomParam({'api_key': default_api_key})
+            time.sleep(3)
 
         if self.polyConfig['customParams']['app_key'] != default_app_key:
             self.app_key = self.polyConfig['customParams']['app_key']
@@ -190,7 +192,7 @@ class Controller(polyinterface.Controller):
                 self.api_key = self.polyConfig['customParams']['api_key']
             else:
                 self.addNotice(
-                    {'api_key': 'Please set proper API Key in the configuration page, and restart this NodeServer'})
+                    {'api_key': 'Please set proper APP and API Key in the configuration page, and restart this NodeServer'})
                 return False
         else:
             self.addNotice(
