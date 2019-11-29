@@ -4,6 +4,10 @@
 		<range uom="2" subset="0,1" />
 	</editor>
 
+	<editor id="BATLVL">
+        <range uom="2" subset="0,1" />
+    </editor>
+
 	<editor id="CLITEMP">
 		<range uom="17" min="-40" max="149" step="1" prec="1" />
 	</editor>
@@ -11,14 +15,22 @@
 	<editor id="CLIHUM">
 		<range uom="22" min="10" max="100" prec="0" />
 	</editor>
-	
-	<editor id="inhg">
+
+	<editor id="INHG">
 		<range uom="23" min="8.25" max="32.50" prec="2" />
 	</editor>
 	
 	<editor id="LUMIN">
 		<range uom="36" min="0" max="200000" prec="0" />
-	</editor>	
+	</editor>
+
+	<editor id="MOIST">
+		<range uom="22" min="0" max="100" prec="0" />
+	</editor>
+
+	<editor id="PPM">
+		<range uom="54" min="0" max="1000" prec="3" />
+	</editor>
 
 	<editor id="UV">
 		<range uom="71" min="0" max="20" prec="1" />
@@ -28,11 +40,11 @@
 		<range uom="74" min="0" max="200000" prec="1" />
 	</editor>
 	
-	<editor id="mph">
+	<editor id="MPH">
 		<range uom="48" min="0" max="100" prec="1" />
 	</editor>
 	
-	<editor id="inches">
+	<editor id="INCH">
 		<range uom="105" min="0" max="288" prec="3" />
 	</editor>
 	
