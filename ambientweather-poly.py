@@ -206,13 +206,6 @@ class Controller(polyinterface.Controller):
         else:
             return False
 
-        # else:
-        #     self.addNotice({'myNotice': 'Please set proper API Key in the configuration page, and restart this NodeServer'})
-        #     LOGGER.error('check_params: Ambient Weather user API key missing.  Using {}'.format(self.api_key))
-
-
-
-
     def remove_notices_all(self, command):
         LOGGER.info('remove_notices_all:')
         self.removeNoticesAll()
