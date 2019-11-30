@@ -95,6 +95,10 @@ class Controller(polyinterface.Controller):
     def percent_to_index(percent):
         pass
 
+    @staticmethod
+    def percent_to_moisture_level(percent):
+        pass
+
     def query(self):
         for node in self.nodes:
             self.nodes[node].reportDrivers()
