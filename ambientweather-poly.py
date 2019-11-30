@@ -149,6 +149,7 @@ class Controller(polyinterface.Controller):
                 self.addNode((SolarNode(self, pws_address, pws_address + "sol", "Solar")))
             if 'winddir' in pws['lastData']:
                 self.addNode((WindNode(self, pws_address, pws_address + "wnd", "Wind")))
+
             if 'temp1f' in pws['lastData']:
                 self.addNode((WH31Node(self, pws_address, pws_address + "as1", "Sensor 1")))
             if 'temp2f' in pws['lastData']:
@@ -165,6 +166,23 @@ class Controller(polyinterface.Controller):
                 self.addNode((WH31Node(self, pws_address, pws_address + "as7", "Sensor 7")))
             if 'temp8f' in pws['lastData']:
                 self.addNode((WH31Node(self, pws_address, pws_address + "as8", "Sensor 8")))
+
+            if 'soiltemp1' in pws['lastData']:
+                self.addNode((TX3102Node(self, pws_address, pws_address + "sm1", "Soil Moisture 1")))
+            if 'soiltemp2' in pws['lastData']:
+                self.addNode((TX3102Node(self, pws_address, pws_address + "sm2", "Soil Moisture 2")))
+            if 'soiltemp3' in pws['lastData']:
+                self.addNode((TX3102Node(self, pws_address, pws_address + "sm3", "Soil Moisture 3")))
+            if 'soiltemp4' in pws['lastData']:
+                self.addNode((TX3102Node(self, pws_address, pws_address + "sm4", "Soil Moisture 4")))
+            if 'soiltemp5' in pws['lastData']:
+                self.addNode((TX3102Node(self, pws_address, pws_address + "sm5", "Soil Moisture 5")))
+            if 'soiltemp6' in pws['lastData']:
+                self.addNode((TX3102Node(self, pws_address, pws_address + "sm6", "Soil Moisture 6")))
+            if 'soiltemp7' in pws['lastData']:
+                self.addNode((TX3102Node(self, pws_address, pws_address + "sm7", "Soil Moisture 7")))
+            if 'soiltemp8' in pws['lastData']:
+                self.addNode((TX3102Node(self, pws_address, pws_address + "as8", "Soil Moisture 8")))
 
         self.disco = 1
 
@@ -305,132 +323,259 @@ class Controller(polyinterface.Controller):
                     naddr = pws_address + "fl"
                     self.nodes[naddr].setDriver('GV2', data['maxdailygust'])
 
+                # Temperature Data
                 if 'temp1f' in data:
                     naddr = pws_address + "as1"
                     self.nodes[naddr].setDriver('CLITEMP', data['temp1f'])
-                if 'humidity1' in data:
-                    naddr = pws_address + "as1"
-                    self.nodes[naddr].setDriver('CLIHUM', data['humidity1'])
-                if 'batt1' in data:
-                    naddr = pws_address + "as1"
-                    self.nodes[naddr].setDriver('BATLVL', data['batt1'])
-                if 'feelsLike1' in data:
-                    naddr = pws_address + "as1"
-                    self.nodes[naddr].setDriver('GV0', data['feelsLike1'])
-                if 'dewPoint1' in data:
-                    naddr = pws_address + "as1"
-                    self.nodes[naddr].setDriver('GV1', data['dewPoint1'])
-
                 if 'temp2f' in data:
                     naddr = pws_address + "as2"
                     self.nodes[naddr].setDriver('CLITEMP', data['temp2f'])
-                if 'humidity2' in data:
-                    naddr = pws_address + "as2"
-                    self.nodes[naddr].setDriver('CLIHUM', data['humidity2'])
-                if 'batt2' in data:
-                    naddr = pws_address + "as2"
-                    self.nodes[naddr].setDriver('BATLVL', data['batt2'])
-                if 'feelsLike2' in data:
-                    naddr = pws_address + "as2"
-                    self.nodes[naddr].setDriver('GV0', data['feelsLike2'])
-                if 'dewPoint2' in data:
-                    naddr = pws_address + "as2"
-                    self.nodes[naddr].setDriver('GV1', data['dewPoint2'])
-
                 if 'temp3f' in data:
                     naddr = pws_address + "as3"
                     self.nodes[naddr].setDriver('CLITEMP', data['temp3f'])
-                if 'humidity3' in data:
-                    naddr = pws_address + "as3"
-                    self.nodes[naddr].setDriver('CLIHUM', data['humidity3'])
-                if 'batt3' in data:
-                    naddr = pws_address + "as3"
-                    self.nodes[naddr].setDriver('BATLVL', data['batt3'])
-                if 'feelsLike3' in data:
-                    naddr = pws_address + "as3"
-                    self.nodes[naddr].setDriver('GV0', data['feelsLike3'])
-                if 'dewPoint3' in data:
-                    naddr = pws_address + "as3"
-                    self.nodes[naddr].setDriver('GV1', data['dewPoint3'])
-
                 if 'temp4f' in data:
                     naddr = pws_address + "as4"
                     self.nodes[naddr].setDriver('CLITEMP', data['temp4f'])
-                if 'humidity4' in data:
-                    naddr = pws_address + "as4"
-                    self.nodes[naddr].setDriver('CLIHUM', data['humidity4'])
-                if 'batt4' in data:
-                    naddr = pws_address + "as4"
-                    self.nodes[naddr].setDriver('BATLVL', data['batt4'])
-                if 'feelsLike4' in data:
-                    naddr = pws_address + "as4"
-                    self.nodes[naddr].setDriver('GV0', data['feelsLike4'])
-                if 'dewPoint4' in data:
-                    naddr = pws_address + "as4"
-                    self.nodes[naddr].setDriver('GV1', data['dewPoint4'])
-
                 if 'temp5f' in data:
                     naddr = pws_address + "as5"
                     self.nodes[naddr].setDriver('CLITEMP', data['temp5f'])
-                if 'humidity5' in data:
-                    naddr = pws_address + "as5"
-                    self.nodes[naddr].setDriver('CLIHUM', data['humidity5'])
-                if 'batt5' in data:
-                    naddr = pws_address + "as5"
-                    self.nodes[naddr].setDriver('BATLVL', data['batt5'])
-                if 'feelsLike5' in data:
-                    naddr = pws_address + "as5"
-                    self.nodes[naddr].setDriver('GV0', data['feelsLike5'])
-                if 'dewPoint5' in data:
-                    naddr = pws_address + "as5"
-                    self.nodes[naddr].setDriver('GV1', data['dewPoint5'])
-
                 if 'temp6f' in data:
                     naddr = pws_address + "as6"
                     self.nodes[naddr].setDriver('CLITEMP', data['temp6f'])
-                if 'humidity6' in data:
-                    naddr = pws_address + "as6"
-                    self.nodes[naddr].setDriver('CLIHUM', data['humidity6'])
-                if 'batt6' in data:
-                    naddr = pws_address + "as6"
-                    self.nodes[naddr].setDriver('BATLVL', data['batt6'])
-                if 'feelsLike6' in data:
-                    naddr = pws_address + "as6"
-                    self.nodes[naddr].setDriver('GV0', data['feelsLike6'])
-                if 'dewPoint6' in data:
-                    naddr = pws_address + "as6"
-                    self.nodes[naddr].setDriver('GV1', data['dewPoint6'])
-
                 if 'temp7f' in data:
                     naddr = pws_address + "as7"
                     self.nodes[naddr].setDriver('CLITEMP', data['temp7f'])
-                if 'humidity7' in data:
-                    naddr = pws_address + "as7"
-                    self.nodes[naddr].setDriver('CLIHUM', data['humidity7'])
-                if 'batt7' in data:
-                    naddr = pws_address + "as7"
-                    self.nodes[naddr].setDriver('BATLVL', data['batt7'])
-                if 'feelsLike7' in data:
-                    naddr = pws_address + "as7"
-                    self.nodes[naddr].setDriver('GV0', data['feelsLike7'])
-                if 'dewPoint7' in data:
-                    naddr = pws_address + "as7"
-                    self.nodes[naddr].setDriver('GV1', data['dewPoint7'])
-
                 if 'temp8f' in data:
                     naddr = pws_address + "as8"
                     self.nodes[naddr].setDriver('CLITEMP', data['temp8f'])
+
+                # Humidity Data
+                if 'humidity1' in data:
+                    naddr = pws_address + "as1"
+                    self.nodes[naddr].setDriver('CLIHUM', data['humidity1'])
+                if 'humidity2' in data:
+                    naddr = pws_address + "as2"
+                    self.nodes[naddr].setDriver('CLIHUM', data['humidity2'])
+                if 'humidity3' in data:
+                    naddr = pws_address + "as3"
+                    self.nodes[naddr].setDriver('CLIHUM', data['humidity3'])
+                if 'humidity4' in data:
+                    naddr = pws_address + "as4"
+                    self.nodes[naddr].setDriver('CLIHUM', data['humidity4'])
+                if 'humidity5' in data:
+                    naddr = pws_address + "as5"
+                    self.nodes[naddr].setDriver('CLIHUM', data['humidity5'])
+                if 'humidity6' in data:
+                    naddr = pws_address + "as6"
+                    self.nodes[naddr].setDriver('CLIHUM', data['humidity6'])
+                if 'humidity7' in data:
+                    naddr = pws_address + "as7"
+                    self.nodes[naddr].setDriver('CLIHUM', data['humidity7'])
                 if 'humidity8' in data:
                     naddr = pws_address + "as8"
                     self.nodes[naddr].setDriver('CLIHUM', data['humidity8'])
-                if 'batt8' in data:
+
+                # Soil Temperature Data
+                if 'soiltemp1' in data:
+                    naddr = pws_address + "sm1"
+                    self.nodes[naddr].setDriver('SOILT', data['soiltemp1'])
+                if 'soiltemp2' in data:
+                    naddr = pws_address + "sm2"
+                    self.nodes[naddr].setDriver('SOILT', data['soiltemp2'])
+                if 'soiltemp3' in data:
+                    naddr = pws_address + "sm3"
+                    self.nodes[naddr].setDriver('SOILT', data['soiltemp3'])
+                if 'soiltemp4' in data:
+                    naddr = pws_address + "sm4"
+                    self.nodes[naddr].setDriver('SOILT', data['soiltemp4'])
+                if 'soiltemp5' in data:
+                    naddr = pws_address + "sm5"
+                    self.nodes[naddr].setDriver('SOILT', data['soiltemp5'])
+                if 'soiltemp6' in data:
+                    naddr = pws_address + "sm6"
+                    self.nodes[naddr].setDriver('SOILT', data['soiltemp6'])
+                if 'soiltemp7' in data:
+                    naddr = pws_address + "sm7"
+                    self.nodes[naddr].setDriver('SOILT', data['soiltemp7'])
+                if 'soiltemp8' in data:
+                    naddr = pws_address + "sm8"
+                    self.nodes[naddr].setDriver('SOILT', data['soiltemp8'])
+
+                # Soil Humidity Data
+                if 'soilhum1' in data:
+                    naddr = pws_address + "sm1"
+                    self.nodes[naddr].setDriver('MOIST', data['soilhum1'])
+                if 'soilhum2' in data:
+                    naddr = pws_address + "sm2"
+                    self.nodes[naddr].setDriver('MOIST', data['soilhum2'])
+                if 'soilhum3' in data:
+                    naddr = pws_address + "sm3"
+                    self.nodes[naddr].setDriver('MOIST', data['soilhum3'])
+                if 'soilhum4' in data:
+                    naddr = pws_address + "sm4"
+                    self.nodes[naddr].setDriver('MOIST', data['soilhum4'])
+                if 'soilhum5' in data:
+                    naddr = pws_address + "sm5"
+                    self.nodes[naddr].setDriver('MOIST', data['soilhum5'])
+                if 'soilhum6' in data:
+                    naddr = pws_address + "sm6"
+                    self.nodes[naddr].setDriver('MOIST', data['soilhum6'])
+                if 'soilhum7' in data:
+                    naddr = pws_address + "sm7"
+                    self.nodes[naddr].setDriver('MOIST', data['soilhum7'])
+                if 'soilhum8' in data:
+                    naddr = pws_address + "sm8"
+                    self.nodes[naddr].setDriver('MOIST', data['soilhum8'])
+
+                # Battery / Feels Like / Dew Point have to be handled differently as the
+                # fields are named the same regardless of being a temp WH31 or TX3102
+                if 'batt1' in data and 'temp1f' in data:
+                    naddr = pws_address + "as1"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt1'])
+                elif 'batt1' in data and 'soiltemp1' in data:
+                    naddr = pws_address + "sm1"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt1'])
+                if 'batt2' in data and 'temp2f' in data:
+                    naddr = pws_address + "as2"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt2'])
+                elif 'batt2' in data and 'soiltemp2' in data:
+                    naddr = pws_address + "sm2"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt2'])
+                if 'batt3' in data and 'temp3f' in data:
+                    naddr = pws_address + "as3"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt3'])
+                elif 'batt3' in data and 'soiltemp3' in data:
+                    naddr = pws_address + "sm3"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt3'])
+                if 'batt4' in data and 'temp4f' in data:
+                    naddr = pws_address + "as4"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt4'])
+                elif 'batt4' in data and 'soiltemp4' in data:
+                    naddr = pws_address + "sm4"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt4'])
+                if 'batt5' in data and 'temp5f' in data:
+                    naddr = pws_address + "as5"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt5'])
+                elif 'batt5' in data and 'soiltemp5' in data:
+                    naddr = pws_address + "sm5"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt5'])
+                if 'batt6' in data and 'temp6f' in data:
+                    naddr = pws_address + "as6"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt6'])
+                elif 'batt6' in data and 'soiltemp6' in data:
+                    naddr = pws_address + "sm6"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt6'])
+                if 'batt7' in data and 'temp7f' in data:
+                    naddr = pws_address + "as7"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt7'])
+                elif 'batt7' in data and 'soiltemp7' in data:
+                    naddr = pws_address + "sm7"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt7'])
+                if 'batt8' in data and 'temp8f' in data:
                     naddr = pws_address + "as8"
                     self.nodes[naddr].setDriver('BATLVL', data['batt8'])
-                if 'feelsLike8' in data:
+                elif 'batt8' in data and 'soiltemp8' in data:
+                    naddr = pws_address + "sm8"
+                    self.nodes[naddr].setDriver('BATLVL', data['batt8'])
+
+                # Feels Like Data
+                if 'feelsLike1' in data and 'temp1f' in data:
+                    naddr = pws_address + "as1"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike1'])
+                elif 'feelsLike1' in data and 'soiltemp1' in data:
+                    naddr = pws_address + "sm1"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike1'])
+                if 'feelsLike2' in data and 'temp2f' in data:
+                    naddr = pws_address + "as2"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike2'])
+                elif 'feelsLike2' in data and 'soiltemp2' in data:
+                    naddr = pws_address + "sm2"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike2'])
+                if 'feelsLike3' in data and 'temp3f' in data:
+                    naddr = pws_address + "as3"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike3'])
+                elif 'feelsLike3' in data and 'soiltemp3' in data:
+                    naddr = pws_address + "sm3"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike3'])
+                if 'feelsLike4' in data and 'temp4f' in data:
+                    naddr = pws_address + "as4"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike4'])
+                elif 'feelsLike4' in data and 'soiltemp4' in data:
+                    naddr = pws_address + "sm4"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike4'])
+                if 'feelsLike5' in data and 'temp5f' in data:
+                    naddr = pws_address + "as5"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike5'])
+                elif 'feelsLike5' in data and 'soiltemp5' in data:
+                    naddr = pws_address + "sm5"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike5'])
+                if 'feelsLike6' in data and 'temp6f' in data:
+                    naddr = pws_address + "as6"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike6'])
+                elif 'feelsLike6' in data and 'soiltemp6' in data:
+                    naddr = pws_address + "sm6"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike6'])
+                if 'feelsLike7' in data and 'temp7f' in data:
+                    naddr = pws_address + "as7"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike7'])
+                elif 'feelsLike7' in data and 'soiltemp7' in data:
+                    naddr = pws_address + "sm7"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike7'])
+                if 'feelsLike8' in data and 'temp8f' in data:
                     naddr = pws_address + "as8"
                     self.nodes[naddr].setDriver('GV0', data['feelsLike8'])
-                if 'dewPoint8' in data:
+                elif 'feelsLike8' in data and 'soiltemp8' in data:
+                    naddr = pws_address + "sm8"
+                    self.nodes[naddr].setDriver('GV0', data['feelsLike8'])
+
+                # Dew Point Data
+                if 'dewPoint1' in data and 'temp1f' in data:
+                    naddr = pws_address + "as1"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint1'])
+                elif 'dewPoint1' in data and 'temp1f' in data:
+                    naddr = pws_address + "sm1"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint1'])
+                    if 'dewPoint2' in data and 'temp2f' in data:
+                        naddr = pws_address + "as2"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint2'])
+                elif 'dewPoint2' in data and 'temp2f' in data:
+                    naddr = pws_address + "sm2"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint2'])
+                if 'dewPoint3' in data and 'temp3f' in data:
+                    naddr = pws_address + "as3"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint3'])
+                elif 'dewPoint3' in data and 'temp3f' in data:
+                    naddr = pws_address + "sm3"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint3'])
+                if 'dewPoint4' in data and 'temp4f' in data:
+                    naddr = pws_address + "as4"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint4'])
+                elif 'dewPoint4' in data and 'temp4f' in data:
+                    naddr = pws_address + "sm4"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint4'])
+                if 'dewPoint5' in data and 'temp5f' in data:
+                    naddr = pws_address + "as5"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint5'])
+                elif 'dewPoint5' in data and 'temp5f' in data:
+                    naddr = pws_address + "sm5"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint5'])
+                if 'dewPoint6' in data and 'temp6f' in data:
+                    naddr = pws_address + "as6"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint6'])
+                elif 'dewPoint6' in data and 'temp6f' in data:
+                    naddr = pws_address + "sm6"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint6'])
+                if 'dewPoint7' in data and 'temp7f' in data:
+                    naddr = pws_address + "as7"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint7'])
+                elif 'dewPoint7' in data and 'temp7f' in data:
+                    naddr = pws_address + "sm7"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint7'])
+                if 'dewPoint8' in data and 'temp8f' in data:
                     naddr = pws_address + "as8"
+                    self.nodes[naddr].setDriver('GV1', data['dewPoint8'])
+                elif 'dewPoint8' in data and 'temp8f' in data:
+                    naddr = pws_address + "sm8"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint8'])
 
         def disconnect_method():
@@ -1032,6 +1177,7 @@ class WindNode(polyinterface.Node):
                 }
 
 
+# Add On Temp / Humidity Sensor
 class WH31Node(polyinterface.Node):
     def __init__(self, controller, primary, address, name):
         super(WH31Node, self).__init__(controller, primary, address, name)
@@ -1058,6 +1204,37 @@ class WH31Node(polyinterface.Node):
         ]
 
     id = 'WH31_NODE'
+    commands = {
+                    # 'DON': setOn, 'DOF': setOff
+                }
+
+# Soil Moisture Sensor
+class TX3102Node(polyinterface.Node):
+    def __init__(self, controller, primary, address, name):
+        super(TX3102Node, self).__init__(controller, primary, address, name)
+
+    def start(self):
+        self.setDriver('ST', 1)
+
+    def setOn(self, command):
+        self.setDriver('ST', 1)
+
+    def setOff(self, command):
+        self.setDriver('ST', 0)
+
+    def query(self):
+        self.reportDrivers()
+
+    drivers = [
+        {'driver': 'ST', 'value': 0, 'uom': 2},
+        {'driver': 'SOILT', 'value': 0, 'uom': 17},  # Soil Temperature
+        {'driver': 'MOIST', 'value': 0, 'uom': 22},  # Soil Moisture
+        {'driver': 'BATLVL', 'value': 0, 'uom': 2},  # Battery
+        {'driver': 'GV0', 'value': 0, 'uom': 17},  # Feels Like
+        {'driver': 'GV1', 'value': 0, 'uom': 17},  # Dew Point
+        ]
+
+    id = 'TX3102_NODE'
     commands = {
                     # 'DON': setOn, 'DOF': setOff
                 }

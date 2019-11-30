@@ -293,6 +293,22 @@
         </cmds>
     </nodeDef>
 
+    <nodeDef id="TX3102_NODE" nls="TX3102">
+        <editors />
+        <sts>
+            <st id="ST" editor="bool" hide="T" />
+            <st id="SOILT" editor="SOILT" /> <!--Sensor Temperature -->
+            <st id="MOIST" editor="MOIST" /> <!--Sensor Humidity -->
+            <st id="BATLVL" editor="BATLVL" /> <!--Sensor Battery Level -->
+            <st id="GV0" editor="CLITEMP" /> <!--Sensor Feels Like -->
+            <st id="GV1" editor="CLITEMP" /> <!--Sensor Dew Point -->
+        </sts>
+        <cmds>
+            <sends />
+            <accepts />
+        </cmds>
+    </nodeDef>
+
 
 
 

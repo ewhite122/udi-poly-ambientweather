@@ -93,6 +93,8 @@ ND-WIND_NODE-ICON = Input
 ND-WH31_NODE-NAME = WH31 Sensor
 ND-WH31_NODE-ICON = Input
 
+ND-TX3102_NODE-NAME = TX3102 Sensor
+ND-TX3102_NODE-ICON = Input
 
 ST-WIND-GV0-NAME = Wind Direction (cardinal)
 ST-WIND-GV1-NAME = Wind Gust
@@ -100,3 +102,7 @@ ST-WIND-GV2-NAME = Wind Max Daily Gust
 
 ST-WH31-GV0-NAME = Feels Like
 ST-WH31-GV1-NAME = Dew Point
+
+ST-TX3102-SOILT-NAME = Soil Temperature
+ST-TX3102-GV0-NAME = Feels Like
+ST-TX3102-GV1-NAME = Dew Point

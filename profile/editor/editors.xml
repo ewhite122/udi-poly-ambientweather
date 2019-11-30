@@ -24,6 +24,10 @@
 		<range uom="36" min="0" max="200000" prec="0" />
 	</editor>
 
+	<editor id="SOILT">
+		<range uom="17" min="-40" max="149" step="1" prec="1" />
+	</editor>
+
 	<editor id="MOIST">
 		<range uom="22" min="0" max="100" prec="0" />
 	</editor>
