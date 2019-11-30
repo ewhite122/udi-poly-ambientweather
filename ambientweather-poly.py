@@ -91,6 +91,10 @@ class Controller(polyinterface.Controller):
         else:
             return 0
 
+    @staticmethod
+    def percent_to_index(percent):
+        pass
+
     def query(self):
         for node in self.nodes:
             self.nodes[node].reportDrivers()
