@@ -540,49 +540,49 @@ class Controller(polyinterface.Controller):
                 if 'dewPoint1' in data and 'temp1f' in data:
                     naddr = pws_address + "as1"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint1'])
-                elif 'dewPoint1' in data and 'temp1f' in data:
+                elif 'dewPoint1' in data and 'soiltemp1' in data:
                     naddr = pws_address + "sm1"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint1'])
-                    if 'dewPoint2' in data and 'temp2f' in data:
-                        naddr = pws_address + "as2"
+                if 'dewPoint2' in data and 'temp2f' in data:
+                    naddr = pws_address + "as2"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint2'])
-                elif 'dewPoint2' in data and 'temp2f' in data:
+                elif 'dewPoint2' in data and 'soiltemp2' in data:
                     naddr = pws_address + "sm2"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint2'])
                 if 'dewPoint3' in data and 'temp3f' in data:
                     naddr = pws_address + "as3"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint3'])
-                elif 'dewPoint3' in data and 'temp3f' in data:
+                elif 'dewPoint3' in data and 'soiltemp3' in data:
                     naddr = pws_address + "sm3"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint3'])
                 if 'dewPoint4' in data and 'temp4f' in data:
                     naddr = pws_address + "as4"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint4'])
-                elif 'dewPoint4' in data and 'temp4f' in data:
+                elif 'dewPoint4' in data and 'soiltemp4' in data:
                     naddr = pws_address + "sm4"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint4'])
                 if 'dewPoint5' in data and 'temp5f' in data:
                     naddr = pws_address + "as5"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint5'])
-                elif 'dewPoint5' in data and 'temp5f' in data:
+                elif 'dewPoint5' in data and 'soiltemp5' in data:
                     naddr = pws_address + "sm5"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint5'])
                 if 'dewPoint6' in data and 'temp6f' in data:
                     naddr = pws_address + "as6"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint6'])
-                elif 'dewPoint6' in data and 'temp6f' in data:
+                elif 'dewPoint6' in data and 'soiltemp6' in data:
                     naddr = pws_address + "sm6"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint6'])
                 if 'dewPoint7' in data and 'temp7f' in data:
                     naddr = pws_address + "as7"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint7'])
-                elif 'dewPoint7' in data and 'temp7f' in data:
+                elif 'dewPoint7' in data and 'soiltemp7' in data:
                     naddr = pws_address + "sm7"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint7'])
                 if 'dewPoint8' in data and 'temp8f' in data:
                     naddr = pws_address + "as8"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint8'])
-                elif 'dewPoint8' in data and 'temp8f' in data:
+                elif 'dewPoint8' in data and 'soiltemp8' in data:
                     naddr = pws_address + "sm8"
                     self.nodes[naddr].setDriver('GV1', data['dewPoint8'])
 
