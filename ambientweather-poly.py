@@ -259,60 +259,60 @@ class Controller(polyinterface.Controller):
                     self.nodes[naddr].setDriver('BATLVL', data['battout'])
                 if 'tempf' in data:
                     naddr = pws_address + "to"
-                    self.nodes[naddr].setDriver('CLITEMP', data['tempf'])
+                    self.nodes[naddr].setDriver('ST', data['tempf'])
                 if 'tempinf' in data:
                     naddr = pws_address + "ti"
-                    self.nodes[naddr].setDriver('CLITEMP', data['tempinf'])
+                    self.nodes[naddr].setDriver('ST', data['tempinf'])
                 if 'feelsLike' in data:
                     naddr = pws_address + "fl"
-                    self.nodes[naddr].setDriver('CLITEMP', data['feelsLike'])
+                    self.nodes[naddr].setDriver('ST', data['feelsLike'])
                 if 'feelsLikein' in data:
                     naddr = pws_address + "fli"
-                    self.nodes[naddr].setDriver('CLITEMP', data['feelsLikein'])
+                    self.nodes[naddr].setDriver('ST', data['feelsLikein'])
                 if 'dewPoint' in data:
                     naddr = pws_address + "dp"
-                    self.nodes[naddr].setDriver('CLITEMP', data['dewPoint'])
+                    self.nodes[naddr].setDriver('ST', data['dewPoint'])
                 if 'dewPointin' in data:
                     naddr = pws_address + "dpi"
-                    self.nodes[naddr].setDriver('CLITEMP', data['dewPointin'])
+                    self.nodes[naddr].setDriver('ST', data['dewPointin'])
                 if 'humidity' in data:
                     naddr = pws_address + "ho"
-                    self.nodes[naddr].setDriver('CLIHUM', data['humidity'])
+                    self.nodes[naddr].setDriver('ST', data['humidity'])
                 if 'humidityin' in data:
                     naddr = pws_address + "hi"
-                    self.nodes[naddr].setDriver('CLIHUM', data['humidityin'])
+                    self.nodes[naddr].setDriver('ST', data['humidityin'])
                 if 'baromabsin' in data:
                     naddr = pws_address + "hg"
                     self.nodes[naddr].setDriver('ATMPRES', data['baromabsin'])
                 if 'baromrelin' in data:
                     naddr = pws_address + "hg"
-                    self.nodes[naddr].setDriver('BARPRES', data['baromrelin'])
+                    self.nodes[naddr].setDriver('ST', data['baromrelin'])
                 if 'dailyrainin' in data:
                     naddr = pws_address + "rd"
-                    self.nodes[naddr].setDriver('WVOL', data['dailyrainin'])
+                    self.nodes[naddr].setDriver('ST', data['dailyrainin'])
                 if 'monthlyrainin' in data:
                     naddr = pws_address + "rm"
-                    self.nodes[naddr].setDriver('WVOL', data['monthlyrainin'])
+                    self.nodes[naddr].setDriver('ST', data['monthlyrainin'])
                 if 'weeklyrainin' in data:
                     naddr = pws_address + "rw"
-                    self.nodes[naddr].setDriver('WVOL', data['weeklyrainin'])
+                    self.nodes[naddr].setDriver('ST', data['weeklyrainin'])
                 if 'totalrainin' in data:
                     naddr = pws_address + "rt"
-                    self.nodes[naddr].setDriver('WVOL', data['totalrainin'])
+                    self.nodes[naddr].setDriver('ST', data['totalrainin'])
                 if 'yearlyrainin' in data:
                     naddr = pws_address + "ry"
-                    self.nodes[naddr].setDriver('WVOL', data['yearlyrainin'])
+                    self.nodes[naddr].setDriver('ST', data['yearlyrainin'])
                 if 'eventrainin' in data:
                     naddr = pws_address + "re"
-                    self.nodes[naddr].setDriver('WVOL', data['eventrainin'])
+                    self.nodes[naddr].setDriver('ST', data['eventrainin'])
                 if 'hourlyrainin' in data:
                     naddr = pws_address + "rh"
-                    self.nodes[naddr].setDriver('WVOL', data['hourlyrainin'])
+                    self.nodes[naddr].setDriver('ST', data['hourlyrainin'])
                 if 'solarradiation' in data:
                     naddr = pws_address + "sol"
                     lux = self.lux_convert(data['solarradiation'])
                     self.nodes[naddr].setDriver('SOLRAD', data['solarradiation'])
-                    self.nodes[naddr].setDriver('LUMIN', lux)
+                    self.nodes[naddr].setDriver('ST', lux)
                 if 'uv' in data:
                     naddr = pws_address + "sol"
                     self.nodes[naddr].setDriver('UV', data['uv'])
@@ -323,7 +323,7 @@ class Controller(polyinterface.Controller):
                     self.nodes[naddr].setDriver('GV0', cardinal)
                 if 'windspeedmph' in data:
                     naddr = pws_address + "wnd"
-                    self.nodes[naddr].setDriver('SPEED', data['windspeedmph'])
+                    self.nodes[naddr].setDriver('ST', data['windspeedmph'])
                 if 'windgustmph' in data:
                     naddr = pws_address + "wnd"
                     self.nodes[naddr].setDriver('GV1', data['windgustmph'])
@@ -334,28 +334,28 @@ class Controller(polyinterface.Controller):
                 # Temperature Data
                 if 'temp1f' in data:
                     naddr = pws_address + "as1"
-                    self.nodes[naddr].setDriver('CLITEMP', data['temp1f'])
+                    self.nodes[naddr].setDriver('ST', data['temp1f'])
                 if 'temp2f' in data:
                     naddr = pws_address + "as2"
-                    self.nodes[naddr].setDriver('CLITEMP', data['temp2f'])
+                    self.nodes[naddr].setDriver('ST', data['temp2f'])
                 if 'temp3f' in data:
                     naddr = pws_address + "as3"
-                    self.nodes[naddr].setDriver('CLITEMP', data['temp3f'])
+                    self.nodes[naddr].setDriver('ST', data['temp3f'])
                 if 'temp4f' in data:
                     naddr = pws_address + "as4"
-                    self.nodes[naddr].setDriver('CLITEMP', data['temp4f'])
+                    self.nodes[naddr].setDriver('ST', data['temp4f'])
                 if 'temp5f' in data:
                     naddr = pws_address + "as5"
-                    self.nodes[naddr].setDriver('CLITEMP', data['temp5f'])
+                    self.nodes[naddr].setDriver('ST', data['temp5f'])
                 if 'temp6f' in data:
                     naddr = pws_address + "as6"
-                    self.nodes[naddr].setDriver('CLITEMP', data['temp6f'])
+                    self.nodes[naddr].setDriver('ST', data['temp6f'])
                 if 'temp7f' in data:
                     naddr = pws_address + "as7"
-                    self.nodes[naddr].setDriver('CLITEMP', data['temp7f'])
+                    self.nodes[naddr].setDriver('ST', data['temp7f'])
                 if 'temp8f' in data:
                     naddr = pws_address + "as8"
-                    self.nodes[naddr].setDriver('CLITEMP', data['temp8f'])
+                    self.nodes[naddr].setDriver('ST', data['temp8f'])
 
                 # Humidity Data
                 if 'humidity1' in data:
@@ -412,28 +412,28 @@ class Controller(polyinterface.Controller):
                 # Soil Humidity Data
                 if 'soilhum1' in data:
                     naddr = pws_address + "sm1"
-                    self.nodes[naddr].setDriver('MOIST', data['soilhum1'])
+                    self.nodes[naddr].setDriver('ST', data['soilhum1'])
                 if 'soilhum2' in data:
                     naddr = pws_address + "sm2"
-                    self.nodes[naddr].setDriver('MOIST', data['soilhum2'])
+                    self.nodes[naddr].setDriver('ST', data['soilhum2'])
                 if 'soilhum3' in data:
                     naddr = pws_address + "sm3"
-                    self.nodes[naddr].setDriver('MOIST', data['soilhum3'])
+                    self.nodes[naddr].setDriver('ST', data['soilhum3'])
                 if 'soilhum4' in data:
                     naddr = pws_address + "sm4"
-                    self.nodes[naddr].setDriver('MOIST', data['soilhum4'])
+                    self.nodes[naddr].setDriver('ST', data['soilhum4'])
                 if 'soilhum5' in data:
                     naddr = pws_address + "sm5"
-                    self.nodes[naddr].setDriver('MOIST', data['soilhum5'])
+                    self.nodes[naddr].setDriver('ST', data['soilhum5'])
                 if 'soilhum6' in data:
                     naddr = pws_address + "sm6"
-                    self.nodes[naddr].setDriver('MOIST', data['soilhum6'])
+                    self.nodes[naddr].setDriver('ST', data['soilhum6'])
                 if 'soilhum7' in data:
                     naddr = pws_address + "sm7"
-                    self.nodes[naddr].setDriver('MOIST', data['soilhum7'])
+                    self.nodes[naddr].setDriver('ST', data['soilhum7'])
                 if 'soilhum8' in data:
                     naddr = pws_address + "sm8"
-                    self.nodes[naddr].setDriver('MOIST', data['soilhum8'])
+                    self.nodes[naddr].setDriver('ST', data['soilhum8'])
 
                 # Battery / Feels Like / Dew Point have to be handled differently as the
                 # fields are named the same regardless of being a temp WH31 or TX3102
@@ -709,8 +709,8 @@ class TempOutsideNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'CLITEMP', 'value': 0, 'uom': 17},
+        {'driver': 'ST', 'value': 0, 'uom': 17},
+        # {'driver': 'CLITEMP', 'value': 0, 'uom': 17},
         ]
 
     id = 'TEMPF_NODE'
@@ -736,8 +736,8 @@ class TempInsideNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'CLITEMP', 'value': 0, 'uom': 17},
+        {'driver': 'ST', 'value': 0, 'uom': 17},
+        # {'driver': 'CLITEMP', 'value': 0, 'uom': 17},
         ]
 
     id = 'TEMPINF_NODE'
@@ -763,8 +763,8 @@ class FeelsLikeOutsideNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'CLITEMP', 'value': 0, 'uom': 17},
+        {'driver': 'ST', 'value': 0, 'uom': 17},
+        # {'driver': 'CLITEMP', 'value': 0, 'uom': 17},
         ]
 
     id = 'FEELSLIKE_NODE'
@@ -790,8 +790,8 @@ class FeelsLikeInsideNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'CLITEMP', 'value': 0, 'uom': 17},
+        {'driver': 'ST', 'value': 0, 'uom': 17},
+        # {'driver': 'CLITEMP', 'value': 0, 'uom': 17},
         ]
 
     id = 'FEELSLIKEIN_NODE'
@@ -817,8 +817,8 @@ class DewPointOutsideNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'CLITEMP', 'value': 0, 'uom': 17},
+        {'driver': 'ST', 'value': 0, 'uom': 17},
+        # {'driver': 'CLITEMP', 'value': 0, 'uom': 17},
         ]
 
     id = 'DEWPOINT_NODE'
@@ -844,8 +844,8 @@ class DewPointInsideNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'CLITEMP', 'value': 0, 'uom': 17},
+        {'driver': 'ST', 'value': 0, 'uom': 17},
+        # {'driver': 'CLITEMP', 'value': 0, 'uom': 17},
         ]
 
     id = 'DEWPOINTIN_NODE'
@@ -871,8 +871,8 @@ class HumidityOutsideNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'CLIHUM', 'value': 0, 'uom': 22},
+        {'driver': 'ST', 'value': 0, 'uom': 22},
+        # {'driver': 'CLIHUM', 'value': 0, 'uom': 22},
         ]
 
     id = 'HUMIDITY_NODE'
@@ -898,8 +898,8 @@ class HumidityInsideNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'CLIHUM', 'value': 0, 'uom': 22},
+        {'driver': 'ST', 'value': 0, 'uom': 22},
+        # {'driver': 'CLIHUM', 'value': 0, 'uom': 22},
         ]
 
     id = 'HUMIDITYIN_NODE'
@@ -925,8 +925,9 @@ class PressureNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'BARPRES', 'value': 0, 'uom': 23},
+        # {'driver': 'ST', 'value': 0, 'uom': 2},
+        # {'driver': 'BARPRES', 'value': 0, 'uom': 23},
+        {'driver': 'ST', 'value': 0, 'uom': 23},
         {'driver': 'ATMPRES', 'value': 0, 'uom': 23}
         ]
 
@@ -953,8 +954,8 @@ class RainHourNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'WVOL', 'value': 0, 'uom': 105},
+        {'driver': 'ST', 'value': 0, 'uom': 105},
+        # {'driver': 'WVOL', 'value': 0, 'uom': 105},
         ]
 
     id = 'RAINHOUR_NODE'
@@ -980,8 +981,8 @@ class RainDayNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'WVOL', 'value': 0, 'uom': 105},
+        {'driver': 'ST', 'value': 0, 'uom': 105},
+        # {'driver': 'WVOL', 'value': 0, 'uom': 105},
         ]
 
     id = 'RAINDAY_NODE'
@@ -1007,8 +1008,8 @@ class RainWeekNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'WVOL', 'value': 0, 'uom': 105},
+        {'driver': 'ST', 'value': 0, 'uom': 105},
+        # {'driver': 'WVOL', 'value': 0, 'uom': 105},
         ]
 
     id = 'RAINWEEK_NODE'
@@ -1034,8 +1035,8 @@ class RainMonthNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'WVOL', 'value': 0, 'uom': 105},
+        {'driver': 'ST', 'value': 0, 'uom': 105},
+        # {'driver': 'WVOL', 'value': 0, 'uom': 105},
         ]
 
     id = 'RAINMONTH_NODE'
@@ -1061,8 +1062,8 @@ class RainYearNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'WVOL', 'value': 0, 'uom': 105},
+        {'driver': 'ST', 'value': 0, 'uom': 105},
+        # {'driver': 'WVOL', 'value': 0, 'uom': 105},
         ]
 
     id = 'RAINYEAR_NODE'
@@ -1088,8 +1089,8 @@ class RainTotalNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'WVOL', 'value': 0, 'uom': 105},
+        {'driver': 'ST', 'value': 0, 'uom': 105},
+        # {'driver': 'WVOL', 'value': 0, 'uom': 105},
         ]
 
     id = 'RAINTOTAL_NODE'
@@ -1115,8 +1116,8 @@ class RainEventNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'WVOL', 'value': 0, 'uom': 105},
+        {'driver': 'ST', 'value': 0, 'uom': 105},
+        # {'driver': 'WVOL', 'value': 0, 'uom': 105},
         ]
 
     id = 'RAINEVENT_NODE'
@@ -1142,10 +1143,10 @@ class SolarNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
+        # {'driver': 'ST', 'value': 0, 'uom': 2},
         {'driver': 'SOLRAD', 'value': 0, 'uom': 74},
         {'driver': 'UV', 'value': 0, 'uom': 71},
-        {'driver': 'LUMIN', 'value': 0, 'uom': 36}
+        {'driver': 'ST', 'value': 0, 'uom': 36}
         ]
 
     id = 'SOLAR_NODE'
@@ -1171,10 +1172,10 @@ class WindNode(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
+        # {'driver': 'ST', 'value': 0, 'uom': 2},
         {'driver': 'WINDDIR', 'value': 0, 'uom': 76},  # Wind Direction (degree)
         {'driver': 'GV0', 'value': 0, 'uom': 25},  # Wind Direction (cardinal)
-        {'driver': 'SPEED', 'value': 0, 'uom': 48},  # Wind Speed
+        {'driver': 'ST', 'value': 0, 'uom': 48},  # Wind Speed
         {'driver': 'GV1', 'value': 0, 'uom': 48},  # Wind Gust
         {'driver': 'GV2', 'value': 0, 'uom': 48},  # Max Wind Gust Daily
         ]
@@ -1203,8 +1204,8 @@ class WH31Node(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
-        {'driver': 'CLITEMP', 'value': 0, 'uom': 17},  # Temperature
+        # {'driver': 'ST', 'value': 0, 'uom': 2},
+        {'driver': 'ST', 'value': 0, 'uom': 17},  # Temperature
         {'driver': 'CLIHUM', 'value': 0, 'uom': 22},  # Humidity
         {'driver': 'BATLVL', 'value': 0, 'uom': 2},  # Battery
         {'driver': 'GV0', 'value': 0, 'uom': 17},  # Feels Like
@@ -1234,9 +1235,9 @@ class TX3102Node(polyinterface.Node):
         self.reportDrivers()
 
     drivers = [
-        {'driver': 'ST', 'value': 0, 'uom': 2},
+        # {'driver': 'ST', 'value': 0, 'uom': 2},
         {'driver': 'SOILT', 'value': 0, 'uom': 17},  # Soil Temperature
-        {'driver': 'MOIST', 'value': 0, 'uom': 22},  # Soil Moisture
+        {'driver': 'ST', 'value': 0, 'uom': 22},  # Soil Moisture
         {'driver': 'BATLVL', 'value': 0, 'uom': 2},  # Battery
         {'driver': 'GV0', 'value': 0, 'uom': 17},  # Feels Like
         {'driver': 'GV1', 'value': 0, 'uom': 17},  # Dew Point
