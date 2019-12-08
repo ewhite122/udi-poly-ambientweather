@@ -70,7 +70,7 @@ ST-HUMIDITY-ST-NAME = Humidity
 
 ND-PRESSURE_NODE-NAME = Barometric Pressure
 ND-PRESSURE_NODE-ICON = Input
-ST-PRESSURE-ST-Name = Barometric Pressure
+ST-PRESSURE-ST-NAME = Barometric Pressure
 
 ND-RAINHOUR_NODE-NAME = Rain Hour
 ND-RAINHOUR_NODE-ICON = Input
