@@ -10,6 +10,7 @@ import asyncio
 import requests
 from aiohttp import ClientSession
 from aioambient import Client
+from aioambient.errors import WebsocketError
 
 LOGGER = polyinterface.LOGGER
 
@@ -29,6 +30,7 @@ class Controller(polyinterface.Controller):
             self.removeNoticesAll()
             self.discover()
             if self.disco == 1:
+                time.sleep(5)
                 _loop = asyncio.new_event_loop()
                 _loop.create_task(self.AmbientWeather(self.app_key, self.api_key))
                 _loop.run_forever()
@@ -598,7 +600,11 @@ class Controller(polyinterface.Controller):
         client.websocket.on_data(data_method)
         client.websocket.on_disconnect(disconnect_method)
 
-        await client.websocket.connect()
+        try:
+            await client.websocket.connect()
+        except WebsocketError as e:
+            LOGGER.error("Websocket Error: %s", e)
+            return
 
         # At any point, disconnect from the websocket:
         # await client.websocket.disconnect()
