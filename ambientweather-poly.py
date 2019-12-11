@@ -10,6 +10,7 @@ import asyncio
 import requests
 from aiohttp import ClientSession
 from aioambient import Client
+from aioambient.errors import WebsocketError
 
 LOGGER = polyinterface.LOGGER
 
@@ -29,6 +30,7 @@ class Controller(polyinterface.Controller):
             self.removeNoticesAll()
             self.discover()
             if self.disco == 1:
+                time.sleep(5)
                 _loop = asyncio.new_event_loop()
                 _loop.create_task(self.AmbientWeather(self.app_key, self.api_key))
                 _loop.run_forever()
@@ -36,7 +38,8 @@ class Controller(polyinterface.Controller):
             LOGGER.info('APP / API Key is not set')
 
     def shortPoll(self):
-        pass
+        LOGGER.info("Short Poll:  Ambient Weather Updating")
+        self.ambient_weather_update()
 
     def longPoll(self):
         pass
@@ -117,7 +120,6 @@ class Controller(polyinterface.Controller):
             self.addNode(PwsNode(self, pws_address, pws_address, pws_name))
 
             if 'battin' in pws['lastData']:
-                LOGGER.info(pws_name + "Has a Indoor Battery: battin: " + str(pws['lastData']['battin']))
                 self.addNode((BatteryInsideNode(self, pws_address, pws_address + "bi", "Battery - Inside")))
             if 'battout' in pws['lastData']:
                 self.addNode((BatteryOutsideNode(self, pws_address, pws_address + "bo", "Battery - Outside")))
@@ -193,6 +195,358 @@ class Controller(polyinterface.Controller):
                 self.addNode((TX3102Node(self, pws_address, pws_address + "as8", "Soil Moisture 8")))
 
         self.disco = 1
+
+    def ambient_weather_update(self):
+        api_url = 'https://api.ambientweather.net/v1/devices?applicationKey=' + self.app_key + '&apiKey=' + self.api_key
+        r = requests.get(api_url)
+        data = r.json()
+
+        for pws in data:
+            LOGGER.info(pws['macAddress'])
+            LOGGER.info(pws['info']['name'])
+            pws_address = pws['macAddress'].replace(':', '').replace('0', '').lower()
+            pws_name = str(pws['info']['name'])
+            last_data = pws['lastData']
+            print(pws_name)
+            print(last_data)
+
+            if pws_address in self.nodes:
+                if 'battin' in last_data:
+                    naddr = pws_address + "bi"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['battin'])
+                if 'battout' in last_data:
+                    naddr = pws_address + "bo"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['battout'])
+                if 'tempf' in last_data:
+                    naddr = pws_address + "to"
+                    self.nodes[naddr].setDriver('ST', last_data['tempf'])
+                if 'tempinf' in last_data:
+                    naddr = pws_address + "ti"
+                    self.nodes[naddr].setDriver('ST', last_data['tempinf'])
+                if 'feelsLike' in last_data:
+                    naddr = pws_address + "fl"
+                    self.nodes[naddr].setDriver('ST', last_data['feelsLike'])
+                if 'feelsLikein' in last_data:
+                    naddr = pws_address + "fli"
+                    self.nodes[naddr].setDriver('ST', last_data['feelsLikein'])
+                if 'dewPoint' in last_data:
+                    naddr = pws_address + "dp"
+                    self.nodes[naddr].setDriver('ST', last_data['dewPoint'])
+                if 'dewPointin' in last_data:
+                    naddr = pws_address + "dpi"
+                    self.nodes[naddr].setDriver('ST', last_data['dewPointin'])
+                if 'humidity' in last_data:
+                    naddr = pws_address + "ho"
+                    self.nodes[naddr].setDriver('ST', last_data['humidity'])
+                if 'humidityin' in last_data:
+                    naddr = pws_address + "hi"
+                    self.nodes[naddr].setDriver('ST', last_data['humidityin'])
+                if 'baromabsin' in last_data:
+                    naddr = pws_address + "hg"
+                    self.nodes[naddr].setDriver('ATMPRES', last_data['baromabsin'])
+                if 'baromrelin' in last_data:
+                    naddr = pws_address + "hg"
+                    self.nodes[naddr].setDriver('ST', last_data['baromrelin'])
+                if 'dailyrainin' in last_data:
+                    naddr = pws_address + "rd"
+                    self.nodes[naddr].setDriver('ST', last_data['dailyrainin'])
+                if 'monthlyrainin' in last_data:
+                    naddr = pws_address + "rm"
+                    self.nodes[naddr].setDriver('ST', last_data['monthlyrainin'])
+                if 'weeklyrainin' in last_data:
+                    naddr = pws_address + "rw"
+                    self.nodes[naddr].setDriver('ST', last_data['weeklyrainin'])
+                if 'totalrainin' in last_data:
+                    naddr = pws_address + "rt"
+                    self.nodes[naddr].setDriver('ST', last_data['totalrainin'])
+                if 'yearlyrainin' in last_data:
+                    naddr = pws_address + "ry"
+                    self.nodes[naddr].setDriver('ST', last_data['yearlyrainin'])
+                if 'eventrainin' in last_data:
+                    naddr = pws_address + "re"
+                    self.nodes[naddr].setDriver('ST', last_data['eventrainin'])
+                if 'hourlyrainin' in last_data:
+                    naddr = pws_address + "rh"
+                    self.nodes[naddr].setDriver('ST', last_data['hourlyrainin'])
+                if 'solarradiation' in last_data:
+                    naddr = pws_address + "sol"
+                    lux = self.lux_convert(last_data['solarradiation'])
+                    self.nodes[naddr].setDriver('SOLRAD', last_data['solarradiation'])
+                    self.nodes[naddr].setDriver('ST', lux)
+                if 'uv' in last_data:
+                    naddr = pws_address + "sol"
+                    self.nodes[naddr].setDriver('UV', last_data['uv'])
+                if 'winddir' in last_data:
+                    naddr = pws_address + "wnd"
+                    cardinal = self.cardinal_direction(last_data['winddir'])
+                    self.nodes[naddr].setDriver('WINDDIR', last_data['winddir'])
+                    self.nodes[naddr].setDriver('GV0', cardinal)
+                if 'windspeedmph' in last_data:
+                    naddr = pws_address + "wnd"
+                    self.nodes[naddr].setDriver('ST', last_data['windspeedmph'])
+                if 'windgustmph' in last_data:
+                    naddr = pws_address + "wnd"
+                    self.nodes[naddr].setDriver('GV1', last_data['windgustmph'])
+                if 'maxdailygust' in last_data:
+                    naddr = pws_address + "fl"
+                    self.nodes[naddr].setDriver('GV2', last_data['maxdailygust'])
+
+                # Temperature Data
+                if 'temp1f' in last_data:
+                    naddr = pws_address + "as1"
+                    self.nodes[naddr].setDriver('ST', last_data['temp1f'])
+                if 'temp2f' in last_data:
+                    naddr = pws_address + "as2"
+                    self.nodes[naddr].setDriver('ST', last_data['temp2f'])
+                if 'temp3f' in last_data:
+                    naddr = pws_address + "as3"
+                    self.nodes[naddr].setDriver('ST', last_data['temp3f'])
+                if 'temp4f' in last_data:
+                    naddr = pws_address + "as4"
+                    self.nodes[naddr].setDriver('ST', last_data['temp4f'])
+                if 'temp5f' in last_data:
+                    naddr = pws_address + "as5"
+                    self.nodes[naddr].setDriver('ST', last_data['temp5f'])
+                if 'temp6f' in last_data:
+                    naddr = pws_address + "as6"
+                    self.nodes[naddr].setDriver('ST', last_data['temp6f'])
+                if 'temp7f' in last_data:
+                    naddr = pws_address + "as7"
+                    self.nodes[naddr].setDriver('ST', last_data['temp7f'])
+                if 'temp8f' in last_data:
+                    naddr = pws_address + "as8"
+                    self.nodes[naddr].setDriver('ST', last_data['temp8f'])
+
+                # Humidity Data
+                if 'humidity1' in last_data:
+                    naddr = pws_address + "as1"
+                    self.nodes[naddr].setDriver('CLIHUM', last_data['humidity1'])
+                if 'humidity2' in last_data:
+                    naddr = pws_address + "as2"
+                    self.nodes[naddr].setDriver('CLIHUM', last_data['humidity2'])
+                if 'humidity3' in last_data:
+                    naddr = pws_address + "as3"
+                    self.nodes[naddr].setDriver('CLIHUM', last_data['humidity3'])
+                if 'humidity4' in last_data:
+                    naddr = pws_address + "as4"
+                    self.nodes[naddr].setDriver('CLIHUM', last_data['humidity4'])
+                if 'humidity5' in last_data:
+                    naddr = pws_address + "as5"
+                    self.nodes[naddr].setDriver('CLIHUM', last_data['humidity5'])
+                if 'humidity6' in last_data:
+                    naddr = pws_address + "as6"
+                    self.nodes[naddr].setDriver('CLIHUM', last_data['humidity6'])
+                if 'humidity7' in last_data:
+                    naddr = pws_address + "as7"
+                    self.nodes[naddr].setDriver('CLIHUM', last_data['humidity7'])
+                if 'humidity8' in last_data:
+                    naddr = pws_address + "as8"
+                    self.nodes[naddr].setDriver('CLIHUM', last_data['humidity8'])
+
+                # Soil Temperature Data
+                if 'soiltemp1' in last_data:
+                    naddr = pws_address + "sm1"
+                    self.nodes[naddr].setDriver('SOILT', last_data['soiltemp1'])
+                if 'soiltemp2' in last_data:
+                    naddr = pws_address + "sm2"
+                    self.nodes[naddr].setDriver('SOILT', last_data['soiltemp2'])
+                if 'soiltemp3' in last_data:
+                    naddr = pws_address + "sm3"
+                    self.nodes[naddr].setDriver('SOILT', last_data['soiltemp3'])
+                if 'soiltemp4' in last_data:
+                    naddr = pws_address + "sm4"
+                    self.nodes[naddr].setDriver('SOILT', last_data['soiltemp4'])
+                if 'soiltemp5' in last_data:
+                    naddr = pws_address + "sm5"
+                    self.nodes[naddr].setDriver('SOILT', last_data['soiltemp5'])
+                if 'soiltemp6' in last_data:
+                    naddr = pws_address + "sm6"
+                    self.nodes[naddr].setDriver('SOILT', last_data['soiltemp6'])
+                if 'soiltemp7' in last_data:
+                    naddr = pws_address + "sm7"
+                    self.nodes[naddr].setDriver('SOILT', last_data['soiltemp7'])
+                if 'soiltemp8' in last_data:
+                    naddr = pws_address + "sm8"
+                    self.nodes[naddr].setDriver('SOILT', last_data['soiltemp8'])
+
+                # Soil Humidity Data
+                if 'soilhum1' in last_data:
+                    naddr = pws_address + "sm1"
+                    self.nodes[naddr].setDriver('ST', last_data['soilhum1'])
+                if 'soilhum2' in last_data:
+                    naddr = pws_address + "sm2"
+                    self.nodes[naddr].setDriver('ST', last_data['soilhum2'])
+                if 'soilhum3' in last_data:
+                    naddr = pws_address + "sm3"
+                    self.nodes[naddr].setDriver('ST', last_data['soilhum3'])
+                if 'soilhum4' in last_data:
+                    naddr = pws_address + "sm4"
+                    self.nodes[naddr].setDriver('ST', last_data['soilhum4'])
+                if 'soilhum5' in last_data:
+                    naddr = pws_address + "sm5"
+                    self.nodes[naddr].setDriver('ST', last_data['soilhum5'])
+                if 'soilhum6' in last_data:
+                    naddr = pws_address + "sm6"
+                    self.nodes[naddr].setDriver('ST', last_data['soilhum6'])
+                if 'soilhum7' in last_data:
+                    naddr = pws_address + "sm7"
+                    self.nodes[naddr].setDriver('ST', last_data['soilhum7'])
+                if 'soilhum8' in last_data:
+                    naddr = pws_address + "sm8"
+                    self.nodes[naddr].setDriver('ST', last_data['soilhum8'])
+
+                # Battery / Feels Like / Dew Point have to be handled differently as the
+                # fields are named the same regardless of being a temp WH31 or TX3102
+                if 'batt1' in data and 'temp1f' in last_data:
+                    naddr = pws_address + "as1"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt1'])
+                elif 'batt1' in data and 'soiltemp1' in last_data:
+                    naddr = pws_address + "sm1"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt1'])
+                if 'batt2' in data and 'temp2f' in last_data:
+                    naddr = pws_address + "as2"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt2'])
+                elif 'batt2' in data and 'soiltemp2' in last_data:
+                    naddr = pws_address + "sm2"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt2'])
+                if 'batt3' in data and 'temp3f' in last_data:
+                    naddr = pws_address + "as3"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt3'])
+                elif 'batt3' in data and 'soiltemp3' in last_data:
+                    naddr = pws_address + "sm3"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt3'])
+                if 'batt4' in data and 'temp4f' in last_data:
+                    naddr = pws_address + "as4"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt4'])
+                elif 'batt4' in data and 'soiltemp4' in last_data:
+                    naddr = pws_address + "sm4"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt4'])
+                if 'batt5' in data and 'temp5f' in last_data:
+                    naddr = pws_address + "as5"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt5'])
+                elif 'batt5' in data and 'soiltemp5' in last_data:
+                    naddr = pws_address + "sm5"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt5'])
+                if 'batt6' in data and 'temp6f' in last_data:
+                    naddr = pws_address + "as6"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt6'])
+                elif 'batt6' in data and 'soiltemp6' in last_data:
+                    naddr = pws_address + "sm6"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt6'])
+                if 'batt7' in data and 'temp7f' in last_data:
+                    naddr = pws_address + "as7"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt7'])
+                elif 'batt7' in data and 'soiltemp7' in last_data:
+                    naddr = pws_address + "sm7"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt7'])
+                if 'batt8' in data and 'temp8f' in last_data:
+                    naddr = pws_address + "as8"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt8'])
+                elif 'batt8' in data and 'soiltemp8' in last_data:
+                    naddr = pws_address + "sm8"
+                    self.nodes[naddr].setDriver('BATLVL', last_data['batt8'])
+
+                # Feels Like Data
+                if 'feelsLike1' in data and 'temp1f' in last_data:
+                    naddr = pws_address + "as1"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike1'])
+                elif 'feelsLike1' in data and 'soiltemp1' in last_data:
+                    naddr = pws_address + "sm1"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike1'])
+                if 'feelsLike2' in data and 'temp2f' in last_data:
+                    naddr = pws_address + "as2"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike2'])
+                elif 'feelsLike2' in data and 'soiltemp2' in last_data:
+                    naddr = pws_address + "sm2"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike2'])
+                if 'feelsLike3' in data and 'temp3f' in last_data:
+                    naddr = pws_address + "as3"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike3'])
+                elif 'feelsLike3' in data and 'soiltemp3' in last_data:
+                    naddr = pws_address + "sm3"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike3'])
+                if 'feelsLike4' in data and 'temp4f' in last_data:
+                    naddr = pws_address + "as4"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike4'])
+                elif 'feelsLike4' in data and 'soiltemp4' in last_data:
+                    naddr = pws_address + "sm4"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike4'])
+                if 'feelsLike5' in data and 'temp5f' in last_data:
+                    naddr = pws_address + "as5"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike5'])
+                elif 'feelsLike5' in data and 'soiltemp5' in last_data:
+                    naddr = pws_address + "sm5"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike5'])
+                if 'feelsLike6' in data and 'temp6f' in last_data:
+                    naddr = pws_address + "as6"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike6'])
+                elif 'feelsLike6' in data and 'soiltemp6' in last_data:
+                    naddr = pws_address + "sm6"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike6'])
+                if 'feelsLike7' in data and 'temp7f' in last_data:
+                    naddr = pws_address + "as7"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike7'])
+                elif 'feelsLike7' in data and 'soiltemp7' in last_data:
+                    naddr = pws_address + "sm7"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike7'])
+                if 'feelsLike8' in data and 'temp8f' in last_data:
+                    naddr = pws_address + "as8"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike8'])
+                elif 'feelsLike8' in data and 'soiltemp8' in last_data:
+                    naddr = pws_address + "sm8"
+                    self.nodes[naddr].setDriver('GV0', last_data['feelsLike8'])
+
+                # Dew Point Data
+                if 'dewPoint1' in data and 'temp1f' in last_data:
+                    naddr = pws_address + "as1"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint1'])
+                elif 'dewPoint1' in data and 'soiltemp1' in last_data:
+                    naddr = pws_address + "sm1"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint1'])
+                if 'dewPoint2' in data and 'temp2f' in last_data:
+                    naddr = pws_address + "as2"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint2'])
+                elif 'dewPoint2' in data and 'soiltemp2' in last_data:
+                    naddr = pws_address + "sm2"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint2'])
+                if 'dewPoint3' in data and 'temp3f' in last_data:
+                    naddr = pws_address + "as3"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint3'])
+                elif 'dewPoint3' in data and 'soiltemp3' in last_data:
+                    naddr = pws_address + "sm3"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint3'])
+                if 'dewPoint4' in data and 'temp4f' in last_data:
+                    naddr = pws_address + "as4"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint4'])
+                elif 'dewPoint4' in data and 'soiltemp4' in last_data:
+                    naddr = pws_address + "sm4"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint4'])
+                if 'dewPoint5' in data and 'temp5f' in last_data:
+                    naddr = pws_address + "as5"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint5'])
+                elif 'dewPoint5' in data and 'soiltemp5' in last_data:
+                    naddr = pws_address + "sm5"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint5'])
+                if 'dewPoint6' in data and 'temp6f' in last_data:
+                    naddr = pws_address + "as6"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint6'])
+                elif 'dewPoint6' in data and 'soiltemp6' in last_data:
+                    naddr = pws_address + "sm6"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint6'])
+                if 'dewPoint7' in data and 'temp7f' in last_data:
+                    naddr = pws_address + "as7"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint7'])
+                elif 'dewPoint7' in data and 'soiltemp7' in last_data:
+                    naddr = pws_address + "sm7"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint7'])
+                if 'dewPoint8' in data and 'temp8f' in last_data:
+                    naddr = pws_address + "as8"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint8'])
+                elif 'dewPoint8' in data and 'soiltemp8' in last_data:
+                    naddr = pws_address + "sm8"
+                    self.nodes[naddr].setDriver('GV1', last_data['dewPoint8'])
+
+
 
     def delete(self):
         LOGGER.info('Ambient Weather NodeServer:  Deleted')
@@ -598,7 +952,11 @@ class Controller(polyinterface.Controller):
         client.websocket.on_data(data_method)
         client.websocket.on_disconnect(disconnect_method)
 
-        await client.websocket.connect()
+        try:
+            await client.websocket.connect()
+        except WebsocketError as e:
+            LOGGER.error("Websocket Error: %s", e)
+            return
 
         # At any point, disconnect from the websocket:
         # await client.websocket.disconnect()
@@ -1216,6 +1574,7 @@ class WH31Node(polyinterface.Node):
     commands = {
                     # 'DON': setOn, 'DOF': setOff
                 }
+
 
 # Soil Moisture Sensor
 class TX3102Node(polyinterface.Node):
