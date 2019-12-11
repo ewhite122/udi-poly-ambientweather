@@ -1217,6 +1217,7 @@ class WH31Node(polyinterface.Node):
                     # 'DON': setOn, 'DOF': setOff
                 }
 
+
 # Soil Moisture Sensor
 class TX3102Node(polyinterface.Node):
     def __init__(self, controller, primary, address, name):
