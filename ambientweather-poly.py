@@ -546,8 +546,6 @@ class Controller(polyinterface.Controller):
                     naddr = pws_address + "sm8"
                     self.nodes[naddr].setDriver('GV1', last_data['dewPoint8'])
 
-
-
     def delete(self):
         LOGGER.info('Ambient Weather NodeServer:  Deleted')
 
