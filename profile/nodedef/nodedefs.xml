@@ -32,7 +32,7 @@
         <editors />
         <sts>
             <st id="ST" editor="bool" hide="T" />
-            <st id="BATLVL" editor="BATLVL" /> <!-- Temp -->
+            <st id="BATLVL" editor="BATLVL" />
         </sts>
         <cmds>
             <sends />
@@ -44,7 +44,7 @@
         <editors />
         <sts>
             <st id="ST" editor="bool" hide="T" />
-            <st id="BATLVL" editor="BATLVL" /> <!-- Temp -->
+            <st id="BATLVL" editor="BATLVL" />
         </sts>
         <cmds>
             <sends />
@@ -56,8 +56,6 @@
         <editors />
         <sts>
             <st id="ST" editor="CLITEMP" />
-<!--            <st id="ST" editor="CLITEMP" hide="T" />-->
-<!--            <st id="CLITEMP" editor="CLITEMP" /> &lt;!&ndash; Temp &ndash;&gt;-->
         </sts>
         <cmds>
             <sends />
@@ -68,9 +66,7 @@
     <nodeDef id="TEMPF_NODE" nls="TEMPF">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
             <st id="ST" editor="CLITEMP" />
-<!--            <st id="CLITEMP" editor="CLITEMP" /> &lt;!&ndash; Temp &ndash;&gt;-->
         </sts>
         <cmds>
             <sends />
@@ -81,8 +77,7 @@
     <nodeDef id="FEELSLIKEIN_NODE" nls="FEELSLIKEIN">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="CLITEMP" /> <!-- Temp -->
+            <st id="ST" editor="CLITEMP" />
         </sts>
         <cmds>
             <sends />
@@ -93,8 +88,7 @@
     <nodeDef id="FEELSLIKE_NODE" nls="FEELSLIKE">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="CLITEMP" /> <!-- Temp -->
+            <st id="ST" editor="CLITEMP" />
         </sts>
         <cmds>
             <sends />
@@ -105,8 +99,7 @@
     <nodeDef id="DEWPOINTIN_NODE" nls="DEWPOINTIN">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="CLITEMP" /> <!-- Temp -->
+            <st id="ST" editor="CLITEMP" />
         </sts>
         <cmds>
             <sends />
@@ -117,8 +110,7 @@
     <nodeDef id="DEWPOINT_NODE" nls="DEWPOINT">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="CLITEMP" /> <!-- Temp -->
+            <st id="ST" editor="CLITEMP" />
         </sts>
         <cmds>
             <sends />
@@ -129,8 +121,7 @@
     <nodeDef id="HUMIDITYIN_NODE" nls="HUMIDITYIN">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="CLIHUM" /> <!-- Humidity -->
+            <st id="ST" editor="CLIHUM" />
         </sts>
         <cmds>
             <sends />
@@ -141,8 +132,7 @@
     <nodeDef id="HUMIDITY_NODE" nls="HUMIDITY">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="CLIHUM" /> <!-- Temp -->
+            <st id="ST" editor="CLIHUM" />
         </sts>
         <cmds>
             <sends />
@@ -154,9 +144,8 @@
     <nodeDef id="PRESSURE_NODE" nls="PRESSURE">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="INHG" /> <!--Rel Barometric Pressure -->
-            <st id="ATMPRES" editor="INHG" /> <!--Abs Barometric Pressure -->
+            <st id="ST" editor="INHG" />
+            <st id="ATMPRES" editor="INHG" />
         </sts>
         <cmds>
             <sends />
@@ -167,8 +156,7 @@
     <nodeDef id="RAINHOUR_NODE" nls="RAINHOUR">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="INCH" /> <!--Rel Barometric Pressure -->
+            <st id="ST" editor="INCH" />
         </sts>
         <cmds>
             <sends />
@@ -179,8 +167,7 @@
     <nodeDef id="RAINDAY_NODE" nls="RAINDAY">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="INCH" /> <!--Rel Barometric Pressure -->
+            <st id="ST" editor="INCH" />
         </sts>
         <cmds>
             <sends />
@@ -191,8 +178,8 @@
     <nodeDef id="RAINWEEK_NODE" nls="RAINWEEK">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="INCH" /> <!--Rel Barometric Pressure -->
+
+            <st id="ST" editor="INCH" />
         </sts>
         <cmds>
             <sends />
@@ -203,8 +190,7 @@
     <nodeDef id="RAINMONTH_NODE" nls="RAINMONTH">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="INCH" /> <!--Rel Barometric Pressure -->
+            <st id="ST" editor="INCH" />
         </sts>
         <cmds>
             <sends />
@@ -215,8 +201,7 @@
     <nodeDef id="RAINYEAR_NODE" nls="RAINYEAR">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="INCH" /> <!--Rel Barometric Pressure -->
+            <st id="ST" editor="INCH" />
         </sts>
         <cmds>
             <sends />
@@ -227,8 +212,7 @@
     <nodeDef id="RAINTOTAL_NODE" nls="RAINTOTAL">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="INCH" /> <!--Rel Barometric Pressure -->
+            <st id="ST" editor="INCH" />
         </sts>
         <cmds>
             <sends />
@@ -239,8 +223,7 @@
     <nodeDef id="RAINEVENT_NODE" nls="RAINEVENT">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="ST" editor="INCH" /> <!--Rel Barometric Pressure -->
+            <st id="ST" editor="INCH" />
         </sts>
         <cmds>
             <sends />
@@ -252,10 +235,9 @@
     <nodeDef id="SOLAR_NODE" nls="SOLAR">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="SOLRAD" editor="SOLRAD" /> <!--Rel Barometric Pressure -->
-            <st id="UV" editor="UV" /> <!--Abs Barometric Pressure -->
-            <st id="ST" editor="LUMIN" /> <!--Luminance -->
+            <st id="SOLRAD" editor="SOLRAD" />
+            <st id="UV" editor="UV" />
+            <st id="ST" editor="LUMIN" />
         </sts>
         <cmds>
             <sends />
@@ -266,9 +248,8 @@
     <nodeDef id="WIND_NODE" nls="WIND">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
-            <st id="WINDDIR" editor="WINDDIR" /> <!--Wind Direction -->
-            <st id="GV0" editor="I_WIND_DIRECTION" /> <!--Wind Direction -->
+            <st id="WINDDIR" editor="WINDDIR" />
+            <st id="GV0" editor="I_WIND_DIRECTION" />
             <st id="ST" editor="mph" /> <!--Wind Speed MPH -->
             <st id="GV1" editor="mph" /> <!--Wind Gust MPH -->
             <st id="GV2" editor="mph" /> <!--Wind Max Daily Gust -->
@@ -282,7 +263,6 @@
     <nodeDef id="WH31_NODE" nls="WH31">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
             <st id="ST" editor="CLITEMP" /> <!--Sensor Temperature -->
             <st id="CLIHUM" editor="CLIHUM" /> <!--Sensor Humidity -->
             <st id="BATLVL" editor="BATLVL" /> <!--Sensor Battery Level -->
@@ -298,7 +278,6 @@
     <nodeDef id="TX3102_NODE" nls="TX3102">
         <editors />
         <sts>
-<!--            <st id="ST" editor="bool" hide="T" />-->
             <st id="SOILT" editor="SOILT" /> <!--Sensor Temperature -->
             <st id="ST" editor="MOIST" /> <!--Sensor Humidity -->
             <st id="BATLVL" editor="BATLVL" /> <!--Sensor Battery Level -->
@@ -310,8 +289,4 @@
             <accepts />
         </cmds>
     </nodeDef>
-
-
-
-
 </nodeDefs>
