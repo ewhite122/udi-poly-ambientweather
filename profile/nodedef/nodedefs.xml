@@ -250,9 +250,9 @@
         <sts>
             <st id="WINDDIR" editor="WINDDIR" />
             <st id="GV0" editor="I_WIND_DIRECTION" />
-            <st id="ST" editor="mph" /> <!--Wind Speed MPH -->
-            <st id="GV1" editor="mph" /> <!--Wind Gust MPH -->
-            <st id="GV2" editor="mph" /> <!--Wind Max Daily Gust -->
+            <st id="ST" editor="MPH" /> <!--Wind Speed MPH -->
+            <st id="GV1" editor="MPH" /> <!--Wind Gust MPH -->
+            <st id="GV2" editor="MPH" /> <!--Wind Max Daily Gust -->
         </sts>
         <cmds>
             <sends />
