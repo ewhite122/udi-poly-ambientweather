@@ -59,5 +59,4 @@
 	<editor id="I_WIND_DIRECTION">
 		<range uom="25" subset="0-16" nls="EN_WIND_DIRECTION"/>
 	</editor>
-
 </editors>
