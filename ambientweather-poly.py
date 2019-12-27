@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
 import time
+import sys
+import requests
+WEBSOCKET = True
 
 try:
     import polyinterface
 except ImportError:
     import pgc_interface as polyinterface
-import sys
-import asyncio
-import requests
-from aiohttp import ClientSession
-from aioambient import Client
-from aioambient.errors import WebsocketError
+
+try:
+    import asyncio
+    from aiohttp import ClientSession
+    from aioambient import Client
+    from aioambient.errors import WebsocketError
+except ImportError:
+    WEBSOCKET = False
+
 
 LOGGER = polyinterface.LOGGER
 
@@ -30,10 +36,15 @@ class Controller(polyinterface.Controller):
             self.removeNoticesAll()
             self.discover()
             if self.disco == 1:
-                time.sleep(5)
-                _loop = asyncio.new_event_loop()
-                _loop.create_task(self.AmbientWeather(self.app_key, self.api_key))
-                _loop.run_forever()
+                if WEBSOCKET:
+                    time.sleep(5)
+                    _loop = asyncio.new_event_loop()
+                    _loop.create_task(self.AmbientWeather(self.app_key, self.api_key))
+                    _loop.run_forever()
+                else:
+                    LOGGER.info("Websocket Disabled")
+            else:
+                LOGGER.info("Discovery not complete")
         else:
             LOGGER.info('APP / API Key is not set')
 
