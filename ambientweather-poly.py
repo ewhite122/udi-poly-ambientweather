@@ -207,8 +207,8 @@ class Controller(polyinterface.Controller):
                 self.addNode((TX3102Node(self, pws_address, pws_address + "as8", "Soil Moisture 8")))
 
         self.disco = 1
-        time.sleep(3)
-        self.ambient_weather_update(data=data)
+        # time.sleep(3)
+        # self.ambient_weather_update(data=data)
 
     def ambient_weather_update(self, data=None):
         api_url = 'https://api.ambientweather.net/v1/devices?applicationKey=' + self.app_key + '&apiKey=' + self.api_key
