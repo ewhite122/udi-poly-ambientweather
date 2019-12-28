@@ -2,20 +2,20 @@
 import time
 import sys
 import requests
-WEBSOCKET = True
+# WEBSOCKET = True
 
 try:
     import polyinterface
 except ImportError:
     import pgc_interface as polyinterface
 
-try:
-    import asyncio
-    from aiohttp import ClientSession
-    from aioambient import Client
-    from aioambient.errors import WebsocketError
-except ImportError:
-    WEBSOCKET = False
+# try:
+#     import asyncio
+#     from aiohttp import ClientSession
+#     from aioambient import Client
+#     from aioambient.errors import WebsocketError
+# except ImportError:
+#     WEBSOCKET = False
 
 
 LOGGER = polyinterface.LOGGER
@@ -35,22 +35,23 @@ class Controller(polyinterface.Controller):
         if self.check_params():
             self.removeNoticesAll()
             self.discover()
-            if self.disco == 1:
-                if WEBSOCKET:
-                    time.sleep(5)
-                    _loop = asyncio.new_event_loop()
-                    _loop.create_task(self.AmbientWeather(self.app_key, self.api_key))
-                    _loop.run_forever()
-                else:
-                    LOGGER.info("Websocket Disabled")
-            else:
-                LOGGER.info("Discovery not complete")
+            # if self.disco == 1:
+            #     if WEBSOCKET:
+            #         time.sleep(5)
+            #         _loop = asyncio.new_event_loop()
+            #         _loop.create_task(self.AmbientWeather(self.app_key, self.api_key))
+            #         _loop.run_forever()
+            #     else:
+            #         LOGGER.info("Websocket Disabled")
+            # else:
+            #     LOGGER.info("Discovery not complete")
         else:
             LOGGER.info('APP / API Key is not set')
 
     def shortPoll(self):
-        LOGGER.info("Short Poll:  Ambient Weather Updating")
-        self.ambient_weather_update()
+        if self.disco == 1:
+            LOGGER.info("Short Poll:  Ambient Weather Updating")
+            self.ambient_weather_update()
 
     def longPoll(self):
         pass
@@ -206,11 +207,17 @@ class Controller(polyinterface.Controller):
                 self.addNode((TX3102Node(self, pws_address, pws_address + "as8", "Soil Moisture 8")))
 
         self.disco = 1
+        time.sleep(3)
+        self.ambient_weather_update(data=data)
 
-    def ambient_weather_update(self):
+    def ambient_weather_update(self, data=None):
         api_url = 'https://api.ambientweather.net/v1/devices?applicationKey=' + self.app_key + '&apiKey=' + self.api_key
-        r = requests.get(api_url)
-        data = r.json()
+
+        if data is not None:
+            data = data
+        else:
+            r = requests.get(api_url)
+            data = r.json()
 
         for pws in data:
             LOGGER.info(pws['macAddress'])
@@ -219,7 +226,7 @@ class Controller(polyinterface.Controller):
             pws_name = str(pws['info']['name'])
             last_data = pws['lastData']
             print(pws_name)
-            print(last_data)
+            # print(last_data)
 
             if pws_address in self.nodes:
                 if 'battin' in last_data:
