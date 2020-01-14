@@ -9,6 +9,7 @@
     "notice": "Beta",
     "shortPoll": "120",
     "longPoll": "300",
+    "testMode": true,
     "credits": [
         {
             "title": "AmbientWeather: A NodeServer for Ambient Weather PWS/Consoles Integration",
