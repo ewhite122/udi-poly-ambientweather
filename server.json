@@ -9,12 +9,12 @@
     "notice": "Beta",
     "shortPoll": "120",
     "longPoll": "300",
-    "testMode": true,
+    "testMode": false,
     "credits": [
         {
             "title": "AmbientWeather: A NodeServer for Ambient Weather PWS/Consoles Integration",
             "author": "Simplex Technology",
-            "version": "0.1.29",
+            "version": "0.1.30",
             "date": "February 24, 2019",
             "source": "https://github.com/simplextech/udi-poly-ambientweather",
             "license": "https://github.com/simplextech/udi-poly-ambientweather/blob/master/LICENSE"
