@@ -120,93 +120,97 @@ class Controller(polyinterface.Controller):
 
     def discover(self, *args, **kwargs):
         api_url = 'https://api.ambientweather.net/v1/devices?applicationKey=' + self.app_key + '&apiKey=' + self.api_key
-        r = requests.get(api_url)
-        data = r.json()
 
-        for pws in data:
-            LOGGER.info(pws['macAddress'])
-            LOGGER.info(pws['info']['name'])
-            pws_address = pws['macAddress'].replace(':', '').replace('0', '').lower()
-            pws_name = str(pws['info']['name'])
+        try:
+            r = requests.get(api_url)
+            data = r.json()
 
-            self.addNode(PwsNode(self, pws_address, pws_address, pws_name))
+            for pws in data:
+                LOGGER.info(pws['macAddress'])
+                LOGGER.info(pws['info']['name'])
+                pws_address = pws['macAddress'].replace(':', '').replace('0', '').lower()
+                pws_name = str(pws['info']['name'])
 
-            if 'battin' in pws['lastData']:
-                self.addNode((BatteryInsideNode(self, pws_address, pws_address + "bi", "Battery - Inside")))
-            if 'battout' in pws['lastData']:
-                self.addNode((BatteryOutsideNode(self, pws_address, pws_address + "bo", "Battery - Outside")))
-            if 'tempf' in pws['lastData']:
-                self.addNode((TempOutsideNode(self, pws_address, pws_address + "to", "Temperature - Outside")))
-            if 'tempinf' in pws['lastData']:
-                self.addNode((TempInsideNode(self, pws_address, pws_address + "ti", "Temperature - Inside")))
-            if 'feelsLike' in pws['lastData']:
-                self.addNode((FeelsLikeOutsideNode(self, pws_address, pws_address + "fl", "Feels Like - Outside")))
-            if 'feelsLikein' in pws['lastData']:
-                self.addNode((FeelsLikeInsideNode(self, pws_address, pws_address + "fli", "Feels Like - Inside")))
-            if 'dewPoint' in pws['lastData']:
-                self.addNode((DewPointOutsideNode(self, pws_address, pws_address + "dp", "Dew Point - Outside")))
-            if 'dewPointin' in pws['lastData']:
-                self.addNode((DewPointInsideNode(self, pws_address, pws_address + "dpi", "Dew Point - Inside")))
-            if 'humidity' in pws['lastData']:
-                self.addNode((HumidityOutsideNode(self, pws_address, pws_address + "ho", "Humidity - Outside")))
-            if 'humidityin' in pws['lastData']:
-                self.addNode((HumidityInsideNode(self, pws_address, pws_address + "hi", "Humidity - Inside")))
-            if 'baromabsin' in pws['lastData'] and 'baromrelin' in pws['lastData']:
-                self.addNode((PressureNode(self, pws_address, pws_address + "hg", "Barometric Pressure")))
-            if 'dailyrainin' in pws['lastData']:
-                self.addNode((RainDayNode(self, pws_address, pws_address + "rd", "Rain - Day")))
-            if 'monthlyrainin' in pws['lastData']:
-                self.addNode((RainMonthNode(self, pws_address, pws_address + "rm", "Rain - Month")))
-            if 'weeklyrainin' in pws['lastData']:
-                self.addNode((RainWeekNode(self, pws_address, pws_address + "rw", "Rain - Week")))
-            if 'totalrainin' in pws['lastData']:
-                self.addNode((RainTotalNode(self, pws_address, pws_address + "rt", "Rain - Total")))
-            if 'yearlyrainin' in pws['lastData']:
-                self.addNode((RainYearNode(self, pws_address, pws_address + "ry", "Rain - Year")))
-            if 'eventrainin' in pws['lastData']:
-                self.addNode((RainEventNode(self, pws_address, pws_address + "re", "Rain - Event")))
-            if 'hourlyrainin' in pws['lastData']:
-                self.addNode((RainHourNode(self, pws_address, pws_address + "rh", "Rain - Hour")))
-            if 'uv' in pws['lastData'] and 'solarradiation' in pws['lastData']:
-                self.addNode((SolarNode(self, pws_address, pws_address + "sol", "Solar")))
-            if 'winddir' in pws['lastData']:
-                self.addNode((WindNode(self, pws_address, pws_address + "wnd", "Wind")))
+                self.addNode(PwsNode(self, pws_address, pws_address, pws_name))
 
-            if 'temp1f' in pws['lastData']:
-                self.addNode((WH31Node(self, pws_address, pws_address + "as1", "Sensor 1")))
-            if 'temp2f' in pws['lastData']:
-                self.addNode((WH31Node(self, pws_address, pws_address + "as2", "Sensor 2")))
-            if 'temp3f' in pws['lastData']:
-                self.addNode((WH31Node(self, pws_address, pws_address + "as3", "Sensor 3")))
-            if 'temp4f' in pws['lastData']:
-                self.addNode((WH31Node(self, pws_address, pws_address + "as4", "Sensor 4")))
-            if 'temp5f' in pws['lastData']:
-                self.addNode((WH31Node(self, pws_address, pws_address + "as5", "Sensor 5")))
-            if 'temp6f' in pws['lastData']:
-                self.addNode((WH31Node(self, pws_address, pws_address + "as6", "Sensor 6")))
-            if 'temp7f' in pws['lastData']:
-                self.addNode((WH31Node(self, pws_address, pws_address + "as7", "Sensor 7")))
-            if 'temp8f' in pws['lastData']:
-                self.addNode((WH31Node(self, pws_address, pws_address + "as8", "Sensor 8")))
+                if 'battin' in pws['lastData']:
+                    self.addNode((BatteryInsideNode(self, pws_address, pws_address + "bi", "Battery - Inside")))
+                if 'battout' in pws['lastData']:
+                    self.addNode((BatteryOutsideNode(self, pws_address, pws_address + "bo", "Battery - Outside")))
+                if 'tempf' in pws['lastData']:
+                    self.addNode((TempOutsideNode(self, pws_address, pws_address + "to", "Temperature - Outside")))
+                if 'tempinf' in pws['lastData']:
+                    self.addNode((TempInsideNode(self, pws_address, pws_address + "ti", "Temperature - Inside")))
+                if 'feelsLike' in pws['lastData']:
+                    self.addNode((FeelsLikeOutsideNode(self, pws_address, pws_address + "fl", "Feels Like - Outside")))
+                if 'feelsLikein' in pws['lastData']:
+                    self.addNode((FeelsLikeInsideNode(self, pws_address, pws_address + "fli", "Feels Like - Inside")))
+                if 'dewPoint' in pws['lastData']:
+                    self.addNode((DewPointOutsideNode(self, pws_address, pws_address + "dp", "Dew Point - Outside")))
+                if 'dewPointin' in pws['lastData']:
+                    self.addNode((DewPointInsideNode(self, pws_address, pws_address + "dpi", "Dew Point - Inside")))
+                if 'humidity' in pws['lastData']:
+                    self.addNode((HumidityOutsideNode(self, pws_address, pws_address + "ho", "Humidity - Outside")))
+                if 'humidityin' in pws['lastData']:
+                    self.addNode((HumidityInsideNode(self, pws_address, pws_address + "hi", "Humidity - Inside")))
+                if 'baromabsin' in pws['lastData'] and 'baromrelin' in pws['lastData']:
+                    self.addNode((PressureNode(self, pws_address, pws_address + "hg", "Barometric Pressure")))
+                if 'dailyrainin' in pws['lastData']:
+                    self.addNode((RainDayNode(self, pws_address, pws_address + "rd", "Rain - Day")))
+                if 'monthlyrainin' in pws['lastData']:
+                    self.addNode((RainMonthNode(self, pws_address, pws_address + "rm", "Rain - Month")))
+                if 'weeklyrainin' in pws['lastData']:
+                    self.addNode((RainWeekNode(self, pws_address, pws_address + "rw", "Rain - Week")))
+                if 'totalrainin' in pws['lastData']:
+                    self.addNode((RainTotalNode(self, pws_address, pws_address + "rt", "Rain - Total")))
+                if 'yearlyrainin' in pws['lastData']:
+                    self.addNode((RainYearNode(self, pws_address, pws_address + "ry", "Rain - Year")))
+                if 'eventrainin' in pws['lastData']:
+                    self.addNode((RainEventNode(self, pws_address, pws_address + "re", "Rain - Event")))
+                if 'hourlyrainin' in pws['lastData']:
+                    self.addNode((RainHourNode(self, pws_address, pws_address + "rh", "Rain - Hour")))
+                if 'uv' in pws['lastData'] and 'solarradiation' in pws['lastData']:
+                    self.addNode((SolarNode(self, pws_address, pws_address + "sol", "Solar")))
+                if 'winddir' in pws['lastData']:
+                    self.addNode((WindNode(self, pws_address, pws_address + "wnd", "Wind")))
 
-            if 'soiltemp1' in pws['lastData']:
-                self.addNode((TX3102Node(self, pws_address, pws_address + "sm1", "Soil Moisture 1")))
-            if 'soiltemp2' in pws['lastData']:
-                self.addNode((TX3102Node(self, pws_address, pws_address + "sm2", "Soil Moisture 2")))
-            if 'soiltemp3' in pws['lastData']:
-                self.addNode((TX3102Node(self, pws_address, pws_address + "sm3", "Soil Moisture 3")))
-            if 'soiltemp4' in pws['lastData']:
-                self.addNode((TX3102Node(self, pws_address, pws_address + "sm4", "Soil Moisture 4")))
-            if 'soiltemp5' in pws['lastData']:
-                self.addNode((TX3102Node(self, pws_address, pws_address + "sm5", "Soil Moisture 5")))
-            if 'soiltemp6' in pws['lastData']:
-                self.addNode((TX3102Node(self, pws_address, pws_address + "sm6", "Soil Moisture 6")))
-            if 'soiltemp7' in pws['lastData']:
-                self.addNode((TX3102Node(self, pws_address, pws_address + "sm7", "Soil Moisture 7")))
-            if 'soiltemp8' in pws['lastData']:
-                self.addNode((TX3102Node(self, pws_address, pws_address + "as8", "Soil Moisture 8")))
+                if 'temp1f' in pws['lastData']:
+                    self.addNode((WH31Node(self, pws_address, pws_address + "as1", "Sensor 1")))
+                if 'temp2f' in pws['lastData']:
+                    self.addNode((WH31Node(self, pws_address, pws_address + "as2", "Sensor 2")))
+                if 'temp3f' in pws['lastData']:
+                    self.addNode((WH31Node(self, pws_address, pws_address + "as3", "Sensor 3")))
+                if 'temp4f' in pws['lastData']:
+                    self.addNode((WH31Node(self, pws_address, pws_address + "as4", "Sensor 4")))
+                if 'temp5f' in pws['lastData']:
+                    self.addNode((WH31Node(self, pws_address, pws_address + "as5", "Sensor 5")))
+                if 'temp6f' in pws['lastData']:
+                    self.addNode((WH31Node(self, pws_address, pws_address + "as6", "Sensor 6")))
+                if 'temp7f' in pws['lastData']:
+                    self.addNode((WH31Node(self, pws_address, pws_address + "as7", "Sensor 7")))
+                if 'temp8f' in pws['lastData']:
+                    self.addNode((WH31Node(self, pws_address, pws_address + "as8", "Sensor 8")))
 
-        self.disco = 1
+                if 'soiltemp1' in pws['lastData']:
+                    self.addNode((TX3102Node(self, pws_address, pws_address + "sm1", "Soil Moisture 1")))
+                if 'soiltemp2' in pws['lastData']:
+                    self.addNode((TX3102Node(self, pws_address, pws_address + "sm2", "Soil Moisture 2")))
+                if 'soiltemp3' in pws['lastData']:
+                    self.addNode((TX3102Node(self, pws_address, pws_address + "sm3", "Soil Moisture 3")))
+                if 'soiltemp4' in pws['lastData']:
+                    self.addNode((TX3102Node(self, pws_address, pws_address + "sm4", "Soil Moisture 4")))
+                if 'soiltemp5' in pws['lastData']:
+                    self.addNode((TX3102Node(self, pws_address, pws_address + "sm5", "Soil Moisture 5")))
+                if 'soiltemp6' in pws['lastData']:
+                    self.addNode((TX3102Node(self, pws_address, pws_address + "sm6", "Soil Moisture 6")))
+                if 'soiltemp7' in pws['lastData']:
+                    self.addNode((TX3102Node(self, pws_address, pws_address + "sm7", "Soil Moisture 7")))
+                if 'soiltemp8' in pws['lastData']:
+                    self.addNode((TX3102Node(self, pws_address, pws_address + "as8", "Soil Moisture 8")))
+
+            self.disco = 1
+        except requests.exceptions.RequestException as e:
+            LOGGER.debug(e)
 
     def ambient_weather_update(self):
         api_url = 'https://api.ambientweather.net/v1/devices?applicationKey=' + self.app_key + '&apiKey=' + self.api_key
@@ -214,7 +218,7 @@ class Controller(polyinterface.Controller):
         try:
             r = requests.get(api_url)
             data = r.json()
-            LOGGER.debug(data)
+            # LOGGER.debug(data)
 
             try:
                 for pws in data:
@@ -223,7 +227,7 @@ class Controller(polyinterface.Controller):
                     pws_address = pws['macAddress'].replace(':', '').replace('0', '').lower()
                     pws_name = str(pws['info']['name'])
                     last_data = pws['lastData']
-                    print(pws_name)
+                    # print(pws_name)
                     # print(last_data)
 
                     if pws_address in self.nodes:
