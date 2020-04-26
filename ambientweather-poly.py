@@ -2,6 +2,7 @@
 import time
 import sys
 import requests
+import json
 # WEBSOCKET = True
 
 try:
@@ -225,7 +226,7 @@ class Controller(polyinterface.Controller):
                     LOGGER.info(pws['macAddress'])
                     LOGGER.info(pws['info']['name'])
                     pws_address = pws['macAddress'].replace(':', '').replace('0', '').lower()
-                    pws_name = str(pws['info']['name'])
+                    # pws_name = str(pws['info']['name'])
                     last_data = pws['lastData']
                     # print(pws_name)
                     # print(last_data)
@@ -565,11 +566,12 @@ class Controller(polyinterface.Controller):
                         elif 'dewPoint8' in data and 'soiltemp8' in last_data:
                             naddr = pws_address + "sm8"
                             self.nodes[naddr].setDriver('GV1', last_data['dewPoint8'])
-            except TypeError:
+            except TypeError as e:
                 LOGGER.debug(data)
                 pass
-        except requests.exceptions.RequestException as e:
+        except (requests.exceptions.RequestException, json.decoder.JSONDecodeError) as e:
             LOGGER.debug(e)
+            pass
 
     def delete(self):
         LOGGER.info('Ambient Weather NodeServer:  Deleted')
