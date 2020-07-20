@@ -174,6 +174,8 @@ class Controller(polyinterface.Controller):
                     self.addNode((SolarNode(self, pws_address, pws_address + "sol", "Solar")))
                 if 'winddir' in pws['lastData']:
                     self.addNode((WindNode(self, pws_address, pws_address + "wnd", "Wind")))
+                # Artificial pause to let ISY catch up
+                time.sleep(2)
 
                 if 'temp1f' in pws['lastData']:
                     self.addNode((WH31Node(self, pws_address, pws_address + "as1", "Sensor 1")))
@@ -191,6 +193,8 @@ class Controller(polyinterface.Controller):
                     self.addNode((WH31Node(self, pws_address, pws_address + "as7", "Sensor 7")))
                 if 'temp8f' in pws['lastData']:
                     self.addNode((WH31Node(self, pws_address, pws_address + "as8", "Sensor 8")))
+                # Artificial pause to let ISY catch up
+                time.sleep(2)
 
                 if 'soiltemp1' in pws['lastData']:
                     self.addNode((TX3102Node(self, pws_address, pws_address + "sm1", "Soil Moisture 1")))
@@ -208,7 +212,9 @@ class Controller(polyinterface.Controller):
                     self.addNode((TX3102Node(self, pws_address, pws_address + "sm7", "Soil Moisture 7")))
                 if 'soiltemp8' in pws['lastData']:
                     self.addNode((TX3102Node(self, pws_address, pws_address + "as8", "Soil Moisture 8")))
-
+                # Artificial pause to let ISY catch up
+                time.sleep(2)
+                
             self.disco = 1
         except requests.exceptions.RequestException as e:
             LOGGER.debug(e)
