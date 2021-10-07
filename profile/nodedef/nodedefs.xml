@@ -275,7 +275,7 @@
         </cmds>
     </nodeDef>
 
-    <nodeDef id="TX3102_NODE" nls="TX3102">
+    <nodeDef id="WH31SM_NODE" nls="WH31SM">
         <editors />
         <sts>
             <st id="SOILT" editor="SOILT" /> <!--Sensor Temperature -->
