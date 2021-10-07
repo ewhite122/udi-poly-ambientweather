@@ -1,5 +1,5 @@
 {
-    "name": "AmbientWeather II",
+    "name": "AmbientWeather_II",
     "docs": "https://github.com/ewhite122/udi-poly-ambientweather",
     "type": "python3",
     "executable": "ambientweather-poly.py",
