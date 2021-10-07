@@ -7,7 +7,7 @@
     "install_cloud": "install_cloud.sh",
     "description": "Interface with AmbientWeather.Net for Personal Weather Station data",
     "notice": "Beta",
-    "shortPoll": "120",
+    "shortPoll": "60",
     "longPoll": "300",
     "testMode": false,
     "credits": [
