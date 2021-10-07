@@ -1,11 +1,11 @@
 {
-    "name": "AmbientWeather",
+    "name": "AmbientWeather II",
     "docs": "https://github.com/ewhite122/udi-poly-ambientweather",
     "type": "python3",
     "executable": "ambientweather-poly.py",
     "install": "install.sh",
     "install_cloud": "install_cloud.sh",
-    "description": "Interface with AmbientWeather.Net for Personal Weather Station data",
+    "description": "Interface with AmbientWeather.Net for Personal Weather Station data. Adding newer sensors",
     "notice": "Beta",
     "shortPoll": "60",
     "longPoll": "300",
