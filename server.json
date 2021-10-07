@@ -1,6 +1,6 @@
 {
     "name": "AmbientWeather",
-    "docs": "https://github.com/simplextech/udi-poly-ambientweather",
+    "docs": "https://github.com/ewhite122/udi-poly-ambientweather",
     "type": "python3",
     "executable": "ambientweather-poly.py",
     "install": "install.sh",
@@ -13,11 +13,11 @@
     "credits": [
         {
             "title": "AmbientWeather: A NodeServer for Ambient Weather PWS/Consoles Integration",
-            "author": "Simplex Technology",
-            "version": "0.1.35",
-            "date": "February 24, 2019",
-            "source": "https://github.com/simplextech/udi-poly-ambientweather",
-            "license": "https://github.com/simplextech/udi-poly-ambientweather/blob/master/LICENSE"
+            "author": "Simplex Technology/ewhite122",
+            "version": "0.1.36",
+            "date": "October 6, 2021",
+            "source": "https://github.com/ewhite122/udi-poly-ambientweather",
+            "license": "https://github.com/ewhite122/udi-poly-ambientweather/blob/master/LICENSE"
         }
     ]
 }
