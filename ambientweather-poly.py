@@ -214,6 +214,23 @@ class Controller(polyinterface.Controller):
                     self.addNode((TX3102Node(self, pws_address, pws_address + "as8", "Soil Moisture 8")))
                 # Artificial pause to let ISY catch up
                 time.sleep(2)
+                if 'soilhum1' in pws['lastData']:
+                    self.addNode((WH31SMNode(self, pws_address, pws_address + "sm1", "Soil Moisture 1")))
+                if 'soilhum2' in pws['lastData']:
+                    self.addNode((WH31SMNode(self, pws_address, pws_address + "sm2", "Soil Moisture 2")))
+                if 'soilhum3' in pws['lastData']:
+                    self.addNode((WH31SMNode(self, pws_address, pws_address + "sm3", "Soil Moisture 3")))
+                if 'soilhum4' in pws['lastData']:
+                    self.addNode((WH31SMNode(self, pws_address, pws_address + "sm4", "Soil Moisture 4")))
+                if 'soilhum5' in pws['lastData']:
+                    self.addNode((WH31SMNode(self, pws_address, pws_address + "sm5", "Soil Moisture 5")))
+                if 'soilhum6' in pws['lastData']:
+                    self.addNode((WH31SMNode(self, pws_address, pws_address + "sm6", "Soil Moisture 6")))
+                if 'soilhum7' in pws['lastData']:
+                    self.addNode((WH31SMNode(self, pws_address, pws_address + "sm7", "Soil Moisture 7")))
+                if 'soilhum8' in pws['lastData']:
+                    self.addNode((WH31SMNode(self, pws_address, pws_address + "as8", "Soil Moisture 8")))
+                # Artificial pause to let ISY catch up
                 
             self.disco = 1
         except requests.exceptions.RequestException as e:
@@ -427,49 +444,49 @@ class Controller(polyinterface.Controller):
                         if 'batt1' in data and 'temp1f' in last_data:
                             naddr = pws_address + "as1"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt1'])
-                        elif 'batt1' in data and 'soiltemp1' in last_data:
+                        elif 'batt1' in data and 'soilhum1' in last_data:
                             naddr = pws_address + "sm1"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt1'])
                         if 'batt2' in data and 'temp2f' in last_data:
                             naddr = pws_address + "as2"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt2'])
-                        elif 'batt2' in data and 'soiltemp2' in last_data:
+                        elif 'batt2' in data and 'soilhum2' in last_data:
                             naddr = pws_address + "sm2"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt2'])
                         if 'batt3' in data and 'temp3f' in last_data:
                             naddr = pws_address + "as3"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt3'])
-                        elif 'batt3' in data and 'soiltemp3' in last_data:
+                        elif 'batt3' in data and 'soilhum3' in last_data:
                             naddr = pws_address + "sm3"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt3'])
                         if 'batt4' in data and 'temp4f' in last_data:
                             naddr = pws_address + "as4"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt4'])
-                        elif 'batt4' in data and 'soiltemp4' in last_data:
+                        elif 'batt4' in data and 'soilhum4' in last_data:
                             naddr = pws_address + "sm4"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt4'])
                         if 'batt5' in data and 'temp5f' in last_data:
                             naddr = pws_address + "as5"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt5'])
-                        elif 'batt5' in data and 'soiltemp5' in last_data:
+                        elif 'batt5' in data and 'soilhum5' in last_data:
                             naddr = pws_address + "sm5"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt5'])
                         if 'batt6' in data and 'temp6f' in last_data:
                             naddr = pws_address + "as6"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt6'])
-                        elif 'batt6' in data and 'soiltemp6' in last_data:
+                        elif 'batt6' in data and 'soilhum6' in last_data:
                             naddr = pws_address + "sm6"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt6'])
                         if 'batt7' in data and 'temp7f' in last_data:
                             naddr = pws_address + "as7"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt7'])
-                        elif 'batt7' in data and 'soiltemp7' in last_data:
+                        elif 'batt7' in data and 'soilhum7' in last_data:
                             naddr = pws_address + "sm7"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt7'])
                         if 'batt8' in data and 'temp8f' in last_data:
                             naddr = pws_address + "as8"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt8'])
-                        elif 'batt8' in data and 'soiltemp8' in last_data:
+                        elif 'batt8' in data and 'soilhum8' in last_data:
                             naddr = pws_address + "sm8"
                             self.nodes[naddr].setDriver('BATLVL', last_data['batt8'])
 
@@ -825,49 +842,49 @@ class Controller(polyinterface.Controller):
                 if 'batt1' in data and 'temp1f' in data:
                     naddr = pws_address + "as1"
                     self.nodes[naddr].setDriver('BATLVL', data['batt1'])
-                elif 'batt1' in data and 'soiltemp1' in data:
+                elif 'batt1' in data and 'soilhum1' in data:
                     naddr = pws_address + "sm1"
                     self.nodes[naddr].setDriver('BATLVL', data['batt1'])
                 if 'batt2' in data and 'temp2f' in data:
                     naddr = pws_address + "as2"
                     self.nodes[naddr].setDriver('BATLVL', data['batt2'])
-                elif 'batt2' in data and 'soiltemp2' in data:
+                elif 'batt2' in data and 'soilhum2' in data:
                     naddr = pws_address + "sm2"
                     self.nodes[naddr].setDriver('BATLVL', data['batt2'])
                 if 'batt3' in data and 'temp3f' in data:
                     naddr = pws_address + "as3"
                     self.nodes[naddr].setDriver('BATLVL', data['batt3'])
-                elif 'batt3' in data and 'soiltemp3' in data:
+                elif 'batt3' in data and 'soilhum3' in data:
                     naddr = pws_address + "sm3"
                     self.nodes[naddr].setDriver('BATLVL', data['batt3'])
                 if 'batt4' in data and 'temp4f' in data:
                     naddr = pws_address + "as4"
                     self.nodes[naddr].setDriver('BATLVL', data['batt4'])
-                elif 'batt4' in data and 'soiltemp4' in data:
+                elif 'batt4' in data and 'soilhum4' in data:
                     naddr = pws_address + "sm4"
                     self.nodes[naddr].setDriver('BATLVL', data['batt4'])
                 if 'batt5' in data and 'temp5f' in data:
                     naddr = pws_address + "as5"
                     self.nodes[naddr].setDriver('BATLVL', data['batt5'])
-                elif 'batt5' in data and 'soiltemp5' in data:
+                elif 'batt5' in data and 'soilhum5' in data:
                     naddr = pws_address + "sm5"
                     self.nodes[naddr].setDriver('BATLVL', data['batt5'])
                 if 'batt6' in data and 'temp6f' in data:
                     naddr = pws_address + "as6"
                     self.nodes[naddr].setDriver('BATLVL', data['batt6'])
-                elif 'batt6' in data and 'soiltemp6' in data:
+                elif 'batt6' in data and 'soilhum6' in data:
                     naddr = pws_address + "sm6"
                     self.nodes[naddr].setDriver('BATLVL', data['batt6'])
                 if 'batt7' in data and 'temp7f' in data:
                     naddr = pws_address + "as7"
                     self.nodes[naddr].setDriver('BATLVL', data['batt7'])
-                elif 'batt7' in data and 'soiltemp7' in data:
+                elif 'batt7' in data and 'soilhum7' in data:
                     naddr = pws_address + "sm7"
                     self.nodes[naddr].setDriver('BATLVL', data['batt7'])
                 if 'batt8' in data and 'temp8f' in data:
                     naddr = pws_address + "as8"
                     self.nodes[naddr].setDriver('BATLVL', data['batt8'])
-                elif 'batt8' in data and 'soiltemp8' in data:
+                elif 'batt8' in data and 'soilhum8' in data:
                     naddr = pws_address + "sm8"
                     self.nodes[naddr].setDriver('BATLVL', data['batt8'])
 
@@ -1608,9 +1625,9 @@ class WH31Node(polyinterface.Node):
 
 
 # Soil Moisture Sensor
-class TX3102Node(polyinterface.Node):
+class WH31SMNode(polyinterface.Node):
     def __init__(self, controller, primary, address, name):
-        super(TX3102Node, self).__init__(controller, primary, address, name)
+        super(WH31SMNode, self).__init__(controller, primary, address, name)
 
     def start(self):
         self.setDriver('ST', 1)
@@ -1633,7 +1650,7 @@ class TX3102Node(polyinterface.Node):
         {'driver': 'GV1', 'value': 0, 'uom': 17},  # Dew Point
         ]
 
-    id = 'TX3102_NODE'
+    id = 'WH31SM_NODE'
     commands = {
                     # 'DON': setOn, 'DOF': setOff
                 }
