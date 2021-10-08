@@ -21,3 +21,4 @@ data sensors.
 
 - Luminance / Lux is calculated from the Solar Radation Wm/2 sensor
 
+10/6/21 - editing to add WH31SM soil moisture sensor and WH31L lightening detector.
